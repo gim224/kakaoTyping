@@ -5,6 +5,7 @@ import javax.swing.*;
 
 public class MyFrame extends JFrame {
 	public MyFrame() {
+		super("KaKao Typing");
 		this.setSize(800, 800);
 		this.setLayout(new BorderLayout());
 
@@ -23,7 +24,7 @@ public class MyFrame extends JFrame {
 		JMenu help = new JMenu("Help");
 		JMenu screenShot = new JMenu("ScreenShot");
 
-		// fileMenu
+		// file Menu
 		file.add(new JMenuItem("New Game"));
 		file.addSeparator();
 		file.add(new JMenuItem("Score"));
@@ -59,13 +60,21 @@ public class MyFrame extends JFrame {
 
 		JButton pauBtn = new JButton("Pause");
 		pauBtn.setToolTipText("일시정지");
-		toolBar.add(pauBtn);
-
-		JButton scBtn = new JButton("PrtSc");
-		//JButton scBtn = new JButton(new ImageIcon("images/save.jpg"));
+		toolBar.add(pauBtn);		
+		
+		JButton scBtn = new JButton(new ImageIcon("images/camera.png"));
 		scBtn.setToolTipText("스크린샷");
 		toolBar.add(scBtn);
 		this.add(toolBar, BorderLayout.NORTH);
 		//toolBar.setFloatable(false);	//툴바 이동 불가
+	}	
+}
+
+class MyPanel extends JPanel{
+	ImageIcon icon = new ImageIcon("images/camera.gif");	//이미지 로딩
+	Image img = icon.getImage();
+	public void paintComponent(Graphics g) {
+		super.paintComponents(g);
+		g.drawImage(img,20,20,100,100,this);
 	}
 }
