@@ -6,19 +6,20 @@ import javax.swing.*;
 public class MyFrame extends JFrame {
 	public MyFrame() {
 		super("KaKao Typing");
-		this.setSize(800, 800);
+		this.setSize(800, 800);		
 		this.setLayout(new BorderLayout());
-
 		// JMenu
 		createMenu();
 		// JTooltoolBar
 		createTooltoolBar();
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setVisible(true);
+		add(new GameScreen());
+		this.setResizable(false);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);	
+		this.setVisible(true);		
 	}
 
 	void createMenu() {
-		JMenuBar menutoolBar = new JMenuBar();
+		JMenuBar menuToolBar = new JMenuBar();
 		JMenu file = new JMenu("File");
 		JMenu setting = new JMenu("Setting");
 		JMenu help = new JMenu("Help");
@@ -42,12 +43,12 @@ public class MyFrame extends JFrame {
 		help.addSeparator();
 		help.add(new JMenuItem("Information"));
 
-		menutoolBar.add(file);
-		menutoolBar.add(screenShot);
-		menutoolBar.add(setting);
-		menutoolBar.add(help);
+		menuToolBar.add(file);
+		menuToolBar.add(screenShot);
+		menuToolBar.add(setting);
+		menuToolBar.add(help);
 
-		setJMenuBar(menutoolBar); // 메뉴바를 프레임에 붙임
+		setJMenuBar(menuToolBar); // 메뉴바를 프레임에 붙임
 	}
 
 	void createTooltoolBar() {
@@ -65,16 +66,13 @@ public class MyFrame extends JFrame {
 		JButton scBtn = new JButton(new ImageIcon("images/camera.png"));
 		scBtn.setToolTipText("스크린샷");
 		toolBar.add(scBtn);
+		
+		JButton musicBtn = new JButton(new ImageIcon("images/music.png"));
+		scBtn.setToolTipText("음악");
+		toolBar.add(musicBtn);
+		
 		this.add(toolBar, BorderLayout.NORTH);
-		//toolBar.setFloatable(false);	//툴바 이동 불가
+		toolBar.setFloatable(false);	//툴바 이동 불가
 	}	
 }
 
-class MyPanel extends JPanel{
-	ImageIcon icon = new ImageIcon("images/camera.gif");	//이미지 로딩
-	Image img = icon.getImage();
-	public void paintComponent(Graphics g) {
-		super.paintComponents(g);
-		g.drawImage(img,20,20,100,100,this);
-	}
-}
