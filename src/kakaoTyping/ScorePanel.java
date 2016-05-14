@@ -14,14 +14,14 @@ import javax.swing.JTextField;
 public class ScorePanel extends JPanel {
 	public ScorePanel() {
 		this.setLayout(new GridLayout(3, 1));
-		add(new NamePanel1("LEVEL", "SCORE", Color.RED, Color.ORANGE));
-		add(new NamePanel2("LIFE", "TIME", Color.YELLOW, Color.green));
+		add(new UpNamePanel("LEVEL", "SCORE", Color.RED, Color.ORANGE));
+		add(new DownNamePanel("LIFE", "TIME", Color.YELLOW, Color.green));
 		add(new ImagePanel());
 	}
 }
 
-class NamePanel1 extends JPanel {
-	public NamePanel1(String s1, String s2, Color bg1, Color bg2) {
+class UpNamePanel extends JPanel {
+	public UpNamePanel(String s1, String s2, Color bg1, Color bg2) {
 		setLayout(new GridLayout(4, 1));
 
 		JLabel label1 = new JLabel(s1);
@@ -44,8 +44,8 @@ class NamePanel1 extends JPanel {
 	}
 }
 
-class NamePanel2 extends JPanel {
-	public NamePanel2(String s1, String s2, Color bg1, Color bg2) {
+class DownNamePanel extends JPanel {
+	public DownNamePanel(String s1, String s2, Color bg1, Color bg2) {
 		setLayout(new GridLayout(4, 1));
 
 		JLabel label1 = new JLabel(s1);

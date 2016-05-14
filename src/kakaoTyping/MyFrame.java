@@ -6,16 +6,19 @@ import javax.swing.*;
 public class MyFrame extends JFrame {
 	public MyFrame() {
 		super("KaKao Typing");
-		this.setSize(800, 800);		
+		this.setSize(800, 800);
 		this.setLayout(new BorderLayout());
 		// JMenu
 		createMenu();
 		// JTooltoolBar
-		createTooltoolBar();
-		add(new GameScreen());
+		createTooltoolBar();	
+		//GameScreen
+		add(new GameScene());
+		
+
 		this.setResizable(false);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);	
-		this.setVisible(true);		
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setVisible(true);
 	}
 
 	void createMenu() {
@@ -61,18 +64,17 @@ public class MyFrame extends JFrame {
 
 		JButton pauBtn = new JButton("Pause");
 		pauBtn.setToolTipText("일시정지");
-		toolBar.add(pauBtn);		
-		
+		toolBar.add(pauBtn);
+
 		JButton scBtn = new JButton(new ImageIcon("images/camera.png"));
 		scBtn.setToolTipText("스크린샷");
 		toolBar.add(scBtn);
-		
+
 		JButton musicBtn = new JButton(new ImageIcon("images/music.png"));
 		scBtn.setToolTipText("음악");
 		toolBar.add(musicBtn);
-		
-		this.add(toolBar, BorderLayout.NORTH);
-		toolBar.setFloatable(false);	//툴바 이동 불가
-	}	
-}
 
+		this.add(toolBar, BorderLayout.NORTH);
+		toolBar.setFloatable(false); // 툴바 이동 불가
+	}
+}
