@@ -1,4 +1,4 @@
-package kakaoTyping;
+package GameScene;
 
 import java.awt.Color;
 import java.awt.Graphics;

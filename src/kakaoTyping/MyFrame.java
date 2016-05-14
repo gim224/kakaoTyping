@@ -3,6 +3,8 @@ package kakaoTyping;
 import java.awt.*;
 import javax.swing.*;
 
+import GameScene.GameScene;
+
 public class MyFrame extends JFrame {
 	public MyFrame() {
 		super("KaKao Typing");

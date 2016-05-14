@@ -1,10 +1,9 @@
-package kakaoTyping;
+package GameScene;
 
 import javax.swing.JSplitPane;
 
 public class GameScene extends JSplitPane {
-	public GameScene(){
-		//JSplitPane split = new JSplitPane();
+	public GameScene() {
 		setOrientation(JSplitPane.HORIZONTAL_SPLIT);
 		setDividerLocation(600);
 		setEnabled(false);// Á¶Á¤
