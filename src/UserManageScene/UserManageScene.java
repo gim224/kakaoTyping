@@ -10,28 +10,22 @@ import java.util.Vector;
 
 import javax.swing.*;
 
-public class UserManageScene extends JFrame {
+public class UserManageScene extends JPanel {
 	public UserManageScene() throws FileNotFoundException {
-		super("KaKao Typing");
-		setSize(400, 400);
 		this.setLayout(null);
-
+		
 		makeJList();
-
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
-
 	}
 
 	void makeJList() throws FileNotFoundException {
-		final int LOC_X = 150;
-		final int LOC_Y = 140;
+		final int LOC_X = 70;
+		final int LOC_Y = 600;
 		final int SIZ_X = 200;
-
+		
 		//
-		JLabel titleLabel = new JLabel("Enroll user");
-		titleLabel.setSize(320, 65);
-		titleLabel.setLocation(30, 30);
+		JLabel titleLabel = new JLabel("Select User");
+		titleLabel.setSize(743, 50);
+		titleLabel.setLocation(20, 10);
 		titleLabel.setVerticalAlignment(getX() / 2);
 		titleLabel.setHorizontalAlignment(getY() / 2);
 		titleLabel.setOpaque(true);
@@ -40,11 +34,11 @@ public class UserManageScene extends JFrame {
 		add(titleLabel);
 		//
 		//
-		JLabel imgLabel = new JLabel("IMG");
-		imgLabel.setSize(110, 127);
-		imgLabel.setLocation(30, LOC_Y - 30);
+		JLabel imgLabel = new JLabel(new ImageIcon("images/userEnroll/all.png"));
+		imgLabel.setSize(743, 472);
+		imgLabel.setLocation(20, 75);
 		imgLabel.setOpaque(true);
-		imgLabel.setBackground(Color.CYAN);
+		//imgLabel.setBackground(Color.CYAN);
 		add(imgLabel);
 		//
 		//
@@ -86,8 +80,8 @@ public class UserManageScene extends JFrame {
 		//
 		//
 		JButton bttn = new JButton("Select");
-		bttn.setSize(200, 50);
-		bttn.setLocation(90, 260);
+		bttn.setSize(400, 100);
+		bttn.setLocation(LOC_X+250, LOC_Y-20);
 		add(bttn);
 	}
 }

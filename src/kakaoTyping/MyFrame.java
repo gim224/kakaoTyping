@@ -1,6 +1,8 @@
 package kakaoTyping;
 
 import java.awt.*;
+import java.io.FileNotFoundException;
+
 import javax.swing.*;
 
 import GameScene.GameScene;
@@ -8,22 +10,29 @@ import ThirdScene.ThirdScene;
 import UserManageScene.UserManageScene;
 
 public class MyFrame extends JFrame {
-	public MyFrame() {
+	public MyFrame() throws FileNotFoundException {
 		super("KaKao Typing");
 		this.setSize(800, 800);
+		this.setLocation(10,10);
 		this.setLayout(new BorderLayout());
 		// JMenu
 		createMenu();
 		// JTooltoolBar
 		createTooltoolBar();
-		//FirstScene
+		/**FirstScene*/
 		//add(new FirstScene());
-		//SecondScene(User Enroll)
 		
-		//ThirdScene(MainMenu);
+		/**SecondScene(User Enroll Scene)*/
+		add(new UserManageScene());
+		
+		/**ThirdScene(MainMenu)*/
 		//add(new ThirdScene());
-		//GameScreen
-		add(new GameScene());
+		
+		/**4ndScene(SelectLevel)*/
+		//add();
+		
+		/**GameScreen*/
+		//add(new GameScene());
 		
 		
 
