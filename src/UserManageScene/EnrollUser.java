@@ -1,6 +1,8 @@
 package UserManageScene;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -20,21 +22,29 @@ import javax.swing.ListSelectionModel;
 public class EnrollUser extends JFrame {
 	int currentId;
 	JLabel imgLabel = new JLabel();
-
+	
+//	ImageIcon icon = new ImageIcon("images/lion.jpg");
+//	Image background = icon.getImage();
+//	
+//	public void paintComponent(Graphics g) {
+//		paintComponent(g);
+//		
+//		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+//	}
 	public EnrollUser() throws FileNotFoundException {
 		super("KaKao Typing");
 		setSize(400, 400);
 		this.setLayout(null);
-
-		makeJList();
-
+		
+		makeEnrollUser();
+		
 		this.getContentPane().setBackground(Color.LIGHT_GRAY);
 		//this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 
 	}
 
-	void makeJList() {
+	void makeEnrollUser() {
 		final int LOC_X = 200;
 		final int LOC_Y = 140;
 		final int SIZ_X = 150;

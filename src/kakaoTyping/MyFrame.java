@@ -7,6 +7,7 @@ import javax.swing.*;
 
 import GameScene.GameScene;
 import ThirdScene.ThirdScene;
+import ThirdScene.WordInput;
 import UserManageScene.UserManageScene;
 
 public class MyFrame extends JFrame {
@@ -23,14 +24,14 @@ public class MyFrame extends JFrame {
 		//add(new FirstScene());
 		
 		/**SecondScene(User Enroll Scene)*/
-		add(new UserManageScene());
+		//add(new UserManageScene());
 		
 		/**ThirdScene(MainMenu)*/
 		//add(new ThirdScene());
 		
 		/**4ndScene(SelectLevel)*/
 		//add();
-		
+		add(new WordInput());
 		/**GameScreen*/
 		//add(new GameScene());
 		
