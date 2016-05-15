@@ -21,7 +21,7 @@ public class GamePanel extends JPanel {
 }
 
 class CreateWordPanel extends JPanel {
-	ImageIcon background = new ImageIcon("images/gameback.jpg");
+	ImageIcon background = new ImageIcon("./images/gameback.jpg");
 	Image img = background.getImage();
 
 	public void paintComponent(Graphics g) {

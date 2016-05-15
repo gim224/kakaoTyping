@@ -74,8 +74,8 @@ class LifePanel extends JPanel {
 		JButton[] life = new JButton[5];
 		ImageIcon[] icon = new ImageIcon[2];
 
-		icon[0] = new ImageIcon("images/DisableHeart.png");
-		icon[1] = new ImageIcon("images/EnableHeart.png");
+		icon[0] = new ImageIcon("./images/DisableHeart.png");
+		icon[1] = new ImageIcon("./images/EnableHeart.png");
 
 		for (int i = 0; i < life.length; i++) {
 			life[i] = new JButton(icon[1]);
@@ -85,7 +85,7 @@ class LifePanel extends JPanel {
 }
 
 class ImagePanel extends JPanel {
-	ImageIcon icon = new ImageIcon("images/gg.png");
+	ImageIcon icon = new ImageIcon("./images/gg.png");
 	Image img = icon.getImage();
 
 	public void paintComponent(Graphics g) {

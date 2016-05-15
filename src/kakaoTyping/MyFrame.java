@@ -16,6 +16,7 @@ public class MyFrame extends JFrame {
 		this.setSize(800, 800);
 		this.setLocation(10,10);
 		this.setLayout(new BorderLayout());
+		//this.setIconImage(new ImageIcon().getImage()); ¼öÁ¤¿ä
 		// JMenu
 		createMenu();
 		// JTooltoolBar
@@ -31,9 +32,9 @@ public class MyFrame extends JFrame {
 		
 		/**4ndScene(SelectLevel)*/
 		//add();
-		add(new WordInput());
+		//add(new WordInput());
 		/**GameScreen*/
-		//add(new GameScene());
+		add(new GameScene());
 		
 		
 
