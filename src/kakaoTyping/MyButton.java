@@ -7,5 +7,6 @@ class MyButton extends JButton {
 		super(s);
 		setSize(20, 20);
 		setLocation(width, height);
+
 	}
 }
