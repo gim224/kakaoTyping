@@ -8,10 +8,11 @@ import java.util.Scanner;
 import java.util.Vector;
 
 public class FileIO {
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws FileNotFoundException{
 		// File file = new File("txt/text.txt"); // IOException &
 		// FileNotFoundException
 		File file = new File(args[0]);	//args[0] -> txt/text.txt
+	
 		Scanner sc = new Scanner(file);
 		// while(sc.hasNext()){
 		// String first = sc.next();

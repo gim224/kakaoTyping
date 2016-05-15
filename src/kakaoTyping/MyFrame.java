@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import GameScene.GameScene;
+import UserManageScene.UserManageScene;
 
 public class MyFrame extends JFrame {
 	public MyFrame() {
@@ -15,7 +16,7 @@ public class MyFrame extends JFrame {
 		// JTooltoolBar
 		createTooltoolBar();	
 		//GameScreen
-		add(new GameScene());
+		add(new GameScene());		
 		
 
 		this.setResizable(false);
