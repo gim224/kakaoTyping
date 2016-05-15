@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import GameScene.GameScene;
+import ThirdScene.ThirdScene;
 import UserManageScene.UserManageScene;
 
 public class MyFrame extends JFrame {
@@ -14,9 +15,16 @@ public class MyFrame extends JFrame {
 		// JMenu
 		createMenu();
 		// JTooltoolBar
-		createTooltoolBar();	
+		createTooltoolBar();
+		//FirstScene
+		//add(new FirstScene());
+		//SecondScene(User Enroll)
+		
+		//ThirdScene(MainMenu);
+		//add(new ThirdScene());
 		//GameScreen
-		add(new GameScene());		
+		add(new GameScene());
+		
 		
 
 		this.setResizable(false);

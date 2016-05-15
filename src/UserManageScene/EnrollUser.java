@@ -29,7 +29,7 @@ public class EnrollUser extends JFrame {
 		makeJList();
 
 		this.getContentPane().setBackground(Color.LIGHT_GRAY);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 
 	}
@@ -53,9 +53,9 @@ public class EnrollUser extends JFrame {
 		//
 		currentId = 0;
 		ImageIcon[] img = new ImageIcon[3];
-		img[0] = new ImageIcon("images/무지.jpg");
-		img[1] = new ImageIcon("images/튜브.jpg");
-		img[2] = new ImageIcon("images/프로도.jpg");
+		img[0] = new ImageIcon("images/mugi.jpg");
+		img[1] = new ImageIcon("images/tube.jpg");
+		img[2] = new ImageIcon("images/prodo.jpg");
 		imgLabel = new JLabel(img[currentId]);
 
 		//

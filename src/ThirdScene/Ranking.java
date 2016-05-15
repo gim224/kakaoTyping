@@ -1,11 +1,11 @@
-package kakaoTyping;
+package ThirdScene;
 
 import java.awt.BorderLayout;
 
 import javax.swing.*;
 
 public class Ranking extends JPanel {
-	String header[] = { "ìˆœìœ„", "ì´ë¦„", "ì ìˆ˜", "ëª©í‘œ ì •í™•ë„", "ì˜¤íƒ€ìœ¨", "ë‚ ì§œ" };
+	String header[] = { "¼øÀ§", "ÀÌ¸§", "Á¡¼ö", "¸ñÇ¥ Á¤È®µµ", "¿ÀÅ¸À²", "³¯Â¥" };
 	String contents[][] = {};
 
 	public Ranking() {
@@ -13,7 +13,7 @@ public class Ranking extends JPanel {
 		JTable table = new JTable(contents, header);
 		JScrollPane scrollpane = new JScrollPane(table);
 		add(scrollpane, BorderLayout.CENTER);
-		/*JButton bttn = new JButton("â†Back");
+		/*JButton bttn = new JButton("?†Back");
 		bttn.setSize(130, 30);
 		add(bttn, BorderLayout.SOUTH);*/
 	}

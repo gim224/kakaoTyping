@@ -1,10 +1,10 @@
-package kakaoTyping;
+package ThirdScene;
 
 import java.awt.*;
 import javax.swing.*;
 
 public class ThirdScene extends JPanel {
-	ImageIcon icon = new ImageIcon("images/라이언.jpg");
+	ImageIcon icon = new ImageIcon("images/lion.jpg");
 	Image img = icon.getImage();
 	public ThirdScene() {
 		setLayout(null);
