@@ -2,8 +2,13 @@ package UserManageScene;
 
 import java.awt.Color;
 
+
 import java.awt.Graphics;
 import java.awt.Image;
+
+
+
+
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,23 +32,34 @@ public class EnrollUser extends JFrame {
 	int currentId;
 	JLabel imgLabel = new JLabel();
 
-	// ImageIcon icon = new ImageIcon("images/lion.jpg");
-	// Image background = icon.getImage();
-	//
-	// public void paintComponent(Graphics g) {
-	// paintComponent(g);
-	//
-	// g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
-	// }
+
+
+
+
+	
+//	ImageIcon icon = new ImageIcon("images/lion.jpg");
+//	Image background = icon.getImage();
+//	
+//	public void paintComponent(Graphics g) {
+//		paintComponent(g);
+//		
+//		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+//	}
 
 	public EnrollUser() throws FileNotFoundException {
 		super("KaKao Typing");
 		setSize(400, 400);
 		this.setLayout(null);
 
+
 		// this.setLocation(w/2, h/2);
 		makeEnrollUser();
 		setLocation(super.getWidth() / 2, super.getHeight() / 2);
+
+		
+		makeEnrollUser();
+		
+
 		this.getContentPane().setBackground(Color.LIGHT_GRAY);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);

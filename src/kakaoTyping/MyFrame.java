@@ -40,7 +40,11 @@ public class MyFrame extends JFrame {
 		
 		/**4ndScene(SelectLevel)*/
 		//add();
+
 		//add(new WordInput());
+
+		//add(new WordInput());
+
 		/**GameScreen*/
 		//add(new GameScene());
 		
