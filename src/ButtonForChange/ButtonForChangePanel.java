@@ -1,4 +1,4 @@
-package kakaoTyping;
+package ButtonForChange;
 
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -8,8 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-public class MoveButton extends JButton {
-	public MoveButton(String s, JComponent after) {
+public class ButtonForChangePanel extends JButton {
+	public ButtonForChangePanel(String s, JComponent after) {
 		super(s);
 		addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -23,9 +23,7 @@ public class MoveButton extends JButton {
 
 				c.add(after);
 				c.setVisible(true);
-
 			}
-
 		});
 	}
 }

@@ -12,8 +12,8 @@ import java.util.Vector;
 
 import javax.swing.*;
 
+import ButtonForChange.ButtonForChangePanel;
 import ThirdScene.ThirdScene;
-import kakaoTyping.MoveButton;
 import ThirdScene.MyButton;
 
 public class UserManageScene extends JPanel {
@@ -96,7 +96,7 @@ public class UserManageScene extends JPanel {
 		add(delete);
 		//
 		//
-		MoveButton bttn = new MoveButton("Select", new ThirdScene());
+		ButtonForChangePanel bttn = new ButtonForChangePanel("Select", new ThirdScene());
 		bttn.setSize(400, 100);
 		bttn.setLocation(LOC_X + 250, LOC_Y - 20);
 		add(bttn);

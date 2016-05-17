@@ -75,8 +75,8 @@ public class EnrollUser extends JFrame {
 		JLabel titleLabel = new JLabel("정보등록");
 		titleLabel.setSize(320, 65);
 		titleLabel.setLocation(30, 30);
-		titleLabel.setVerticalAlignment(getX() / 2);
-		titleLabel.setHorizontalAlignment(getY() / 2);
+		//titleLabel.setVerticalAlignment();
+		//titleLabel.setHorizontalAlignment(getY() / 2);
 		titleLabel.setOpaque(true);
 		titleLabel.setBackground(Color.YELLOW);
 
@@ -134,8 +134,8 @@ public class EnrollUser extends JFrame {
 		userNameLabel.setLocation(LOC_X - 50, LOC_Y - 30);
 		userNameLabel.setOpaque(true);
 		userNameLabel.setBackground(Color.GRAY);
-		userNameLabel.setVerticalAlignment(getX() / 2);
-		userNameLabel.setHorizontalAlignment(getY() / 2);
+		//userNameLabel.setVerticalAlignment(getX() / 2);
+		//userNameLabel.setHorizontalAlignment(getY() / 2);
 		add(userNameLabel);
 
 		//
@@ -153,8 +153,8 @@ public class EnrollUser extends JFrame {
 		userInfo1Label.setLocation(LOC_X - 50, LOC_Y + 15);
 		userInfo1Label.setOpaque(true);
 		userInfo1Label.setBackground(Color.GRAY);
-		userInfo1Label.setVerticalAlignment(getX() / 2);
-		userInfo1Label.setHorizontalAlignment(getY() / 2);
+		//userInfo1Label.setVerticalAlignment(getX() / 2);
+		//userInfo1Label.setHorizontalAlignment(getY() / 2);
 		add(userInfo1Label);
 		//
 		JTextField userInfo1 = new JTextField("");
@@ -174,8 +174,8 @@ public class EnrollUser extends JFrame {
 		userInfo2Label.setLocation(LOC_X - 50, LOC_Y + 60);
 		userInfo2Label.setOpaque(true);
 		userInfo2Label.setBackground(Color.GRAY);
-		userInfo2Label.setVerticalAlignment(getX() / 2);
-		userInfo2Label.setHorizontalAlignment(getY() / 2);
+		//userInfo2Label.setVerticalAlignment(getWidth() / 2);
+		//userInfo2Label.setHorizontalAlignment(getHeight() / 2);
 		add(userInfo2Label);
 		//
 		JTextField userInfo2 = new JTextField("");
@@ -183,8 +183,8 @@ public class EnrollUser extends JFrame {
 		userInfo2.setLocation(LOC_X, LOC_Y + 60);
 		// userInfo2.setOpaque(true);
 		// userInfo2.setBackground(Color.GRAY);
-		// userInfo2.setVerticalAlignment(getX() / 2);
-		// userInfo2.setHorizontalAlignment(getY() / 2);
+		 //userInfo2.setVerticalAlignment(this.getWidth()/2);
+		 //userInfo2.setHorizontalAlignment(this.getHeight() / 2);
 		add(userInfo2);
 
 		///

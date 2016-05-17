@@ -11,6 +11,8 @@ import java.io.FileNotFoundException;
 
 import javax.swing.*;
 
+import FirstScene.FirstScene;
+import FourthScene.FourthScene;
 import GameScene.GameScene;
 import ThirdScene.ThirdScene;
 import ThirdScene.WordInput;
@@ -39,11 +41,8 @@ public class MyFrame extends JFrame {
 		//add(new ThirdScene());
 		
 		/**4ndScene(SelectLevel)*/
-		//add();
 
-		//add(new WordInput());
-
-		//add(new WordInput());
+		add(new FourthScene());
 
 		/**GameScreen*/
 		//add(new GameScene());
