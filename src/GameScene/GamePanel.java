@@ -21,25 +21,25 @@ public class GamePanel extends JPanel {
 }
 
 class CreateWordPanel extends JPanel {
-	ImageIcon background = new ImageIcon("./images/gameback.jpg");
+	ImageIcon background = new ImageIcon("images/gameback.jpg");
 	Image img = background.getImage();
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
 	}
-	
-	public CreateWordPanel(){
+
+	public CreateWordPanel() {
 		setLayout(null);
 		Vector<JLabel> word = new Vector<JLabel>();
 		JLabel wordLabel = new JLabel("zz");
 		wordLabel.setSize(100, 20);
-		wordLabel.setLocation(0,0);
+		wordLabel.setLocation(0, 0);
 		wordLabel.setOpaque(true);
 		wordLabel.setBackground(Color.YELLOW);
 		add(wordLabel);
 		word.add(wordLabel);
-		
+
 	}
 
 }

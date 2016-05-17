@@ -1,11 +1,15 @@
 package UserManageScene;
 
 import java.awt.Color;
+
 import java.awt.Graphics;
 import java.awt.Image;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
+
+
+
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.Vector;
@@ -22,24 +26,26 @@ import javax.swing.ListSelectionModel;
 public class EnrollUser extends JFrame {
 	int currentId;
 	JLabel imgLabel = new JLabel();
-	
-//	ImageIcon icon = new ImageIcon("images/lion.jpg");
-//	Image background = icon.getImage();
-//	
-//	public void paintComponent(Graphics g) {
-//		paintComponent(g);
-//		
-//		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
-//	}
+
+	// ImageIcon icon = new ImageIcon("images/lion.jpg");
+	// Image background = icon.getImage();
+	//
+	// public void paintComponent(Graphics g) {
+	// paintComponent(g);
+	//
+	// g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+	// }
+
 	public EnrollUser() throws FileNotFoundException {
 		super("KaKao Typing");
 		setSize(400, 400);
 		this.setLayout(null);
-		
+
+		// this.setLocation(w/2, h/2);
 		makeEnrollUser();
-		
+		setLocation(super.getWidth() / 2, super.getHeight() / 2);
 		this.getContentPane().setBackground(Color.LIGHT_GRAY);
-		//this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 
 	}
@@ -170,10 +176,21 @@ public class EnrollUser extends JFrame {
 		confirmBttn.setSize(100, 50);
 		confirmBttn.setLocation(80, 280);
 		add(confirmBttn);
+		confirmBttn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 
 		JButton cancelBttn = new JButton("Cancel");
 		cancelBttn.setSize(100, 50);
 		cancelBttn.setLocation(200, 280);
+
 		add(cancelBttn);
+		cancelBttn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 	}
 }

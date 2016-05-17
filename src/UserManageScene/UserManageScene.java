@@ -3,6 +3,8 @@ package UserManageScene;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -10,10 +12,15 @@ import java.util.Vector;
 
 import javax.swing.*;
 
+import ThirdScene.ThirdScene;
+import kakaoTyping.MoveButton;
+import ThirdScene.MyButton;
+
 public class UserManageScene extends JPanel {
 	public UserManageScene() throws FileNotFoundException {
+
 		this.setLayout(null);
-		
+
 		makeJList();
 	}
 
@@ -21,7 +28,7 @@ public class UserManageScene extends JPanel {
 		final int LOC_X = 70;
 		final int LOC_Y = 600;
 		final int SIZ_X = 200;
-		
+
 		//
 		JLabel titleLabel = new JLabel("Select User");
 		titleLabel.setSize(743, 50);
@@ -38,7 +45,7 @@ public class UserManageScene extends JPanel {
 		imgLabel.setSize(743, 472);
 		imgLabel.setLocation(20, 75);
 		imgLabel.setOpaque(true);
-		//imgLabel.setBackground(Color.CYAN);
+		// imgLabel.setBackground(Color.CYAN);
 		add(imgLabel);
 		//
 		//
@@ -74,14 +81,25 @@ public class UserManageScene extends JPanel {
 		enroll.setSize(SIZ_X - 100, 20);
 		enroll.setLocation(LOC_X, LOC_Y + 77);
 		add(enroll);
+		enroll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					new EnrollUser();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		delete.setSize(SIZ_X - 100, 20);
 		delete.setLocation(LOC_X + 100, LOC_Y + 77);
 		add(delete);
 		//
 		//
-		JButton bttn = new JButton("Select");
+		MoveButton bttn = new MoveButton("Select", new ThirdScene());
 		bttn.setSize(400, 100);
-		bttn.setLocation(LOC_X+250, LOC_Y-20);
+		bttn.setLocation(LOC_X + 250, LOC_Y - 20);
 		add(bttn);
+
 	}
 }

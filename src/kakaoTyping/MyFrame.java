@@ -1,6 +1,12 @@
 package kakaoTyping;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 
 import javax.swing.*;
@@ -10,19 +16,21 @@ import ThirdScene.ThirdScene;
 import ThirdScene.WordInput;
 import UserManageScene.UserManageScene;
 
+
 public class MyFrame extends JFrame {
 	public MyFrame() throws FileNotFoundException {
 		super("KaKao Typing");
 		this.setSize(800, 800);
 		this.setLocation(10,10);
-		this.setLayout(new BorderLayout());
-		//this.setIconImage(new ImageIcon().getImage()); ¼öÁ¤¿ä
+		this.setLayout(new BorderLayout());		  
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/EnableHeart.png"));
+		
 		// JMenu
 		createMenu();
 		// JTooltoolBar
 		createTooltoolBar();
-		/**FirstScene*/
-		//add(new FirstScene());
+		/**FirstScene*/		
+		add(new FirstScene());
 		
 		/**SecondScene(User Enroll Scene)*/
 		//add(new UserManageScene());
@@ -34,7 +42,7 @@ public class MyFrame extends JFrame {
 		//add();
 		//add(new WordInput());
 		/**GameScreen*/
-		add(new GameScene());
+		//add(new GameScene());
 		
 		
 
