@@ -27,11 +27,20 @@ public class SetPanel extends JPanel {
 class LevelPanel extends JPanel {
 	public LevelPanel() {
 		setLayout(new BorderLayout());
+		
+		JFormattedTextField ftf = null;
 		String[] item = { "Level 1", "Level 2", "Level 3", "Level 4" };
-		SpinnerListModel listModel = new SpinnerListModel(item);
-		JSpinner level = new JSpinner();
-		level.setModel(listModel);
-
+		SpinnerListModel  listModel = new SpinnerListModel(item);
+		JSpinner level = new JSpinner(listModel);
+		JComponent editor = level.getEditor();
+		if(editor instanceof JSpinner.DefaultEditor) {
+			ftf = ((JSpinner.DefaultEditor)editor).getTextField();
+		}
+		if(ftf!=null) {
+			ftf.setColumns(8);
+			ftf.setHorizontalAlignment(JTextField.CENTER);
+			ftf.setEditable(false);
+		}
 		JLabel level_label = new JLabel();
 		level_label.setText("Level Select");
 		add(level_label, BorderLayout.NORTH);
