@@ -1,4 +1,4 @@
-package kakaoTyping;
+package fileIO;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,7 +17,7 @@ public class FileInput {
 		file = new File(fileName);
 		try {
 			sc = new Scanner(file);
-			// sc.useDelimiter(null);
+
 			while (sc.hasNext()) {
 				m_vector.add(sc.next());
 			}
@@ -31,8 +31,7 @@ public class FileInput {
 	}
 
 	/**
-	 * fileName: 파일의 상대경로 
-	 * seperate: Scanner 구분단위
+	 * fileName: 파일의 상대경로 seperate: Scanner 구분단위
 	 */
 	public FileInput(String fileName, String seperate) {
 		file = new File(fileName);
@@ -63,7 +62,7 @@ public class FileInput {
 
 	/** vector에 있는 단어를 랜덤으로 리턴 */
 	public String getOneWordRandom() {
-		int random = (int) (Math.random() * (m_vector.size() + 1) + 0);
+		int random = (int) (Math.random() * (m_vector.size() -1) + 0);
 		return m_vector.get(random);
 	}
 

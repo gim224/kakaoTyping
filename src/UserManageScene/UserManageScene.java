@@ -14,7 +14,7 @@ import javax.swing.*;
 
 import ButtonForChange.ButtonForChangePanel;
 import ThirdScene.ThirdScene;
-import kakaoTyping.FileInput;
+import fileIO.FileInput;
 import ThirdScene.MyButton;
 
 public class UserManageScene extends JPanel {

@@ -33,7 +33,7 @@ public class MyFrame extends JFrame {
 		// JTooltoolBar
 		createTooltoolBar();
 		/**FirstScene*/		
-		add(new FirstScene());
+		//add(new FirstScene());
 		
 		/**SecondScene(User Enroll Scene)*/
 		//add(new UserManageScene());
@@ -46,7 +46,7 @@ public class MyFrame extends JFrame {
 		//add(new FourthScene());
 
 		/**GameScreen*/
-		//add(new GameScene());
+		add(new GameScene());
 		
 		
 

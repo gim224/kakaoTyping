@@ -2,6 +2,8 @@ package GameScene;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.Vector;
@@ -12,7 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import kakaoTyping.FileInput;
+import fileIO.FileInput;
+import thread.FallingLabel;
 
 public class GamePanel extends JPanel {
 	public GamePanel() {
@@ -33,22 +36,36 @@ class CreateWordPanel extends JPanel {
 
 	public CreateWordPanel() {
 		setLayout(null);
-		FileInput input = new FileInput("txt/word.txt");
-		
-		JLabel[] wordLabel = new JLabel[input.size()];
-		
-		for (int i = 0; i < input.size(); i++) {
-			wordLabel[i] = new JLabel(input.getOneWord(i));
-			wordLabel[i].setSize(100, 20);
-			wordLabel[i].setLocation(0, i*30);
-			wordLabel[i].setOpaque(true);
-			wordLabel[i].setBackground(Color.YELLOW);
-			add(wordLabel[i]);
+		FileInput input = new FileInput("txt/word.txt","@");
+
+		//JLabel[] wordLabel = new JLabel[input.size()];
+
+		// for (int i = 0; i < input.size(); i++) {
+		// wordLabel[i] = new JLabel(input.getOneWord(i));
+		// wordLabel[i].setSize(100, 20);
+		// wordLabel[i].setLocation(0, i * 30);
+		// wordLabel[i].setOpaque(true);
+		// wordLabel[i].setBackground(Color.YELLOW);
+		// add(wordLabel[i]);
+		// }
+
+		FallingLabel[] fl = new FallingLabel[3];
+		for (int i = 0; i < fl.length; i++) {
+			fl[i] = new FallingLabel(input.getOneWordRandom(),(int)(Math.random()*5+1));
+			add(fl[i]);
 		}
-		
-		
-		//add(wordLabel);
-		//word.add(wordLabel);
+		// add(fl);
+
+		// Font currentFont = fl.getGraphics().getFont(); // text의 현재 폰트 객체
+		// FontMetrics fm = fl.getFontMetrics(currentFont); // 폰트의 여러 속성을 가진 객체
+		//
+		// int w = fm.stringWidth(fl.getText()); // 텍스트의 스트링 길이(픽셀)
+		// fl.setSize(w, fm.getHeight());
+		// fl.setSize(100, 20);
+		// fl.setLocation(300, 300);
+
+		// add(wordLabel);
+		// word.add(wordLabel);
 
 	}
 
