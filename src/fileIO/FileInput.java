@@ -25,7 +25,7 @@ public class FileInput {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e2) {
+		} catch (@SuppressWarnings("hiding") IOException e2) {
 			e2.printStackTrace();
 		}
 	}
@@ -45,7 +45,7 @@ public class FileInput {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e2) {
+		} catch (@SuppressWarnings("hiding") IOException e2) {
 			e2.printStackTrace();
 		}
 	}
@@ -62,12 +62,12 @@ public class FileInput {
 
 	/** vector에 있는 단어를 랜덤으로 리턴 */
 	public String getOneWordRandom() {
-		int random = (int) (Math.random() * (m_vector.size() -1) + 0);
+		int random = (int) (Math.random() * (m_vector.size()));
 		return m_vector.get(random);
 	}
 
 	/** vector 레퍼런스를 리턴 */
-	public Vector getVector() {
+	public Vector<String> getVector() {
 		return m_vector;
 	}
 

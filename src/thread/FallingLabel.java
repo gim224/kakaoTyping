@@ -6,6 +6,7 @@ import java.awt.FontMetrics;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class FallingLabel extends JLabel implements Runnable {
 
@@ -13,19 +14,20 @@ public class FallingLabel extends JLabel implements Runnable {
 	int speed=0;
 	
 	public FallingLabel(String text,int speed) {
-		super(text);
+		super(text,SwingConstants.CENTER);
 		setOpaque(true);
-		this.setSize(50, 30);
+		this.setSize(60, 30);
+		
 		this.speed = speed;
-		/////////// size ¼öÁ¤////////
+		/////////// size ìˆ˜ì •////////
 		
 		random = (int) (Math.random() * (600-50) + 1);
 		
 		
-		// ½º·¹µå °´Ã¼ »ı¼º
+		// ìŠ¤ë ˆë“œ ê°ì²´ ìƒì„±
 		Thread th = new Thread(this);
 		
-		// ½º·¹µå ½ÇÇà
+		// ìŠ¤ë ˆë“œ ì‹¤í–‰
 		th.start();
 		
 	}
@@ -47,7 +49,7 @@ public class FallingLabel extends JLabel implements Runnable {
 //			else
 //				colorSwitch = 0;
 
-			this.setLocation(random, speed+=5);
+			this.setLocation(random, i+=speed);
 			
 			try {
 				Thread.sleep(100);
