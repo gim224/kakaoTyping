@@ -34,10 +34,10 @@ class CreateWordPanel extends JPanel {
 	public CreateWordPanel() {
 		setLayout(null);
 		FileInput input = new FileInput("txt/word.txt");
-	
+		
 		JLabel[] wordLabel = new JLabel[input.size()];
 		
-		for(int i=0; i<input.size(); i++) {
+		for (int i = 0; i < input.size(); i++) {
 			wordLabel[i] = new JLabel(input.getOneWord(i));
 			wordLabel[i].setSize(100, 20);
 			wordLabel[i].setLocation(0, i*30);
@@ -45,6 +45,11 @@ class CreateWordPanel extends JPanel {
 			wordLabel[i].setBackground(Color.YELLOW);
 			add(wordLabel[i]);
 		}
+		
+		
+		//add(wordLabel);
+		//word.add(wordLabel);
+
 
 	}
 

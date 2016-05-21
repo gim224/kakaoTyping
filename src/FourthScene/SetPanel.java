@@ -16,9 +16,8 @@ public class SetPanel extends JPanel {
 		setLayout(new GridLayout(3, 1));
 		add(new LevelPanel());
 		add(new ImagePanel());
-		ButtonForChangeSplitpane bttn = new ButtonForChangeSplitpane("START",new GameScene());
-		
-		
+		ButtonForChangeSplitpane bttn = new ButtonForChangeSplitpane("START", new GameScene());
+
 		// MoveButton bttn = new MoveButton("START", new GameScene());
 		add(bttn);
 	}
@@ -27,16 +26,16 @@ public class SetPanel extends JPanel {
 class LevelPanel extends JPanel {
 	public LevelPanel() {
 		setLayout(new BorderLayout());
-		
+
 		JFormattedTextField ftf = null;
 		String[] item = { "Level 1", "Level 2", "Level 3", "Level 4" };
-		SpinnerListModel  listModel = new SpinnerListModel(item);
+		SpinnerListModel listModel = new SpinnerListModel(item);
 		JSpinner level = new JSpinner(listModel);
 		JComponent editor = level.getEditor();
-		if(editor instanceof JSpinner.DefaultEditor) {
-			ftf = ((JSpinner.DefaultEditor)editor).getTextField();
+		if (editor instanceof JSpinner.DefaultEditor) {
+			ftf = ((JSpinner.DefaultEditor) editor).getTextField();
 		}
-		if(ftf!=null) {
+		if (ftf != null) {
 			ftf.setColumns(8);
 			ftf.setHorizontalAlignment(JTextField.CENTER);
 			ftf.setEditable(false);

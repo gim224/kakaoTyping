@@ -13,6 +13,7 @@ import javax.swing.*;
 
 import FirstScene.FirstScene;
 import FourthScene.FourthScene;
+import GameScene.GamePanel;
 import GameScene.GameScene;
 import ThirdScene.ThirdScene;
 import ThirdScene.WordInput;
@@ -106,22 +107,23 @@ public class MyFrame extends JFrame {
 		JButton musicBtn = new JButton(new ImageIcon("images/music.png"));
 		scBtn.setToolTipText("Music");
 		toolBar.add(musicBtn);
+
 		JButton back = new JButton(new ImageIcon("images/home.png"));
-	      scBtn.setToolTipText("Home");
-	      toolBar.add(back);
-	      
-	      back.addActionListener(new ActionListener(){
-	          public void actionPerformed(ActionEvent e){
-	             JButton bttn = (JButton)e.getSource();
-	             JToolBar bar = (JToolBar)bttn.getParent();
-	             Container c = bar.getParent();
-	             c.removeAll();
-	             c.setVisible(false);
-	             c.add(bar,BorderLayout.NORTH);
-	             c.add(new FirstScene());
-	             c.setVisible(true);
-	          }
-	      });
+		scBtn.setToolTipText("ùȭ��");
+		toolBar.add(back);
+		
+		back.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				JButton bttn = (JButton)e.getSource();
+				JToolBar bar = (JToolBar)bttn.getParent();
+				Container c = bar.getParent();
+				c.removeAll();
+				c.setVisible(false);
+				c.add(bar,BorderLayout.NORTH);
+				c.add(new FirstScene());
+				c.setVisible(true);
+			}
+		});
 
 		this.add(toolBar, BorderLayout.NORTH);
 		toolBar.setFloatable(false); // ���� �̵� �Ұ�
