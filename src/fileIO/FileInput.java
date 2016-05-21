@@ -12,7 +12,7 @@ public class FileInput {
 	private Scanner sc;
 	private Vector<String> m_vector = new Vector<String>();
 
-	/** fileName : ÆÄÀÏÀÇ »ó´ë°æ·Î */
+	/** fileName : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	public FileInput(String fileName) {
 		file = new File(fileName);
 		try {
@@ -25,13 +25,13 @@ public class FileInput {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e2) {
+		} catch (@SuppressWarnings("hiding") IOException e2) {
 			e2.printStackTrace();
 		}
 	}
 
 	/**
-	 * fileName: ÆÄÀÏÀÇ »ó´ë°æ·Î seperate: Scanner ±¸ºÐ´ÜÀ§
+	 * fileName: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ seperate: Scanner ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½
 	 */
 	public FileInput(String fileName, String seperate) {
 		file = new File(fileName);
@@ -45,29 +45,29 @@ public class FileInput {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e2) {
+		} catch (@SuppressWarnings("hiding") IOException e2) {
 			e2.printStackTrace();
 		}
 	}
 
-	/** vectorÀÇ »çÀÌÁî¸¦ ¸®ÅÏ */
+	/** vectorï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î¸¦ ï¿½ï¿½ï¿½ï¿½ */
 	public int size() {
 		return m_vector.size();
 	}
 
-	/** vector¿¡ ÀÖ´Â ´Ü¾î¸¦ ÀÎµ¦½º·Î ¸®ÅÏ */
+	/** vectorï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ü¾î¸¦ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 	public String getOneWord(int index) {
 		return m_vector.get(index);
 	}
 
-	/** vector¿¡ ÀÖ´Â ´Ü¾î¸¦ ·£´ýÀ¸·Î ¸®ÅÏ */
+	/** vectorï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ü¾î¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 	public String getOneWordRandom() {
-		int random = (int) (Math.random() * (m_vector.size() -1) + 0);
+		int random = (int) (Math.random() * (m_vector.size()));
 		return m_vector.get(random);
 	}
 
-	/** vector ·¹ÆÛ·±½º¸¦ ¸®ÅÏ */
-	public Vector getVector() {
+	/** vector ï¿½ï¿½ï¿½Û·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
+	public Vector<String> getVector() {
 		return m_vector;
 	}
 
