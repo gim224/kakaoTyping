@@ -14,6 +14,7 @@ import javax.swing.*;
 
 import ButtonForChange.ButtonForChangePanel;
 import ThirdScene.ThirdScene;
+import kakaoTyping.FileInput;
 import ThirdScene.MyButton;
 
 public class UserManageScene extends JPanel {
@@ -59,16 +60,11 @@ public class UserManageScene extends JPanel {
 		add(userList);
 		//
 		//
-		File file = new File("txt/user.txt");
-		Scanner sc = new Scanner(file);
-		sc.useDelimiter("@");
-		Vector<String> userEntry = new Vector<String>();
-		while (sc.hasNext()) {
-			userEntry.add(sc.next());
-		}
+		FileInput input = new FileInput("txt/user.txt","@");		
+		
 		//
 		//
-		JList list = new JList<String>(userEntry);
+		JList list = new JList<String>(input.getVector());
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane pane = new JScrollPane(list);
 		pane.setSize(SIZ_X, 77);
