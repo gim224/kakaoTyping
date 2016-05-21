@@ -24,7 +24,7 @@ class MyCenterPanel extends JPanel {
 				textarea.append(textfield.getText() + "\n");
 			}
 		});
-		textarea = new JTextArea("hello", 35, 70);
+		textarea = new JTextArea("hello\n", 35, 70);
 		add(new JScrollPane(textarea));
 		add(textfield);
 		add(btn);

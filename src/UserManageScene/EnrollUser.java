@@ -72,7 +72,7 @@ public class EnrollUser extends JFrame {
 		final int SIZ_X = 150;
 
 		//
-		JLabel titleLabel = new JLabel("Á¤º¸µî·Ï");
+		JLabel titleLabel = new JLabel("Sign Up");
 		titleLabel.setSize(320, 65);
 		titleLabel.setLocation(30, 30);
 		//titleLabel.setVerticalAlignment();
@@ -107,19 +107,19 @@ public class EnrollUser extends JFrame {
 
 		imgLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currentId--; // ÀÌ¹ÌÁö ¹øÈ£ °¨¼Ò. ÀÌÀü ÀÌ¹ÌÁö
-				currentId += img.length; // currentId°¡ À½¼ö°¡ µÉ ¼ö ÀÖ±â ¶§¹®¿¡ 4¸¦ ´õÇÔ
-				currentId %= img.length; // 4 °¡ ³Ñ´Â °ÍÀ» ¸·±â À§ÇØ ÀÌ¹ÌÁö °³¼ö·Î ³ª¸ÓÁö ±¸ÇÔ
-				imgLabel.setIcon(img[currentId]); // ÀÌ¹ÌÁö ·¹ÀÌºí¿¡ ÀÌ¹ÌÁö º¯°æ
+				currentId--; // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½
+				currentId += img.length; // currentIdï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 4ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+				currentId %= img.length; // 4 ï¿½ï¿½ ï¿½Ñ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+				imgLabel.setIcon(img[currentId]); // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			}
 		});
 
-		// ¿À¸¥ÂÊ È­»ìÇ¥ ¹öÆ°¿¡ Action ¸®½º³Ê ´Þ±â
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½Ç¥ ï¿½ï¿½Æ°ï¿½ï¿½ Action ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ±ï¿½
 		imgRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currentId++; // ÀÌ¹ÌÁö ¹øÈ£ Áõ°¡. ´ÙÀ½ ÀÌ¹ÌÁö
-				currentId %= img.length; // 4 °¡ ³Ñ´Â °ÍÀ» ¸·±â À§ÇØ ÀÌ¹ÌÁö °³¼ö·Î ³ª¸ÓÁö ±¸ÇÔ
-				imgLabel.setIcon(img[currentId]); // ÀÌ¹ÌÁö ·¹ÀÌºí¿¡ ÀÌ¹ÌÁö º¯°æ
+				currentId++; // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½
+				currentId %= img.length; // 4 ï¿½ï¿½ ï¿½Ñ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+				imgLabel.setIcon(img[currentId]); // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			}
 		});
 
@@ -129,7 +129,7 @@ public class EnrollUser extends JFrame {
 		imgLabel.setBackground(Color.BLACK);
 		add(imgLabel);
 		//
-		JLabel userNameLabel = new JLabel("ÀÌ¸§");
+		JLabel userNameLabel = new JLabel("Name");
 		userNameLabel.setSize(45, 30);
 		userNameLabel.setLocation(LOC_X - 50, LOC_Y - 30);
 		userNameLabel.setOpaque(true);
@@ -148,7 +148,7 @@ public class EnrollUser extends JFrame {
 		// userName.setHorizontalAlignment(getY() / 2);
 		add(userName);
 		//
-		JLabel userInfo1Label = new JLabel("¿ÀÅ¸À²");
+		JLabel userInfo1Label = new JLabel("Password");
 		userInfo1Label.setSize(45, 30);
 		userInfo1Label.setLocation(LOC_X - 50, LOC_Y + 15);
 		userInfo1Label.setOpaque(true);
@@ -169,7 +169,7 @@ public class EnrollUser extends JFrame {
 
 		//
 		//
-		JLabel userInfo2Label = new JLabel("³¯Â¥");
+		JLabel userInfo2Label = new JLabel("Goal");
 		userInfo2Label.setSize(45, 30);
 		userInfo2Label.setLocation(LOC_X - 50, LOC_Y + 60);
 		userInfo2Label.setOpaque(true);

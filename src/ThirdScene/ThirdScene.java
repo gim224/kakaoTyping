@@ -13,7 +13,7 @@ public class ThirdScene extends JPanel {
 
 	public ThirdScene() {
 		setLayout(null);
-		ButtonForChangePanel bttn1 = new ButtonForChangePanel("Alone", new GameScene());
+		ButtonForChangePanel bttn1 = new ButtonForChangePanel("Alone", new FourthScene());
 		bttn1.setLocation(350, 50);
 		bttn1.setSize(100, 100);
 		add(bttn1);

@@ -37,10 +37,10 @@ class UpNamePanel extends JPanel {
 
 		add(label1);
 		// add(new JPanel());
-		add(new JLabel("몇단계?"));
+		add(new JLabel("1 level"));
 		add(label2);
 		// add(new JPanel());
-		add(new JLabel("몇 점?"));
+		add(new JLabel("300"));
 	}
 }
 
@@ -63,7 +63,7 @@ class DownNamePanel extends JPanel {
 		add(new LifePanel());
 		add(label2);
 		// add(new JPanel());
-		add(new JLabel("게임시간?"));
+		add(new JLabel("00:13"));
 	}
 }
 
