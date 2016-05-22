@@ -13,6 +13,7 @@ public class FileInput {
 	private Vector<String> m_vector = new Vector<String>();
 
 	/** fileName : 상대경로로 파일이름 */
+
 	public FileInput(String fileName) {
 		file = new File(fileName);
 		try {
@@ -27,14 +28,15 @@ public class FileInput {
 			e.printStackTrace();
 		} catch (@SuppressWarnings("hiding") IOException e2) {
 			e2.printStackTrace();
-		}
-		finally {
-			sc.close();
+		} finally {
+			sc.close();			
 		}
 	}
 
 	/**
-	 * fileName: 상대경로로 파일이름	 seperate: Scanner 의 구분자를 삽입
+	 * 
+	 * fileName: 상대경로로 파일이름 seperate: Scanner 의 구분자를 삽입
+	 * 
 	 */
 	public FileInput(String fileName, String seperate) {
 		file = new File(fileName);
@@ -50,27 +52,27 @@ public class FileInput {
 			e.printStackTrace();
 		} catch (@SuppressWarnings("hiding") IOException e2) {
 			e2.printStackTrace();
-		}finally {
+		} finally {
 			sc.close();
 		}
 	}
 
-	/** vector의 사이즈를 리턴*/
+	/** vector의 사이즈를 리턴 */
 	public int size() {
 		return m_vector.size();
 	}
 
 	/** vector의 요소를 인덱스로 리턴 */
-	public String getOneWord(int index) {
+	public String getOneWord(int index) {		
 		return m_vector.get(index);
+
 	}
 
-	/** vector의 요소를 랜덤으로 리턴*/
+	/** vector의 요소를 랜덤으로 리턴 */
 	public String getOneWordRandom() {
 		int random = (int) (Math.random() * (m_vector.size()));
 		return m_vector.get(random);
 	}
-
 
 	public Vector<String> getVector() {
 		return m_vector;

@@ -72,7 +72,10 @@ public class EnrollUser extends JFrame {
 		final int SIZ_X = 150;
 
 		//
-		JLabel titleLabel = new JLabel("enroll user");
+
+
+		JLabel titleLabel = new JLabel("Sign Up");
+
 		titleLabel.setSize(320, 65);
 		titleLabel.setLocation(30, 30);
 		//titleLabel.setVerticalAlignment();
@@ -129,7 +132,9 @@ public class EnrollUser extends JFrame {
 		imgLabel.setBackground(Color.BLACK);
 		add(imgLabel);
 		//
+
 		JLabel userNameLabel = new JLabel("name");
+
 		userNameLabel.setSize(45, 30);
 		userNameLabel.setLocation(LOC_X - 50, LOC_Y - 30);
 		userNameLabel.setOpaque(true);
@@ -149,6 +154,8 @@ public class EnrollUser extends JFrame {
 		add(userName);
 		//
 		JLabel userInfo1Label = new JLabel("O Ta Ruel");
+		
+
 		userInfo1Label.setSize(45, 30);
 		userInfo1Label.setLocation(LOC_X - 50, LOC_Y + 15);
 		userInfo1Label.setOpaque(true);
@@ -169,7 +176,10 @@ public class EnrollUser extends JFrame {
 
 		//
 		//
-		JLabel userInfo2Label = new JLabel("Date");
+
+
+		JLabel userInfo2Label = new JLabel("Goal");
+
 		userInfo2Label.setSize(45, 30);
 		userInfo2Label.setLocation(LOC_X - 50, LOC_Y + 60);
 		userInfo2Label.setOpaque(true);

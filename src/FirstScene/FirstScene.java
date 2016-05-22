@@ -20,7 +20,7 @@ public class FirstScene extends JPanel {
 		setLayout(null);
 		ButtonForChangePanel bttn;
 		try {
-			bttn = new ButtonForChangePanel("Go", new UserManageScene());
+			bttn = new ButtonForChangePanel("Start!", new UserManageScene());
 			bttn.setSize(400, 50);
 			bttn.setLocation(200, 250);
 			add(bttn);

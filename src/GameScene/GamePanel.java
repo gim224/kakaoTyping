@@ -29,7 +29,7 @@ class CreateWordPanel extends JPanel {
 	ImageIcon background = new ImageIcon("images/gameback.jpg");
 	Image img = background.getImage();
 	FallingLabel fl;
-	
+
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
@@ -45,17 +45,17 @@ class CreateWordPanel extends JPanel {
 		// FallingLabel(input.getOneWordRandom(),(int)(Math.random()*5+1));
 		// add(fl[i]);
 		// }
-
 		
-		fl = new FallingLabel(input.getOneWordRandom(), (int) (Math.random() * 5 + 1));
+		fl = new FallingLabel(input.getOneWord(0), (int) (Math.random() * 5 + 1));
+
 		add(fl);
-		
 
-		// Font currentFont = fl.getGraphics().getFont(); // text�� ���� ��Ʈ ��ü
-		// FontMetrics fm = fl.getFontMetrics(currentFont); // ��Ʈ�� ���� �Ӽ���
-		// ���� ��ü
-		//
-		// int w = fm.stringWidth(fl.getText()); // �ؽ�Ʈ�� ��Ʈ�� ����(�ȼ�)
+//		Font currentFont = fl.getGraphics().getFont();
+//		
+//		FontMetrics fm = fl.getFontMetrics(currentFont);
+//		int w = fm.stringWidth(fl.getText());
+//		fl.setSize(w, fm.getHeight());
+//		add(fl);
 
 	}
 
@@ -63,7 +63,11 @@ class CreateWordPanel extends JPanel {
 
 class InputPanel extends JPanel {
 	public InputPanel() {
+
 		add(new JLabel("입력"));
+
+		add(new JLabel("Input"));
+
 		JTextField textField = new JTextField(30);
 		// textField.requestFocus();
 		add(textField);

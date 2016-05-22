@@ -60,11 +60,12 @@ public class UserManageScene extends JPanel {
 		add(userList);
 		//
 		//
+
 		FileInput input = new FileInput("txt/user.txt","@");		
-		
 		//
 		//
 		JList list = new JList<String>(input.getVector());
+		
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane pane = new JScrollPane(list);
 		pane.setSize(SIZ_X, 77);
