@@ -92,22 +92,22 @@ public class MyFrame extends JFrame {
 		JToolBar toolBar = new JToolBar("");
 		toolBar.setBackground(Color.LIGHT_GRAY);
 
-		JButton playBtn = new JButton("Play");
-		playBtn.setToolTipText("����");
+		JButton playBtn = new JButton(new ImageIcon("images/play.png"));
+		playBtn.setToolTipText("Play");
 		toolBar.add(playBtn);
 
-		JButton pauBtn = new JButton("Pause");
-		pauBtn.setToolTipText("�Ͻ�����");
+		JButton pauBtn = new JButton(new ImageIcon("images/pause.png"));
+		pauBtn.setToolTipText("Pause");
 		toolBar.add(pauBtn);
 
 		JButton scBtn = new JButton(new ImageIcon("images/camera.png"));
-		scBtn.setToolTipText("��ũ����");
+		scBtn.setToolTipText("Screen Shot");
 		toolBar.add(scBtn);
 
 		JButton musicBtn = new JButton(new ImageIcon("images/music.png"));
-		scBtn.setToolTipText("����");
+		scBtn.setToolTipText("Music");
 		toolBar.add(musicBtn);
-		
+
 		JButton back = new JButton(new ImageIcon("images/home.png"));
 		scBtn.setToolTipText("ùȭ��");
 		toolBar.add(back);

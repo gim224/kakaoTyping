@@ -67,14 +67,14 @@ class CreateWordPanel extends JPanel {
 
 		// add(wordLabel);
 		// word.add(wordLabel);
-
 	}
 
 }
 
 class InputPanel extends JPanel {
 	public InputPanel() {
-		add(new JLabel("�Է�"));
+
+		add(new JLabel("Input"));
 		JTextField textField = new JTextField(30);
 		// textField.requestFocus();
 		add(textField);

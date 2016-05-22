@@ -60,8 +60,8 @@ public class UserManageScene extends JPanel {
 		add(userList);
 		//
 		//
+
 		FileInput input = new FileInput("txt/user.txt","@");		
-		
 		//
 		//
 		JList list = new JList<String>(input.getVector());

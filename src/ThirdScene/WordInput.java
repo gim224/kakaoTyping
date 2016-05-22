@@ -29,6 +29,7 @@ class MyCenterPanel extends JPanel {
 				new WordOutput(addWord);
 			}
 		});
+		
 		textarea = new JTextArea("", 35, 70);
 		add(new JScrollPane(textarea));
 		add(textfield);
