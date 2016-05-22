@@ -12,6 +12,7 @@ public class FallingLabel extends JLabel implements Runnable {
 
 	int random;
 	int speed = 0;
+	int interval = 2*1000;
 
 	public FallingLabel(String text, int speed) {
 		super(text, SwingConstants.CENTER);
@@ -31,6 +32,13 @@ public class FallingLabel extends JLabel implements Runnable {
 
 	}
 
+	public void delay() {
+		try {
+			Thread.sleep(interval);
+		}
+		catch(Exception e){
+		}
+	}
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub

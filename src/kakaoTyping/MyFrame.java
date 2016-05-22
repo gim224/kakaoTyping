@@ -43,10 +43,10 @@ public class MyFrame extends JFrame {
 		
 		/**4ndScene(SelectLevel)*/
 
-		//add(new FourthScene());
+		add(new FourthScene());
 
 		/**GameScreen*/
-		add(new GameScene());
+		//add(new GameScene());
 		
 		
 
@@ -85,7 +85,7 @@ public class MyFrame extends JFrame {
 		menuToolBar.add(setting);
 		menuToolBar.add(help);
 
-		setJMenuBar(menuToolBar); // ¸Þ´º¹Ù¸¦ ÇÁ·¹ÀÓ¿¡ ºÙÀÓ
+		setJMenuBar(menuToolBar); // ï¿½Þ´ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½ ï¿½ï¿½ï¿½ï¿½
 	}
 
 	void createTooltoolBar() {
@@ -93,23 +93,23 @@ public class MyFrame extends JFrame {
 		toolBar.setBackground(Color.LIGHT_GRAY);
 
 		JButton playBtn = new JButton("Play");
-		playBtn.setToolTipText("½ÃÀÛ");
+		playBtn.setToolTipText("ï¿½ï¿½ï¿½ï¿½");
 		toolBar.add(playBtn);
 
 		JButton pauBtn = new JButton("Pause");
-		pauBtn.setToolTipText("ÀÏ½ÃÁ¤Áö");
+		pauBtn.setToolTipText("ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		toolBar.add(pauBtn);
 
 		JButton scBtn = new JButton(new ImageIcon("images/camera.png"));
-		scBtn.setToolTipText("½ºÅ©¸°¼¦");
+		scBtn.setToolTipText("ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½");
 		toolBar.add(scBtn);
 
 		JButton musicBtn = new JButton(new ImageIcon("images/music.png"));
-		scBtn.setToolTipText("À½¾Ç");
+		scBtn.setToolTipText("ï¿½ï¿½ï¿½ï¿½");
 		toolBar.add(musicBtn);
 		
 		JButton back = new JButton(new ImageIcon("images/home.png"));
-		scBtn.setToolTipText("Ã¹È­¸é");
+		scBtn.setToolTipText("Ã¹È­ï¿½ï¿½");
 		toolBar.add(back);
 		
 		back.addActionListener(new ActionListener(){
@@ -126,6 +126,6 @@ public class MyFrame extends JFrame {
 		});
 
 		this.add(toolBar, BorderLayout.NORTH);
-		toolBar.setFloatable(false); // Åø¹Ù ÀÌµ¿ ºÒ°¡
+		toolBar.setFloatable(false); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Ò°ï¿½
 	}
 }

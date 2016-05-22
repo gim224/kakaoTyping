@@ -53,13 +53,14 @@ class CreateWordPanel extends JPanel {
 		for (int i = 0; i < fl.length; i++) {
 			fl[i] = new FallingLabel(input.getOneWordRandom(),(int)(Math.random()*5+1));
 			add(fl[i]);
+			//fl[i].delay();			
 		}
 		// add(fl);
 
-		// Font currentFont = fl.getGraphics().getFont(); // textÀÇ ÇöÀç ÆùÆ® °´Ã¼
-		// FontMetrics fm = fl.getFontMetrics(currentFont); // ÆùÆ®ÀÇ ¿©·¯ ¼Ó¼ºÀ» °¡Áø °´Ã¼
+		// Font currentFont = fl.getGraphics().getFont(); // textï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½Ã¼
+		// FontMetrics fm = fl.getFontMetrics(currentFont); // ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
 		//
-		// int w = fm.stringWidth(fl.getText()); // ÅØ½ºÆ®ÀÇ ½ºÆ®¸µ ±æÀÌ(ÇÈ¼¿)
+		// int w = fm.stringWidth(fl.getText()); // ï¿½Ø½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½È¼ï¿½)
 		// fl.setSize(w, fm.getHeight());
 		// fl.setSize(100, 20);
 		// fl.setLocation(300, 300);
@@ -73,7 +74,7 @@ class CreateWordPanel extends JPanel {
 
 class InputPanel extends JPanel {
 	public InputPanel() {
-		add(new JLabel("ÀÔ·Â"));
+		add(new JLabel("ï¿½Ô·ï¿½"));
 		JTextField textField = new JTextField(30);
 		// textField.requestFocus();
 		add(textField);
