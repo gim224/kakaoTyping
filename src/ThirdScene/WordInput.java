@@ -23,12 +23,14 @@ class MyCenterPanel extends JPanel {
 	JTextArea textarea;
 	String addWord;
 	JButton delBtn;
+	JButton back;
 	FileInput input = new FileInput("txt/word.txt", "@");
 
 	MyCenterPanel() {
 		textfield = new JTextField(40);
 		btn = new JButton("Add");
 		delBtn = new JButton("Del");
+		back = new JButton("뒤로가기");
 		
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -36,6 +38,21 @@ class MyCenterPanel extends JPanel {
 				addWord = textfield.getText();
 				new FileOutput("txt/word.txt", addWord);
 				textfield.setText("");				
+				
+			}
+		});
+		
+		back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JButton btn =(JButton)e.getSource();
+				JPanel p = (JPanel) btn.getParent().getParent();
+				Container c = p.getTopLevelAncestor();
+				
+				p.removeAll();
+				p.setVisible(false);
+
+				c.add(new ThirdScene());
+				c.setVisible(true);
 				
 			}
 		});
@@ -58,7 +75,7 @@ class MyCenterPanel extends JPanel {
 		
 		
 		String area="";
-		textarea = new JTextArea("", 35, 70);
+		textarea = new JTextArea("", 40, 70);
 		
 		for(int i=0;i<input.size();i++){
 			area += input.getOneWord(i) + "\n";
@@ -69,6 +86,7 @@ class MyCenterPanel extends JPanel {
 		add(textfield);
 		add(btn);
 		add(delBtn);
+		add(back);
 
 	}
 }
