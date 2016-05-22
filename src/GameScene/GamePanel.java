@@ -46,7 +46,7 @@ class CreateWordPanel extends JPanel {
 		// add(fl[i]);
 		// }
 		
-		fl = new FallingLabel(input.getOneWord(0), (int) (Math.random() * 5 + 1));
+		fl = new FallingLabel(input.getOneWordRandom(), (int) (Math.random() * 5 + 1));
 
 		add(fl);
 

@@ -1,6 +1,10 @@
 package ThirdScene;
 
 import javax.swing.*;
+
+import fileIO.FileInput;
+import fileIO.FileOutput;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -18,22 +22,54 @@ class MyCenterPanel extends JPanel {
 	JButton btn;
 	JTextArea textarea;
 	String addWord;
+	JButton delBtn;
+	FileInput input = new FileInput("txt/word.txt", "@");
 
 	MyCenterPanel() {
 		textfield = new JTextField(40);
 		btn = new JButton("Add");
+		delBtn = new JButton("Del");
+		
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textarea.append(textfield.getText() + "\n");
+				textarea.append(textfield.getText().trim() + "\n");
 				addWord = textfield.getText();
-				new WordOutput(addWord);
+				new FileOutput("txt/word.txt", addWord);
+				textfield.setText("");				
+				
 			}
 		});
-
+		
+		/////////////
+//		delBtn.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				for(int i =0; i<input.size();i++){
+//				if(textfield.getText().equals(input.getOneWord(i))){
+//					
+//				}
+//				
+//				textarea.append(textfield.getText() + "\n");
+//				addWord = textfield.getText();
+//				new FileOutput("txt/word.txt", addWord);
+//				textfield.setText("");				
+//				
+//			}
+//		});
+		
+		
+		String area="";
 		textarea = new JTextArea("", 35, 70);
+		
+		for(int i=0;i<input.size();i++){
+			area += input.getOneWord(i) + "\n";
+		}
+		textarea.setText(area);
+		textarea.setEditable(false);
 		add(new JScrollPane(textarea));
 		add(textfield);
 		add(btn);
+		add(delBtn);
+
 	}
 }
 
@@ -47,5 +83,6 @@ class WordOutput {
 			raf.close();
 		} catch (IOException e) {
 		}
+
 	}
 }

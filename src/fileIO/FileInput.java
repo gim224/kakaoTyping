@@ -70,7 +70,7 @@ public class FileInput {
 
 	/** vector의 요소를 랜덤으로 리턴 */
 	public String getOneWordRandom() {
-		int random = (int) (Math.random() * (m_vector.size()));
+		int random = (int) (Math.random() * m_vector.size());
 		return m_vector.get(random);
 	}
 

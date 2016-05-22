@@ -39,7 +39,7 @@ public class MyFrame extends JFrame {
 		//add(new UserManageScene());
 		
 		/**ThirdScene(MainMenu)*/
-		//add(new ThirdScene());
+		add(new ThirdScene());
 		
 		/**4ndScene(SelectLevel)*/
 
