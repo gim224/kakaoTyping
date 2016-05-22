@@ -35,7 +35,6 @@ class MyCenterPanel extends JPanel {
 		add(btn);
 	}
 }
-
 class WordOutput {
 	public WordOutput(String s) {
 		try {
