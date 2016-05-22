@@ -1,6 +1,9 @@
 package ThirdScene;
 
 import javax.swing.*;
+
+import fileIO.FileOutput;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -26,7 +29,7 @@ class MyCenterPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				textarea.append(textfield.getText() + "\n");
 				addWord = textfield.getText();
-				new WordOutput(addWord);
+				new FileOutput("txt/word.txt", addWord);
 			}
 		});
 		
@@ -34,17 +37,5 @@ class MyCenterPanel extends JPanel {
 		add(new JScrollPane(textarea));
 		add(textfield);
 		add(btn);
-	}
-}
-class WordOutput {
-	public WordOutput(String s) {
-		try {
-			String name = "txt/word.txt";
-			RandomAccessFile raf = new RandomAccessFile(name, "rw");
-			raf.seek(raf.length());
-			raf.writeBytes("\r\n" +s+"@");
-		}
-		catch(IOException e) {
-		}
 	}
 }

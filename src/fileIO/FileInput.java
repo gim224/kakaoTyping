@@ -62,7 +62,7 @@ public class FileInput {
 
 	/** vector�� �ִ� �ܾ �������� ���� */
 	public String getOneWordRandom() {
-		int random = (int) (Math.random() * (m_vector.size()));
+		int random = (int) (Math.random() * m_vector.size());
 		return m_vector.get(random);
 	}
 
