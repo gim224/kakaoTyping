@@ -71,7 +71,7 @@ public class FileInput {
 		return m_vector.get(random);
 	}
 
-	/** vector의 레퍼런스를 리턴*/
+
 	public Vector<String> getVector() {
 		return m_vector;
 	}
