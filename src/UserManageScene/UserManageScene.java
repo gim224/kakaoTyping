@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Calendar;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -82,7 +83,8 @@ public class UserManageScene extends JPanel {
 				System.out.println("Name : "+user.get(i).getName());
 				System.out.println("Birth : "+user.get(i).getBirth());
 				System.out.println("Goal : "+user.get(i).getGoal());
-				
+				System.out.println("Date : "+user.get(i).getDate().get(Calendar.YEAR));
+				System.out.println("Date : "+user.get(i).getDate().get(Calendar.SECOND));
 
 				System.out.println("------");
 			}
