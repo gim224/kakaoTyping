@@ -1,22 +1,22 @@
 package thread;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
+
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+
 import javax.swing.SwingConstants;
 
+@SuppressWarnings("serial")
 public class FallingLabel extends JLabel implements Runnable {
 
 	int random;
 	int speed = 0;
-//<<<<<<< HEAD
-//=======
-//	int interval = 2*1000;
-//>>>>>>> refs/heads/WordInput_Ver2
-
+	boolean flag = false;
+	
+	void finish(){
+		flag = true;
+	}
+	
 	public FallingLabel(String text, int speed) {
 		super(text, SwingConstants.CENTER);
 		setOpaque(true);
@@ -63,6 +63,10 @@ public class FallingLabel extends JLabel implements Runnable {
 
 			try {
 				Thread.sleep(100);
+				if(flag==true){
+					//스레드 종료시 일어나야 할일 : score 증가?
+					return;
+				}
 			} catch (InterruptedException e) {
 				return;
 			}

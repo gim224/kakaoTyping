@@ -1,13 +1,12 @@
 package FourthScene;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 import javax.swing.*;
-import javax.swing.event.*;
 
-import ButtonForChange.ButtonForChangePanel;
+
+
 import ButtonForChange.ButtonForChangeSplitpane;
 import GameScene.GameScene;
 

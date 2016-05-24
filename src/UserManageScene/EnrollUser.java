@@ -1,85 +1,77 @@
 package UserManageScene;
 
 import java.awt.Color;
-
-
-import java.awt.Graphics;
-import java.awt.Image;
-
-
-
-
-
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-
-
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.event.DocumentListener;
+
+import fileIO.ObjOutput;
+import kakaoTyping.User;
 
 public class EnrollUser extends JFrame {
-	int currentId;
-	JLabel imgLabel = new JLabel();
+	private int currentId;
+	private JLabel imgLabel = new JLabel();
+	private JTextField userName;
+	private JTextField birth;
+	private JTextField goal;
+	private JButton confirmBttn;
+	// private Vector<User> user = new Vector<User>();
 
+	private void isTextFieldUpdate(JButton btn) {
+		if (((userName.getText().isEmpty())) || ((birth.getText().isEmpty())) || ((goal.getText().isEmpty()))) {
+			btn.setEnabled(false);
+		} else {
+			btn.setEnabled(true);
+		}
+	}
 
+	// ImageIcon icon = new ImageIcon("images/lion.jpg");
+	// Image background = icon.getImage();
+	//
+	// public void paintComponent(Graphics g) {
+	// paintComponent(g);
+	//
+	// g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+	// }
 
-
-
-	
-//	ImageIcon icon = new ImageIcon("images/lion.jpg");
-//	Image background = icon.getImage();
-//	
-//	public void paintComponent(Graphics g) {
-//		paintComponent(g);
-//		
-//		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
-//	}
-
-	public EnrollUser() throws FileNotFoundException {
+	public EnrollUser(Vector<User> user, JPanel p) throws FileNotFoundException {
 		super("KaKao Typing");
 		setSize(400, 400);
 		this.setLayout(null);
 
-
-		// this.setLocation(w/2, h/2);
-		makeEnrollUser();
+		makeEnrollUser(user, p);
 		setLocation(super.getWidth() / 2, super.getHeight() / 2);
-
-		
-		makeEnrollUser();
-		
 
 		this.getContentPane().setBackground(Color.LIGHT_GRAY);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
-
 	}
 
-	void makeEnrollUser() {
+	void makeEnrollUser(Vector<User> user, JPanel p) {
 		final int LOC_X = 200;
 		final int LOC_Y = 140;
 		final int SIZ_X = 150;
 
 		//
 
+		JLabel titleLabel = new JLabel("Enroll User", SwingConstants.CENTER);
 
-		JLabel titleLabel = new JLabel("Sign Up");
-
-		titleLabel.setSize(320, 65);
+		titleLabel.setSize(330, 65);
 		titleLabel.setLocation(30, 30);
-		//titleLabel.setVerticalAlignment();
-		//titleLabel.setHorizontalAlignment(getY() / 2);
+
 		titleLabel.setOpaque(true);
 		titleLabel.setBackground(Color.YELLOW);
 
@@ -110,19 +102,18 @@ public class EnrollUser extends JFrame {
 
 		imgLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currentId--; // �̹��� ��ȣ ����. ���� �̹���
-				currentId += img.length; // currentId�� ������ �� �� �ֱ� ������ 4�� ����
-				currentId %= img.length; // 4 �� �Ѵ� ���� ���� ���� �̹��� ������ ������ ����
-				imgLabel.setIcon(img[currentId]); // �̹��� ���̺� �̹��� ����
+				currentId--;
+				currentId += img.length;
+				currentId %= img.length;
+				imgLabel.setIcon(img[currentId]);
 			}
 		});
 
-		// ������ ȭ��ǥ ��ư�� Action ������ �ޱ�
 		imgRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currentId++; // �̹��� ��ȣ ����. ���� �̹���
-				currentId %= img.length; // 4 �� �Ѵ� ���� ���� ���� �̹��� ������ ������ ����
-				imgLabel.setIcon(img[currentId]); // �̹��� ���̺� �̹��� ����
+				currentId++;
+				currentId %= img.length;
+				imgLabel.setIcon(img[currentId]);
 			}
 		});
 
@@ -133,77 +124,154 @@ public class EnrollUser extends JFrame {
 		add(imgLabel);
 		//
 
-		JLabel userNameLabel = new JLabel("name");
-
-		userNameLabel.setSize(45, 30);
+		JLabel userNameLabel = new JLabel("이름", SwingConstants.CENTER);
+		userNameLabel.setFocusable(true);
+		userNameLabel.setSize(55, 30);
 		userNameLabel.setLocation(LOC_X - 50, LOC_Y - 30);
 		userNameLabel.setOpaque(true);
 		userNameLabel.setBackground(Color.GRAY);
-		//userNameLabel.setVerticalAlignment(getX() / 2);
-		//userNameLabel.setHorizontalAlignment(getY() / 2);
+
 		add(userNameLabel);
 
 		//
-		JTextField userName = new JTextField("");
+		userName = new JTextField("ex)홍길동");
+		userName.setForeground(Color.lightGray); // font color조절
 		userName.setSize(SIZ_X - 1, 30);
-		userName.setLocation(LOC_X, LOC_Y - 30);
-		// userName.setOpaque(true);
-		// userName.setBackground(Color.GRAY);
-		// userName.setVerticalAlignment(getX() / 2);
-		// userName.setHorizontalAlignment(getY() / 2);
+		userName.setLocation(LOC_X + 10, LOC_Y - 30);
+		userName.addFocusListener(new FocusListener() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (e.getSource() == userName) {
+					userName.setText("");
+					userName.setForeground(Color.BLACK);
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				// TODO Auto-generated method stub
+				if (userName.getText().equals("")) {
+					userName.setText("ex)홍길동");
+					userName.setForeground(Color.LIGHT_GRAY);
+				}
+			}
+		});
+
 		add(userName);
 		//
-		JLabel userInfo1Label = new JLabel("O Ta Ruel");
-		
+		JLabel birthLabel = new JLabel("생년월일", SwingConstants.CENTER);
 
-		userInfo1Label.setSize(45, 30);
-		userInfo1Label.setLocation(LOC_X - 50, LOC_Y + 15);
-		userInfo1Label.setOpaque(true);
-		userInfo1Label.setBackground(Color.GRAY);
-		//userInfo1Label.setVerticalAlignment(getX() / 2);
-		//userInfo1Label.setHorizontalAlignment(getY() / 2);
-		add(userInfo1Label);
-		//
-		JTextField userInfo1 = new JTextField("");
-		userInfo1.setSize(SIZ_X - 1, 30);
-		userInfo1.setLocation(LOC_X, LOC_Y + 15);
-		// userInfo1.setOpaque(true);
-		// userInfo1.setBackground(Color.GRAY);
-		// userInfo1.setVerticalAlignment(getX() / 2);
-		// userInfo1.setHorizontalAlignment(getY() / 2);
-		add(userInfo1);
+		birthLabel.setSize(55, 30);
+		birthLabel.setLocation(LOC_X - 50, LOC_Y + 15);
+		birthLabel.setOpaque(true);
+		birthLabel.setBackground(Color.GRAY);
+
+		add(birthLabel);
 		//
 
+		birth = new JTextField("ex)931228");
+		birth.setForeground(Color.LIGHT_GRAY);
+		birth.setSize(SIZ_X - 1, 30);
+		birth.setLocation(LOC_X + 10, LOC_Y + 15);
+
+		birth.addFocusListener(new FocusListener() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (e.getSource() == birth) {
+					birth.setText("");
+					birth.setForeground(Color.BLACK);
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				// TODO Auto-generated method stub
+				if (birth.getText().equals("")) {
+					birth.setText("ex)931228");
+					birth.setForeground(Color.LIGHT_GRAY);
+				}
+			}
+
+		});
+
+		add(birth);
+		//
+		/*SliderChange goalsl = new SliderChange();
+	      add(goalsl);*/
 		//
 		//
 
+		JLabel goalLabel = new JLabel("오타율", SwingConstants.CENTER);
 
-		JLabel userInfo2Label = new JLabel("Goal");
+		goalLabel.setSize(55, 30);
+		goalLabel.setLocation(LOC_X - 50, LOC_Y + 60);
+		goalLabel.setOpaque(true);
+		goalLabel.setBackground(Color.GRAY);
 
-		userInfo2Label.setSize(45, 30);
-		userInfo2Label.setLocation(LOC_X - 50, LOC_Y + 60);
-		userInfo2Label.setOpaque(true);
-		userInfo2Label.setBackground(Color.GRAY);
-		//userInfo2Label.setVerticalAlignment(getWidth() / 2);
-		//userInfo2Label.setHorizontalAlignment(getHeight() / 2);
-		add(userInfo2Label);
+		add(goalLabel);
 		//
-		JTextField userInfo2 = new JTextField("");
-		userInfo2.setSize(SIZ_X - 1, 30);
-		userInfo2.setLocation(LOC_X, LOC_Y + 60);
-		// userInfo2.setOpaque(true);
-		// userInfo2.setBackground(Color.GRAY);
-		 //userInfo2.setVerticalAlignment(this.getWidth()/2);
-		 //userInfo2.setHorizontalAlignment(this.getHeight() / 2);
-		add(userInfo2);
+		goal = new JTextField("");
+		goal.setSize(SIZ_X - 1, 30);
+		goal.setLocation(LOC_X + 10, LOC_Y + 60);
 
+		add(goal);
+		userName.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void changedUpdate(javax.swing.event.DocumentEvent e) {
+				isTextFieldUpdate(confirmBttn);
+			}
+
+			@Override
+			public void removeUpdate(javax.swing.event.DocumentEvent e) {
+				isTextFieldUpdate(confirmBttn);
+			}
+
+			@Override
+			public void insertUpdate(javax.swing.event.DocumentEvent e) {
+				isTextFieldUpdate(confirmBttn);
+			}
+		});
+
+		goal.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void changedUpdate(javax.swing.event.DocumentEvent e) {
+				isTextFieldUpdate(confirmBttn);
+			}
+
+			@Override
+			public void removeUpdate(javax.swing.event.DocumentEvent e) {
+				isTextFieldUpdate(confirmBttn);
+			}
+
+			@Override
+			public void insertUpdate(javax.swing.event.DocumentEvent e) {
+				isTextFieldUpdate(confirmBttn);
+			}
+		});
 		///
-		JButton confirmBttn = new JButton("Confirm");
+		confirmBttn = new JButton("Confirm");
 		confirmBttn.setSize(100, 50);
 		confirmBttn.setLocation(80, 280);
+		confirmBttn.setEnabled(false);
 		add(confirmBttn);
+
 		confirmBttn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				user.add(new User(currentId, userName.getText(), birth.getText(), goal.getText()));
+				new ObjOutput(user);
+
+				p.removeAll();
+				p.setVisible(false);
+				
+				Container c = p.getTopLevelAncestor();
+				try {
+					c.add(new UserManageScene());
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+				c.setVisible(true);
 				dispose();
 			}
 		});
@@ -220,3 +288,27 @@ public class EnrollUser extends JFrame {
 		});
 	}
 }
+
+/*
+class SliderChange extends JSlider{
+   JSlider sl;
+   int slvalue;
+   public SliderChange() {
+      sl = new JSlider(JSlider.HORIZONTAL, 0, 100, 80);
+      sl.setPaintLabels(true);
+      sl.setPaintTicks(true);
+      sl.setPaintTrack(true);
+      sl.setMajorTickSpacing(50);
+      sl.setMinorTickSpacing(10);
+      
+      sl.addChangeListener(new MyChangeListener());
+      sl.setForeground(Color.BLUE);
+      
+      slvalue=sl.getValue();
+   }
+   class MyChangeListener implements ChangeListener{
+      public void stateChanged(ChangeEvent e) {
+         slvalue=sl.getValue();
+      }
+   }
+}*/

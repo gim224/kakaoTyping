@@ -1,22 +1,22 @@
 package GameScene;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
+
 import java.awt.Graphics;
 import java.awt.Image;
-import java.util.Vector;
+
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import fileIO.FileInput;
 import thread.FallingLabel;
 
+@SuppressWarnings("serial")
 public class GamePanel extends JPanel {
 	public GamePanel() {
 		setLayout(new BorderLayout());
@@ -25,6 +25,7 @@ public class GamePanel extends JPanel {
 	}
 }
 
+@SuppressWarnings("serial")
 class CreateWordPanel extends JPanel {
 	ImageIcon background = new ImageIcon("images/gameback.jpg");
 	Image img = background.getImage();
@@ -61,15 +62,17 @@ class CreateWordPanel extends JPanel {
 
 }
 
+@SuppressWarnings("serial")
 class InputPanel extends JPanel {
 	public InputPanel() {
 
-		add(new JLabel("입력"));
+		add(new JLabel("입력",SwingConstants.CENTER));
 
-		add(new JLabel("Input"));
+		add(new JLabel("Input",SwingConstants.CENTER));
 
 		JTextField textField = new JTextField(30);
 		// textField.requestFocus();
+		textField.getText();
 		add(textField);
 		add(new JButton("submit"));
 	}

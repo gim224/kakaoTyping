@@ -5,8 +5,9 @@ import javax.swing.*;
 
 import ButtonForChange.ButtonForChangePanel;
 import FourthScene.FourthScene;
-import GameScene.GameScene;
 
+
+@SuppressWarnings("serial")
 public class ThirdScene extends JPanel {
 	ImageIcon icon = new ImageIcon("images/lion.jpg");
 	Image img = icon.getImage();

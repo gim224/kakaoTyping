@@ -1,32 +1,22 @@
 package fileIO;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 
 public class FileOutput {
 	public RandomAccessFile raf;
-	public FileOutput(String name, String string) {
+
+	public FileOutput(String fileName, String word) {
 		try {
-			raf = new RandomAccessFile(name, "rw");
+			raf = new RandomAccessFile(fileName, "rw");
 			raf.seek(raf.length());
-			raf.write((string.trim()+"@").getBytes());			
-		} catch (IOException e) {
-		}
-		try {
+			raf.write((word.trim() + "@").getBytes());
 			raf.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	}
 
-	public FileOutput(String name) {
-		try {
-			raf = new RandomAccessFile(name, "rw");
-			raf.seek(raf.length());
-		} catch (IOException e) {
-		}
-	}
 }

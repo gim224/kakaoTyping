@@ -1,23 +1,26 @@
 package UserManageScene;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 import java.util.Vector;
 
 import javax.swing.*;
 
 import ButtonForChange.ButtonForChangePanel;
 import ThirdScene.ThirdScene;
-import fileIO.FileInput;
-import ThirdScene.MyButton;
 
+import fileIO.ObjInput;
+import kakaoTyping.User;
+
+@SuppressWarnings("serial")
 public class UserManageScene extends JPanel {
+	private Vector<User> user = new Vector<User>();
+	private Vector<String> name = new Vector<String>();
+
 	public UserManageScene() throws FileNotFoundException {
 
 		this.setLayout(null);
@@ -60,12 +63,25 @@ public class UserManageScene extends JPanel {
 		add(userList);
 		//
 		//
+		// ObjOutput output = new ObjOutput()
+		/////////////////////////////////////////////////////.txt or .dat
+		File file = new File("txt/user.txt");
+		if (file.length() != 0) {
+			ObjInput input = new ObjInput();
+			user = input.getUserVector();
+			for (int i = 0; i < user.size(); i++) {
+				name.add(user.get(i).getName());
+				System.out.println(user.get(i).getName());
+				System.out.println(user.size());
+				System.out.println(user.get(i).getBirth());
+				System.out.println("------");
 
-		FileInput input = new FileInput("txt/user.txt","@");		
+			}
+		}
 		//
 		//
-		JList list = new JList<String>(input.getVector());
-		
+		JList<String> list = new JList<String>(name);
+
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane pane = new JScrollPane(list);
 		pane.setSize(SIZ_X, 77);
@@ -80,8 +96,10 @@ public class UserManageScene extends JPanel {
 		add(enroll);
 		enroll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JButton btn = (JButton) e.getSource();
+				JPanel p = (JPanel) btn.getParent();
 				try {
-					new EnrollUser();
+					new EnrollUser(user, p);
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

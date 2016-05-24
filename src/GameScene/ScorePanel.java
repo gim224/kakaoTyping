@@ -9,7 +9,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
 
 public class ScorePanel extends JPanel {
 	public ScorePanel() {
@@ -24,23 +25,21 @@ class UpNamePanel extends JPanel {
 	public UpNamePanel(String s1, String s2, Color bg1, Color bg2) {
 		setLayout(new GridLayout(4, 1));
 
-		JLabel label1 = new JLabel(s1);
+		JLabel label1 = new JLabel(s1,SwingConstants.CENTER);
 		label1.setBackground(bg1);
 		label1.setOpaque(true);
-		label1.setVerticalAlignment(getX() / 2);
-		label1.setHorizontalAlignment(getY() / 2);
-		JLabel label2 = new JLabel(s2);
+		
+		JLabel label2 = new JLabel(s2,SwingConstants.CENTER);
 		label2.setBackground(bg2);
 		label2.setOpaque(true);
-		label2.setVerticalAlignment(getX() / 2);
-		label2.setHorizontalAlignment(getY() / 2);
+		
 
 		add(label1);
 		// add(new JPanel());
-		add(new JLabel("1 level"));
+		add(new JLabel("1 level",SwingConstants.CENTER));
 		add(label2);
 		// add(new JPanel());
-		add(new JLabel("300"));
+		add(new JLabel("300",SwingConstants.CENTER));
 	}
 }
 
@@ -48,22 +47,20 @@ class DownNamePanel extends JPanel {
 	public DownNamePanel(String s1, String s2, Color bg1, Color bg2) {
 		setLayout(new GridLayout(4, 1));
 
-		JLabel label1 = new JLabel(s1);
+		JLabel label1 = new JLabel(s1,SwingConstants.CENTER);
 		label1.setBackground(bg1);
 		label1.setOpaque(true);
-		label1.setVerticalAlignment(getX() / 2);
-		label1.setHorizontalAlignment(getY() / 2);
-		JLabel label2 = new JLabel(s2);
+		
+		JLabel label2 = new JLabel(s2,SwingConstants.CENTER);
 		label2.setBackground(bg2);
 		label2.setOpaque(true);
-		label2.setVerticalAlignment(getX() / 2);
-		label2.setHorizontalAlignment(getY() / 2);
+		
 
 		add(label1);
 		add(new LifePanel());
 		add(label2);
 		// add(new JPanel());
-		add(new JLabel("00:13"));
+		add(new JLabel("00:13",SwingConstants.CENTER));
 	}
 }
 

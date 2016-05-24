@@ -12,30 +12,9 @@ public class FileInput {
 	private Scanner sc;
 	private Vector<String> m_vector = new Vector<String>();
 
-	/** fileName : 상대경로로 파일이름 */
-
-	public FileInput(String fileName) {
-		file = new File(fileName);
-		try {
-			sc = new Scanner(file);
-
-			while (sc.hasNext()) {
-				m_vector.add(sc.next());
-			}
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (@SuppressWarnings("hiding") IOException e2) {
-			e2.printStackTrace();
-		} finally {
-			sc.close();			
-		}
-	}
-
 	/**
 	 * 
-	 * fileName: 상대경로로 파일이름 seperate: Scanner 의 구분자를 삽입
+	 * fileName: 상대경로로 파일이름, seperate: Scanner 의 구분자
 	 * 
 	 */
 	public FileInput(String fileName, String seperate) {
@@ -50,8 +29,8 @@ public class FileInput {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (@SuppressWarnings("hiding") IOException e2) {
-			e2.printStackTrace();
+		} catch (@SuppressWarnings("hiding") IOException e) {
+			e.printStackTrace();
 		} finally {
 			sc.close();
 		}
@@ -63,7 +42,7 @@ public class FileInput {
 	}
 
 	/** vector의 요소를 인덱스로 리턴 */
-	public String getOneWord(int index) {		
+	public String getOneWord(int index) {
 		return m_vector.get(index);
 
 	}
@@ -74,8 +53,14 @@ public class FileInput {
 		return m_vector.get(random);
 	}
 
+	/** vector의 레퍼런스를 리턴*/
 	public Vector<String> getVector() {
 		return m_vector;
+	}
+	
+	/** vector의 요소를 인덱스로 삭제 */
+	public void remove(int i){
+		m_vector.remove(i);
 	}
 
 }

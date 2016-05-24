@@ -3,23 +3,19 @@ package kakaoTyping;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 import java.io.FileNotFoundException;
 
 import javax.swing.*;
 
 import FirstScene.FirstScene;
-import FourthScene.FourthScene;
-import GameScene.GamePanel;
-import GameScene.GameScene;
+
 import ThirdScene.ThirdScene;
-import ThirdScene.WordInput;
 import UserManageScene.UserManageScene;
 
 
+
+@SuppressWarnings("serial")
 public class MyFrame extends JFrame {
 	public MyFrame() throws FileNotFoundException {
 		super("KaKao Typing");
@@ -33,13 +29,13 @@ public class MyFrame extends JFrame {
 		// JTooltoolBar
 		createTooltoolBar();
 		/**FirstScene*/		
-		add(new FirstScene());
+		//add(new FirstScene());
 		
 		/**SecondScene(User Enroll Scene)*/
-		//add(new UserManageScene());
+		add(new UserManageScene());
 		
 		/**ThirdScene(MainMenu)*/
-		add(new ThirdScene());
+		//add(new ThirdScene());
 		
 		/**4ndScene(SelectLevel)*/
 

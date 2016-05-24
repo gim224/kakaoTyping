@@ -11,7 +11,7 @@ public class Ranking extends JPanel {
 	String contents[][] = {};
 
 	public Ranking() {
-		setLayout(new BorderLayout());
+		setLayout(new BorderLayout());		
 		JTable table = new JTable(contents, header);
 		JScrollPane scrollpane = new JScrollPane(table);
 		add(scrollpane, BorderLayout.CENTER);		
