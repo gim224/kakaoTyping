@@ -4,10 +4,11 @@ import javax.swing.JSplitPane;
 
 
 public class GameScene extends JSplitPane {
+	
 	public GameScene() {
 		setOrientation(JSplitPane.HORIZONTAL_SPLIT);
 		setDividerLocation(600);
-		setEnabled(false);// Á¶Á¤
+		setEnabled(false);
 		setDividerSize(5);
 
 		GamePanel gamePanel = new GamePanel();

@@ -1,6 +1,6 @@
 package thread;
 
-
+import java.awt.Container;
 
 import javax.swing.JLabel;
 
@@ -12,11 +12,11 @@ public class FallingLabel extends JLabel implements Runnable {
 	int random;
 	int speed = 0;
 	boolean flag = false;
-	
-	void finish(){
+
+	public void finish() {
 		flag = true;
 	}
-	
+
 	public FallingLabel(String text, int speed) {
 		super(text, SwingConstants.CENTER);
 		setOpaque(true);
@@ -25,7 +25,7 @@ public class FallingLabel extends JLabel implements Runnable {
 		this.speed = speed;
 		/////////// size 수정////////
 
-		random = (int) (Math.random() * (600 - 50) + 1);
+		random = (int) (Math.random() * (600 - 150) + 1);
 
 		// 스레드 객체 생성
 		Thread th = new Thread(this);
@@ -35,13 +35,13 @@ public class FallingLabel extends JLabel implements Runnable {
 
 	}
 
-//	public void delay() {
-//		try {
-//			Thread.sleep(interval);
-//		}
-//		catch(Exception e){
-//		}
-//	}
+	// public void delay() {
+	// try {
+	// Thread.sleep(interval);
+	// }
+	// catch(Exception e){
+	// }
+	// }
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -60,11 +60,15 @@ public class FallingLabel extends JLabel implements Runnable {
 			// colorSwitch = 0;
 
 			this.setLocation(random, i += speed);
+			// if(i>100){
+			// this.setVisible(false);
+			//
+			// }
 
 			try {
 				Thread.sleep(100);
-				if(flag==true){
-					//스레드 종료시 일어나야 할일 : score 증가?
+				if (flag == true) {
+					// 스레드 종료시 일어나야 할일 : score 증가?
 					return;
 				}
 			} catch (InterruptedException e) {

@@ -23,12 +23,13 @@ import kakaoTyping.User;
 public class UserManageScene extends JPanel {
 	private Vector<User> user = new Vector<User>();
 	private Vector<String> name = new Vector<String>();
-	int index = -1;
-
+	private int index = -1;
+	
+	
 	public UserManageScene() throws FileNotFoundException {
 
 		this.setLayout(null);
-
+		this.setBackground(Color.pink);
 		makeJList();
 	}
 
@@ -53,7 +54,7 @@ public class UserManageScene extends JPanel {
 		imgLabel.setSize(743, 472);
 		imgLabel.setLocation(20, 75);
 		imgLabel.setOpaque(true);
-		// imgLabel.setBackground(Color.CYAN);
+		imgLabel.setBackground(Color.white);
 		add(imgLabel);
 		//
 		//
@@ -73,13 +74,20 @@ public class UserManageScene extends JPanel {
 		if (file.length() != 0) {
 			ObjInput input = new ObjInput();
 			user = input.getUserVector();
+			
+			
 			for (int i = 0; i < user.size(); i++) {
 				name.add(user.get(i).getName());
-				 System.out.println(user.get(i).getName());
-				 System.out.println(user.size());
-				 System.out.println(user.get(i).getBirth());
-				 System.out.println("------");
+				System.out.println("imgNum : "+user.get(i).getImgNum());
+				System.out.println("Name : "+user.get(i).getName());
+				System.out.println("Birth : "+user.get(i).getBirth());
+				System.out.println("Goal : "+user.get(i).getGoal());
+				
+
+				System.out.println("------");
 			}
+			System.out.println(user.size());
+			System.out.println("-----------------------");
 		}
 
 		//
@@ -92,14 +100,7 @@ public class UserManageScene extends JPanel {
 		pane.setLocation(LOC_X, LOC_Y);
 		add(pane);
 
-		list.addListSelectionListener(new ListSelectionListener() {
-
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				// TODO Auto-generated method stub
-				index = list.getSelectedIndex();
-			}
-		});
+		
 		//
 		//
 		JButton enroll = new JButton("enroll");
@@ -121,20 +122,21 @@ public class UserManageScene extends JPanel {
 		});
 		delete.setSize(SIZ_X - 100, 20);
 		delete.setLocation(LOC_X + 100, LOC_Y + 77);
+		delete.setEnabled(false);
 		add(delete);
 		delete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (index != -1) {
 					user.removeElementAt(index);
 					new ObjOutput(user);
-					
-					JButton btn=(JButton)e.getSource();
-					JPanel p = (JPanel)btn.getParent();
-					Container c =btn.getTopLevelAncestor();
-					
+
+					JButton btn = (JButton) e.getSource();
+					JPanel p = (JPanel) btn.getParent();
+					Container c = btn.getTopLevelAncestor();
+
 					p.removeAll();
 					p.setVisible(false);
-					
+
 					try {
 						c.add(new UserManageScene());
 					} catch (FileNotFoundException e1) {
@@ -151,7 +153,22 @@ public class UserManageScene extends JPanel {
 		ButtonForChangePanel bttn = new ButtonForChangePanel("Select", new ThirdScene());
 		bttn.setSize(400, 100);
 		bttn.setLocation(LOC_X + 250, LOC_Y - 20);
+		
+		bttn.setEnabled(false);
 		add(bttn);
+		
+		list.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// TODO Auto-generated method stub
+				index = list.getSelectedIndex();
+				bttn.setEnabled(true);
+				delete.setEnabled(true);
+			}
+		});
+		
+		
 
 	}
 }

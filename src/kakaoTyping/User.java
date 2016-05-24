@@ -10,9 +10,9 @@ import fileIO.FileOutput;
 public class User implements Serializable {
 	private int imgNum; // 0(mugi), 1(tube), 2(prodo)
 	private String name; // 사용자 이름
-	private String birth; // 사용자 생년월일
+	private int birth; // 사용자 생년월일
 	private int score = 0; // 게임 최대점
-	private String goal; // 목표 오타율
+	private int goal; // 목표 오타율
 	private double miss = 0; // 오타율
 	private Calendar date;
 
@@ -24,7 +24,7 @@ public class User implements Serializable {
 		return name;
 	}
 
-	public String getBirth() {
+	public int getBirth() {
 		return birth;
 	}
 
@@ -32,7 +32,7 @@ public class User implements Serializable {
 		return score;
 	}
 
-	public String getGoal() {
+	public int getGoal() {
 		return goal;
 	}
 
@@ -60,7 +60,7 @@ public class User implements Serializable {
 	 * public void setDate(Date date) { this.date = date; }
 	 */
 
-	public User(int imgNum, String name, String birth, String goal) {
+	public User(int imgNum, String name, int birth, int goal) {
 		this.imgNum = imgNum;
 		this.name = name;
 		this.birth = birth;

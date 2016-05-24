@@ -2,6 +2,8 @@ package UserManageScene;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -14,8 +16,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentListener;
 
 import fileIO.ObjOutput;
@@ -26,26 +31,32 @@ public class EnrollUser extends JFrame {
 	private JLabel imgLabel = new JLabel();
 	private JTextField userName;
 	private JTextField birth;
-	private JTextField goal;
+	private int goal = 80;
 	private JButton confirmBttn;
 	// private Vector<User> user = new Vector<User>();
 
+	
+	
 	private void isTextFieldUpdate(JButton btn) {
-		if (((userName.getText().isEmpty())) || ((birth.getText().isEmpty())) || ((goal.getText().isEmpty()))) {
-			btn.setEnabled(false);
-		} else {
+		if (!userName.getText().equals("ex)홍길동") && (!(birth.getText() == "")) && (birth.getText().length() > 0)) {
 			btn.setEnabled(true);
+
+		} else {
+			btn.setEnabled(false);
+			// System.out.println("자동으로 버튼 비활성화");
 		}
 	}
 
-	// ImageIcon icon = new ImageIcon("images/lion.jpg");
-	// Image background = icon.getImage();
-	//
-	// public void paintComponent(Graphics g) {
-	// paintComponent(g);
-	//
-	// g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
-	// }
+	private void isTextFieldUpdate2(JButton btn) {
+		if (!birth.getText().equals("ex)931228") && (!(userName.getText() == ""))
+				&& (userName.getText().length() > 0)) {
+			btn.setEnabled(true);
+			// System.out.println("자동으로 버튼 활성화");
+		} else {
+			btn.setEnabled(false);
+			// System.out.println("자동으로 버튼 비활성화");
+		}
+	}
 
 	public EnrollUser(Vector<User> user, JPanel p) throws FileNotFoundException {
 		super("KaKao Typing");
@@ -144,6 +155,7 @@ public class EnrollUser extends JFrame {
 				if (e.getSource() == userName) {
 					userName.setText("");
 					userName.setForeground(Color.BLACK);
+
 				}
 			}
 
@@ -151,8 +163,7 @@ public class EnrollUser extends JFrame {
 			public void focusLost(FocusEvent e) {
 				// TODO Auto-generated method stub
 				if (userName.getText().equals("")) {
-					userName.setText("ex)홍길동");
-					userName.setForeground(Color.LIGHT_GRAY);
+
 				}
 			}
 		});
@@ -174,6 +185,8 @@ public class EnrollUser extends JFrame {
 		birth.setSize(SIZ_X - 1, 30);
 		birth.setLocation(LOC_X + 10, LOC_Y + 15);
 
+		add(birth);
+
 		birth.addFocusListener(new FocusListener() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -186,53 +199,66 @@ public class EnrollUser extends JFrame {
 			@Override
 			public void focusLost(FocusEvent e) {
 				// TODO Auto-generated method stub
-				if (birth.getText().equals("")) {
-					birth.setText("ex)931228");
-					birth.setForeground(Color.LIGHT_GRAY);
+				if (userName.getText().equals("")) {
+
 				}
 			}
-
 		});
-
-		add(birth);
 		//
-		/*SliderChange goalsl = new SliderChange();
-	      add(goalsl);*/
+		/*
+		 * SliderChange goalsl = new SliderChange(); add(goalsl);
+		 */
 		//
 		//
 
-		JLabel goalLabel = new JLabel("오타율", SwingConstants.CENTER);
+		JLabel goalLabel = new JLabel("목표 정확도", SwingConstants.CENTER);
 
-		goalLabel.setSize(55, 30);
-		goalLabel.setLocation(LOC_X - 50, LOC_Y + 60);
+		goalLabel.setSize(80, 30);
+		goalLabel.setLocation(LOC_X + 10, LOC_Y + 50);
+		goalLabel.setBackground(Color.LIGHT_GRAY);
 		goalLabel.setOpaque(true);
-		goalLabel.setBackground(Color.GRAY);
 
 		add(goalLabel);
-		//
-		goal = new JTextField("");
-		goal.setSize(SIZ_X - 1, 30);
-		goal.setLocation(LOC_X + 10, LOC_Y + 60);
 
-		add(goal);
+		JSlider sl = new JSlider(JSlider.HORIZONTAL, 0, 100, 80);
+		sl.setPaintLabels(true);
+		sl.setPaintTicks(true);
+		sl.setPaintTrack(true);
+		sl.setMajorTickSpacing(20);
+		sl.setMinorTickSpacing(5);
+
+		sl.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				if (e.getSource() == sl) {
+					goal = sl.getValue();
+				}
+			}
+		});
+		sl.setForeground(Color.BLUE);
+		sl.setLocation(LOC_X - 50, LOC_Y + 80);
+		sl.setSize(SIZ_X + 55, 40);
+		sl.setOpaque(true);
+		sl.setBackground(Color.LIGHT_GRAY);
+		add(sl);
+
 		userName.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void changedUpdate(javax.swing.event.DocumentEvent e) {
-				isTextFieldUpdate(confirmBttn);
+				isTextFieldUpdate2(confirmBttn);
 			}
 
 			@Override
 			public void removeUpdate(javax.swing.event.DocumentEvent e) {
-				isTextFieldUpdate(confirmBttn);
+				isTextFieldUpdate2(confirmBttn);
 			}
 
 			@Override
 			public void insertUpdate(javax.swing.event.DocumentEvent e) {
-				isTextFieldUpdate(confirmBttn);
+				isTextFieldUpdate2(confirmBttn);
 			}
 		});
 
-		goal.getDocument().addDocumentListener(new DocumentListener() {
+		birth.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void changedUpdate(javax.swing.event.DocumentEvent e) {
 				isTextFieldUpdate(confirmBttn);
@@ -248,7 +274,7 @@ public class EnrollUser extends JFrame {
 				isTextFieldUpdate(confirmBttn);
 			}
 		});
-		///
+
 		confirmBttn = new JButton("Confirm");
 		confirmBttn.setSize(100, 50);
 		confirmBttn.setLocation(80, 280);
@@ -256,13 +282,13 @@ public class EnrollUser extends JFrame {
 		add(confirmBttn);
 
 		confirmBttn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				user.add(new User(currentId, userName.getText(), birth.getText(), goal.getText()));
+			public void actionPerformed(ActionEvent e) {				
+				user.add(new User(currentId, userName.getText(), Integer.parseInt(birth.getText()), goal));
 				new ObjOutput(user);
 
 				p.removeAll();
 				p.setVisible(false);
-				
+
 				Container c = p.getTopLevelAncestor();
 				try {
 					c.add(new UserManageScene());
@@ -290,25 +316,13 @@ public class EnrollUser extends JFrame {
 }
 
 /*
-class SliderChange extends JSlider{
-   JSlider sl;
-   int slvalue;
-   public SliderChange() {
-      sl = new JSlider(JSlider.HORIZONTAL, 0, 100, 80);
-      sl.setPaintLabels(true);
-      sl.setPaintTicks(true);
-      sl.setPaintTrack(true);
-      sl.setMajorTickSpacing(50);
-      sl.setMinorTickSpacing(10);
-      
-      sl.addChangeListener(new MyChangeListener());
-      sl.setForeground(Color.BLUE);
-      
-      slvalue=sl.getValue();
-   }
-   class MyChangeListener implements ChangeListener{
-      public void stateChanged(ChangeEvent e) {
-         slvalue=sl.getValue();
-      }
-   }
-}*/
+ * class SliderChange extends JSlider{ JSlider sl; int slvalue; public
+ * SliderChange() { sl = new JSlider(JSlider.HORIZONTAL, 0, 100, 80);
+ * sl.setPaintLabels(true); sl.setPaintTicks(true); sl.setPaintTrack(true);
+ * sl.setMajorTickSpacing(50); sl.setMinorTickSpacing(10);
+ * 
+ * sl.addChangeListener(new MyChangeListener()); sl.setForeground(Color.BLUE);
+ * 
+ * slvalue=sl.getValue(); } class MyChangeListener implements ChangeListener{
+ * public void stateChanged(ChangeEvent e) { slvalue=sl.getValue(); } } }
+ */

@@ -30,8 +30,10 @@ class MyCenterPanel extends JPanel {
 	private void isTextFieldUpdate(JButton btn) {
 		if ((!(textfield.getText().isEmpty()))) {
 			btn.setEnabled(true);
+			delBtn.setEnabled(true);
 		} else {
 			btn.setEnabled(false);
+			delBtn.setEnabled(false);
 		}
 	}
 	
@@ -39,12 +41,12 @@ class MyCenterPanel extends JPanel {
 
 	MyCenterPanel() {
 		textfield = new JTextField("", 40);
-
+		
 		btn = new JButton("Add");
 		delBtn = new JButton("Del");
 		back = new JButton("뒤로가기");
 		btn.setEnabled(false);
-		//delBtn.setEnabled(false);
+		delBtn.setEnabled(false);
 		
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -54,7 +56,7 @@ class MyCenterPanel extends JPanel {
 				textfield.setText("");
 			}
 		});
-
+		
 		textfield.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void changedUpdate(javax.swing.event.DocumentEvent e) {
@@ -85,6 +87,7 @@ class MyCenterPanel extends JPanel {
 				for (int i = 0; i < input.size(); i++) {
 					area += input.getOneWord(i) + "\n";
 				}
+				
 				textarea.setText(area);
 
 			}
