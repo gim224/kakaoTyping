@@ -40,8 +40,8 @@ public class User implements Serializable {
 		return miss;
 	}
 
-	public Calendar getDate() {
-		return date;
+	public String getDate() {
+		return date.get(Calendar.YEAR)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.HOUR_OF_DAY)+":"+date.get(Calendar.MINUTE);
 	}
 
 	/*
