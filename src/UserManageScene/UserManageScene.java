@@ -1,7 +1,7 @@
 package UserManageScene;
 
 import java.awt.Color;
-
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -9,17 +9,21 @@ import java.io.FileNotFoundException;
 import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import ButtonForChange.ButtonForChangePanel;
 import ThirdScene.ThirdScene;
 
 import fileIO.ObjInput;
+import fileIO.ObjOutput;
 import kakaoTyping.User;
 
 @SuppressWarnings("serial")
 public class UserManageScene extends JPanel {
 	private Vector<User> user = new Vector<User>();
 	private Vector<String> name = new Vector<String>();
+	int index = -1;
 
 	public UserManageScene() throws FileNotFoundException {
 
@@ -64,20 +68,20 @@ public class UserManageScene extends JPanel {
 		//
 		//
 		// ObjOutput output = new ObjOutput()
-		/////////////////////////////////////////////////////.txt or .dat
+		///////////////////////////////////////////////////// .txt or .dat
 		File file = new File("txt/user.txt");
 		if (file.length() != 0) {
 			ObjInput input = new ObjInput();
 			user = input.getUserVector();
 			for (int i = 0; i < user.size(); i++) {
 				name.add(user.get(i).getName());
-				System.out.println(user.get(i).getName());
-				System.out.println(user.size());
-				System.out.println(user.get(i).getBirth());
-				System.out.println("------");
-
+				 System.out.println(user.get(i).getName());
+				 System.out.println(user.size());
+				 System.out.println(user.get(i).getBirth());
+				 System.out.println("------");
 			}
 		}
+
 		//
 		//
 		JList<String> list = new JList<String>(name);
@@ -87,6 +91,15 @@ public class UserManageScene extends JPanel {
 		pane.setSize(SIZ_X, 77);
 		pane.setLocation(LOC_X, LOC_Y);
 		add(pane);
+
+		list.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// TODO Auto-generated method stub
+				index = list.getSelectedIndex();
+			}
+		});
 		//
 		//
 		JButton enroll = new JButton("enroll");
@@ -109,6 +122,30 @@ public class UserManageScene extends JPanel {
 		delete.setSize(SIZ_X - 100, 20);
 		delete.setLocation(LOC_X + 100, LOC_Y + 77);
 		add(delete);
+		delete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (index != -1) {
+					user.removeElementAt(index);
+					new ObjOutput(user);
+					
+					JButton btn=(JButton)e.getSource();
+					JPanel p = (JPanel)btn.getParent();
+					Container c =btn.getTopLevelAncestor();
+					
+					p.removeAll();
+					p.setVisible(false);
+					
+					try {
+						c.add(new UserManageScene());
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					c.setVisible(true);
+				} else
+					JOptionPane.showMessageDialog(null, "select user plz");
+			}
+		});
 		//
 		//
 		ButtonForChangePanel bttn = new ButtonForChangePanel("Select", new ThirdScene());
