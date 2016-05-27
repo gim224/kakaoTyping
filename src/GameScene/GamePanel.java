@@ -72,7 +72,8 @@ class InputPanel extends JPanel {
 		submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (textField.getText().equals(fl.getText())) {
-					fl.finish();					
+					fl.finish();
+					fl.setVisible(false);
 				}
 				textField.setText("");
 

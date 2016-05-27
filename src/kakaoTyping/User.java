@@ -7,11 +7,11 @@ import java.util.Date;
 
 import fileIO.FileOutput;
 
-public class User implements Serializable {
+public class User implements Serializable, Comparable {
 	private int imgNum; // 0(mugi), 1(tube), 2(prodo)
 	private String name; // 사용자 이름
 	private int birth; // 사용자 생년월일
-	private int score = 0; // 게임 최대점
+	private int score = 100; // 게임 최대점
 	private int goal; // 목표 오타율
 	private double miss = 0; // 오타율
 	private Calendar date;
@@ -67,5 +67,14 @@ public class User implements Serializable {
 		this.goal = goal;
 		date = Calendar.getInstance();
 
+	}
+	
+	public int compareTo(Object obj) {
+		User user = (User)obj;
+		if(this.getScore()>user.getScore())
+			return -1;
+		else if (this.getScore()<user.getScore())
+			return 1;
+		return 0;
 	}
 }

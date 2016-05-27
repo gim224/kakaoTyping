@@ -29,10 +29,10 @@ public class MyFrame extends JFrame {
 		// JTooltoolBar
 		createTooltoolBar();
 		/**FirstScene*/		
-		//add(new FirstScene());
+		add(new FirstScene());
 		
 		/**SecondScene(User Enroll Scene)*/
-		add(new UserManageScene());
+		//add(new UserManageScene());
 		
 		/**ThirdScene(MainMenu)*/
 		//add(new ThirdScene());
