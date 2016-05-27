@@ -1,50 +1,57 @@
 package ThirdScene;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.Vector;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.util.*;
 
 import javax.swing.*;
 
 import fileIO.ObjInput;
 import kakaoTyping.User;
 
-public class Ranking extends JPanel {
+public class Ranking extends JPanel implements Comparable {
 
 	String header[] = { "Rank", "Name", "Score", "Goal", "Accuracy", "Date" };
 	String contents[][];
 
 	Vector<User> userInfo = new Vector<User>();
+	Vector<User> user = userInfo;
+
 	ObjInput obip;
 	int fsize;
 
 	public Ranking() {
+
 		File file = new File("txt/user.dat");
+
 		if (file.length() != 0) {
 			obip = new ObjInput();
+			userInfo = obip.getUserVector();
+
+			fsize = userInfo.size();
+
+			contents = new String[fsize][6];
+
+			for (int i = 0; i < fsize; i++)
+				for (int j = 0; j < 6; j++)
+					contents[i][j] = "";
+
+			Collections.sort(userInfo);
+
+			for (int i = 0; i < fsize; i++) {
+				contents[i][0] = Integer.toString(i + 1);
+				contents[i][1] = userInfo.get(i).getName();
+				contents[i][2] = Integer.toString(userInfo.get(i).getScore());
+				contents[i][3] = Integer.toString(userInfo.get(i).getGoal());
+				contents[i][4] = Double.toString(userInfo.get(i).getMiss());
+				contents[i][5] = userInfo.get(i).getDate();
+			}
 		}
 
-		userInfo = obip.getUserVector();
-		fsize = userInfo.size();
-
-		contents = new String[fsize][6];
-
-		for (int i = 0; i < fsize; i++)
-			for (int j = 0; j < 6; j++)
-				contents[i][j] = "";
-
-		for (int i = 0; i < fsize; i++) {
-			contents[i][1] = userInfo.get(i).getName();
-			contents[i][2] = Integer.toString(userInfo.get(i).getScore());
-			contents[i][3] = Integer.toString(userInfo.get(i).getGoal());
-			contents[i][4] = Double.toString(userInfo.get(i).getMiss());
-			contents[i][5] = userInfo.get(i).getDate();
-		}
 		setLayout(new BorderLayout());
 		JTable table = new JTable(contents, header);
+		table.setShowHorizontalLines(false);
 		JScrollPane scrollpane = new JScrollPane(table);
 		add(scrollpane, BorderLayout.CENTER);
 
@@ -65,5 +72,12 @@ public class Ranking extends JPanel {
 			}
 		});
 		add(back, BorderLayout.SOUTH);
+
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		// TODO Auto-generated method stub
+		return 1;
 	}
 }

@@ -2,6 +2,7 @@ package GameScene;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -21,12 +22,12 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 
 import fileIO.FileInput;
-import thread.FallingLabel;
 
 public class GameScene extends JSplitPane {
-	FileInput input = new FileInput("txt/word.txt", "@");
-	FallingLabel fl = new FallingLabel(input.getOneWordRandom(), (int) (Math.random() * 5 + 1));
-	int lifePoint = 0;
+	private FileInput input = new FileInput("txt/word.txt", "@");
+	private FallingLabel fl = new FallingLabel(input.getOneWordRandom(), (int) (Math.random() * 5 + 1));
+	private int score = 0;
+	private int life = 5;
 
 	public GameScene() {
 		setOrientation(JSplitPane.HORIZONTAL_SPLIT);
@@ -62,6 +63,10 @@ public class GameScene extends JSplitPane {
 
 					}
 
+					public Container getCreateWordPanel() {
+						return this;
+					}
+
 					public void paintComponent(Graphics g) {
 						super.paintComponent(g);
 						ImageIcon background = new ImageIcon("images/gameback.jpg");
@@ -71,7 +76,10 @@ public class GameScene extends JSplitPane {
 				}
 
 				class InputPanel extends JPanel {
-					public InputPanel() {
+					Container createWordPanel;
+
+					public InputPanel(Container cT) {
+						createWordPanel = cT;
 						add(new JLabel("입력", SwingConstants.CENTER));
 
 						JTextField textField = new JTextField("", 30);
@@ -81,40 +89,44 @@ public class GameScene extends JSplitPane {
 						textField.requestFocus();
 						add(textField);
 
-						// textField.addActionListener(new ActionListener(){
-						// public void actionPerformed(ActionEvent e){
-						// e.getSource();
-						// }
-						// });
 						textField.addKeyListener(new KeyAdapter() {
 							public void keyPressed(KeyEvent e) {
 								int c = e.getKeyCode();
 
-								if (c == KeyEvent.VK_ENTER && textField.getText().equals(fl.getText())) {
-									fl.finish();
-									lifePoint--;									
+								if (c == KeyEvent.VK_ENTER) {
+									if (textField.getText().equals(fl.getText()))
+										flRestart();
 									textField.setText("");
-								} else if (c == KeyEvent.VK_ENTER && !textField.getText().equals(fl.getText()))
-									textField.setText("");
+								}
 							}
 						});
 						JButton submit = new JButton("submit");
 						add(submit);
-						// System.out.println(fl.getText());
+
 						submit.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								if (textField.getText().equals(fl.getText())) {
-									fl.finish();
+									flRestart();
 								}
 								textField.setText("");
 
 							}
 						});
 					}
-				}
 
-				add(new InputPanel(), BorderLayout.SOUTH);
-				add(new CreateWordPanel(), BorderLayout.CENTER);
+					private void flRestart() {
+						fl.finish();
+						fl = new FallingLabel(input.getOneWordRandom(), (int) (Math.random() * 5 + 1));
+						score += 10;
+						System.out.println(score);
+						createWordPanel.add(fl);						
+						
+					}
+				}
+				CreateWordPanel createWordPanel = new CreateWordPanel();
+				add(new InputPanel(createWordPanel.getCreateWordPanel()), BorderLayout.SOUTH);
+
+				add(createWordPanel, BorderLayout.CENTER);
 
 			}
 		}
@@ -169,23 +181,62 @@ public class GameScene extends JSplitPane {
 								icon[0] = new ImageIcon("images/DisableHeart.png");
 								icon[1] = new ImageIcon("images/EnableHeart.png");
 
-								for (int i = 0; i < life.length - lifePoint; i++) {
+								for (int i = 0; i < life.length; i++) {
 									life[i] = new JButton(icon[1]);
 									add(life[i]);
 								}
-								for (int i = life.length - lifePoint; i < life.length; i++) {
-									life[i] = new JButton(icon[0]);
-									add(life[i]);
+								// for (int i = life.length - lifePoint; i <
+								// life.length; i++) {
+								// life[i] = new JButton(icon[0]);
+								// add(life[i]);
+								// }
+							}
+						}
+
+						class TimerThread implements Runnable {
+							JLabel timerLabel;
+
+							public TimerThread(JLabel timerLabel) {
+								this.timerLabel = timerLabel;
+							}
+
+							public void run() {
+								int n = 60;
+								while (n >= 0) {
+									if (n >= 10)
+										timerLabel.setText("00:" + n);
+									else
+										timerLabel.setText("00:0" + n);
+									n--;
+
+									try {
+										Thread.sleep(1000);
+									} catch (InterruptedException e) {
+										return;
+									}
 								}
+							}
+						}
+
+						class Timer extends JPanel {
+							public Timer() {
+								JLabel timerLabel = new JLabel();
+								timerLabel.setFont(new Font("Gothic", Font.BOLD, 40));
+
+								TimerThread timer = new TimerThread(timerLabel);
+
+								Thread thtime = new Thread(timer);
+
+								add(timerLabel);
+
+								thtime.start();
 							}
 						}
 						add(Life);
 						add(new LifePanel());
 
 						add(Time);
-						add(new JLabel("00:13", SwingConstants.CENTER)); // replace
-																			// add(new
-																			// JPanel());
+						add(new Timer());
 					}
 				}
 				// right panel - (0,2)

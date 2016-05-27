@@ -36,28 +36,42 @@ class MyCenterPanel extends JPanel {
 			delBtn.setEnabled(false);
 		}
 	}
-	
-	
 
 	MyCenterPanel() {
+		setLayout(new BorderLayout());
 		textfield = new JTextField("", 40);
-		
+
 		btn = new JButton("Add");
 		delBtn = new JButton("Del");
 		back = new JButton("뒤로가기");
 		btn.setEnabled(false);
 		delBtn.setEnabled(false);
-		
+
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				textarea.append(textfield.getText().trim() + "\n");
 				addWord = textfield.getText();
 				new FileOutput("txt/word.txt", addWord);
 				textfield.setText("");
+
 			}
 		});
-		
+
+		textfield.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				int c = e.getKeyCode();
+				if (c == KeyEvent.VK_ENTER && !textfield.getText().equals("")) {
+					textarea.append(textfield.getText().trim() + "\n");
+					addWord = textfield.getText();
+					new FileOutput("txt/word.txt", addWord);
+					textfield.setText("");
+				}
+			}
+		});
+
 		textfield.getDocument().addDocumentListener(new DocumentListener() {
+
 			@Override
 			public void changedUpdate(javax.swing.event.DocumentEvent e) {
 				isTextFieldUpdate(btn);
@@ -73,10 +87,6 @@ class MyCenterPanel extends JPanel {
 				isTextFieldUpdate(btn);
 			}
 		});
-		
-	
-
-		
 
 		delBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -87,16 +97,16 @@ class MyCenterPanel extends JPanel {
 				for (int i = 0; i < input.size(); i++) {
 					area += input.getOneWord(i) + "\n";
 				}
-				
+
 				textarea.setText(area);
 
 			}
 		});
-		
+
 		back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JButton btn = (JButton) e.getSource();
-				JPanel p = (JPanel) btn.getParent().getParent();
+				JPanel p = (JPanel) btn.getParent().getParent().getParent();
 				Container c = p.getTopLevelAncestor();
 
 				p.removeAll();
@@ -104,23 +114,27 @@ class MyCenterPanel extends JPanel {
 
 				c.add(new ThirdScene());
 				c.setVisible(true);
-
 			}
 		});
 
 		String area = "";
-		textarea = new JTextArea("", 40, 70);
+		textarea = new JTextArea("");
 
 		for (int i = 0; i < input.size(); i++) {
 			area += input.getOneWord(i) + "\n";
 		}
+		textarea.setFont(new Font("Serif", Font.CENTER_BASELINE, 30));
 		textarea.setText(area);
 		textarea.setEditable(false);
-		add(new JScrollPane(textarea));
-		add(textfield);
-		add(btn);
-		add(delBtn);
-		add(back);
+
+		add(new JScrollPane(textarea), BorderLayout.CENTER);
+
+		JPanel southPanel = new JPanel();
+		add(southPanel, BorderLayout.SOUTH);
+		southPanel.add(textfield);
+		southPanel.add(btn);
+		southPanel.add(delBtn);
+		southPanel.add(back);
 
 	}
 }

@@ -1,7 +1,10 @@
-package thread;
+package GameScene;
 
 import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import javax.swing.SwingConstants;
@@ -9,10 +12,12 @@ import javax.swing.SwingConstants;
 @SuppressWarnings("serial")
 public class FallingLabel extends JLabel implements Runnable {
 
-	int random;
-	int speed = 0;
-	boolean flag = false;
-
+	private int random;
+	private int speed = 0;
+	private boolean flag = false;
+	private ImageIcon icon = new ImageIcon("images/폭죽.gif");
+	private Image img = icon.getImage();
+	
 	public void finish() {
 		flag = true;
 	}
@@ -58,7 +63,12 @@ public class FallingLabel extends JLabel implements Runnable {
 			// colorSwitch = 1;
 			// else
 			// colorSwitch = 0;
-
+			
+			
+//			if(this.getLocation().getY()>36)	//
+//				flag = true;
+			
+			
 			this.setLocation(random, i += speed);
 			// if(i>100){
 			// this.setVisible(false);
@@ -69,6 +79,9 @@ public class FallingLabel extends JLabel implements Runnable {
 				Thread.sleep(100);
 				if (flag == true) {
 					// 스레드 종료시 일어나야 할일 : score 증가?
+					
+					this.removeAll();
+					this.setVisible(false);
 					return;
 				}
 			} catch (InterruptedException e) {
@@ -76,5 +89,9 @@ public class FallingLabel extends JLabel implements Runnable {
 			}
 		}
 	}
+//	@Override
+//	public void paintComponent(Graphics g){
+//		g.drawImage(img, this.getX(), this.getY(), this);
+//	}
 
 }

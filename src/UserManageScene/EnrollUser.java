@@ -314,15 +314,3 @@ public class EnrollUser extends JFrame {
 		});
 	}
 }
-
-/*
- * class SliderChange extends JSlider{ JSlider sl; int slvalue; public
- * SliderChange() { sl = new JSlider(JSlider.HORIZONTAL, 0, 100, 80);
- * sl.setPaintLabels(true); sl.setPaintTicks(true); sl.setPaintTrack(true);
- * sl.setMajorTickSpacing(50); sl.setMinorTickSpacing(10);
- * 
- * sl.addChangeListener(new MyChangeListener()); sl.setForeground(Color.BLUE);
- * 
- * slvalue=sl.getValue(); } class MyChangeListener implements ChangeListener{
- * public void stateChanged(ChangeEvent e) { slvalue=sl.getValue(); } } }
- */
