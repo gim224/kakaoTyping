@@ -27,7 +27,7 @@ public class GameScene extends JSplitPane {
 	private FileInput input = new FileInput("txt/word.txt", "@");
 	private FallingLabel fl = new FallingLabel(input.getOneWordRandom(), (int) (Math.random() * 5 + 1));
 	private int score = 0;
-	private int life = 5;
+	private int lifeCount = 2;	
 
 	public GameScene() {
 		setOrientation(JSplitPane.HORIZONTAL_SPLIT);
@@ -41,18 +41,15 @@ public class GameScene extends JSplitPane {
 		//
 		// }
 		// });
-		class GamePanel extends JPanel {
+		class GamePanel extends JPanel {			
 
-			public GamePanel() {
+			public GamePanel(Container ScoreLabel, Container LifePanel) {
 				setLayout(new BorderLayout());
 
 				class CreateWordPanel extends JPanel {
-
 					public CreateWordPanel() {
 						setLayout(null);
-
 						add(fl);
-
 						// Exception in thread "main"
 						// java.lang.NullPointerException
 						// Font currentFont = fl.getGraphics().getFont();//
@@ -97,6 +94,8 @@ public class GameScene extends JSplitPane {
 									if (textField.getText().equals(fl.getText()))
 										flRestart();
 									textField.setText("");
+									lifeManage();
+									scoreManage();
 								}
 							}
 						});
@@ -109,33 +108,88 @@ public class GameScene extends JSplitPane {
 									flRestart();
 								}
 								textField.setText("");
+								lifeManage();
+								scoreManage();
+								
+								textField.requestFocus();
 
 							}
 						});
 					}
 
+					class GradePanel extends JPanel {
+						public GradePanel() {
+							setLayout(new BorderLayout());
+							JLabel l = new JLabel(Integer.toString(score) + "점", SwingConstants.CENTER);
+							add(l, BorderLayout.CENTER);
+
+						}
+					}
+					
+					//score창 관리
+					private void scoreManage() {
+						ScoreLabel.removeAll();
+						ScoreLabel.setVisible(false);
+						ScoreLabel.add(new GradePanel());
+						ScoreLabel.setVisible(true);
+
+					}
+
+					
+					//life창 관리
+					private void lifeManage() {
+						JButton[] life = new JButton[5];
+						ImageIcon[] icon = new ImageIcon[2];
+
+						icon[0] = new ImageIcon("images/DisableHeart.png");
+						icon[1] = new ImageIcon("images/EnableHeart.png");
+						LifePanel.removeAll();
+						LifePanel.setVisible(false);
+						for (int i = 0; i < life.length - lifeCount; i++) {
+							life[i] = new JButton(icon[1]);
+							LifePanel.add(life[i]);
+						}
+						for (int i = life.length - lifeCount; i < life.length; i++) {
+							life[i] = new JButton(icon[0]);
+							LifePanel.add(life[i]);
+						}
+						LifePanel.setVisible(true);
+					}
+					
+					//FallingLabel(fl) 관리
 					private void flRestart() {
 						fl.finish();
 						fl = new FallingLabel(input.getOneWordRandom(), (int) (Math.random() * 5 + 1));
 						score += 10;
 						System.out.println(score);
-						createWordPanel.add(fl);						
-						
+						createWordPanel.add(fl);
+
 					}
 				}
+				
 				CreateWordPanel createWordPanel = new CreateWordPanel();
+				
 				add(new InputPanel(createWordPanel.getCreateWordPanel()), BorderLayout.SOUTH);
-
 				add(createWordPanel, BorderLayout.CENTER);
 
 			}
 		}
 
 		class ScorePanel extends JPanel {
+			Container cRightDownPanel_LifePanel;
+			Container cRightUpPanel_GradePanel;
+
+			public Container getLifePanel() {
+				return cRightDownPanel_LifePanel;
+			}
+
 			public ScorePanel() {
+
 				this.setLayout(new GridLayout(3, 1));
 				// right panel - (0,0)
 				class RightUpPanel extends JPanel {
+					Container cGradePanel;
+
 					public RightUpPanel() {
 						setLayout(new GridLayout(4, 1));
 
@@ -151,15 +205,34 @@ public class GameScene extends JSplitPane {
 						add(new JLabel("1 level", SwingConstants.CENTER)); // replace
 																			// add(new
 																			// JPanel());
+						class GradePanel extends JPanel {
+							public GradePanel() {
+								setLayout(new BorderLayout());
+								JLabel l = new JLabel(Integer.toString(score) + "점", SwingConstants.CENTER);
+								add(l, BorderLayout.CENTER);
+							}
 
+							public Container getGradePanel() {
+								return this;
+							}
+						}
 						add(Score);
-						add(new JLabel("300", SwingConstants.CENTER)); // replace
-																		// add(new
-																		// JPanel());
+						GradePanel scorePanel = new GradePanel();
+						cGradePanel = scorePanel.getGradePanel();
+
+						add(scorePanel); // replace
+											// add(new
+											// JPanel());
+					}
+
+					public Container getScoreLabel() {
+						return cGradePanel;
 					}
 				}
 				// right panel - (0,1)
 				class RightDownPanel extends JPanel {
+					Container cLifePanel;
+
 					public RightDownPanel() {
 						setLayout(new GridLayout(4, 1));
 
@@ -185,11 +258,10 @@ public class GameScene extends JSplitPane {
 									life[i] = new JButton(icon[1]);
 									add(life[i]);
 								}
-								// for (int i = life.length - lifePoint; i <
-								// life.length; i++) {
-								// life[i] = new JButton(icon[0]);
-								// add(life[i]);
-								// }
+							}
+
+							public Container getLifePanel() {
+								return this;
 							}
 						}
 
@@ -233,10 +305,16 @@ public class GameScene extends JSplitPane {
 							}
 						}
 						add(Life);
-						add(new LifePanel());
+						LifePanel lifePanel = new LifePanel();
+						cLifePanel = lifePanel.getLifePanel();
 
+						add(lifePanel);
 						add(Time);
 						add(new Timer());
+					}
+
+					public Container getLifePanel() {
+						return cLifePanel;
 					}
 				}
 				// right panel - (0,2)
@@ -249,15 +327,24 @@ public class GameScene extends JSplitPane {
 						g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 					}
 				}
-				add(new RightUpPanel());
-				add(new RightDownPanel());
+
+				RightDownPanel rightDownPanel = new RightDownPanel();
+				cRightDownPanel_LifePanel = rightDownPanel.getLifePanel();
+				RightUpPanel rightUpPanel = new RightUpPanel();
+				cRightUpPanel_GradePanel = rightUpPanel.getScoreLabel();
+				add(rightUpPanel);
+				add(rightDownPanel);
 				add(new ImagePanel());
 			}
-		}
 
-		GamePanel gamePanel = new GamePanel();
-		setLeftComponent(gamePanel);
+			public Container getGradePanel() {
+				return cRightUpPanel_GradePanel;
+			}
+		}
 		ScorePanel scorePanel = new ScorePanel();
+		GamePanel gamePanel = new GamePanel(scorePanel.getGradePanel(), scorePanel.getLifePanel());
+		
+		setLeftComponent(gamePanel);
 		setRightComponent(scorePanel);
 	}
 }
