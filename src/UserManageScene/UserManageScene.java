@@ -71,7 +71,7 @@ public class UserManageScene extends JPanel {
 		//
 		// ObjOutput output = new ObjOutput()
 		///////////////////////////////////////////////////// .txt or .dat
-		File file = new File("txt/user.txt");
+		File file = new File("txt/user.dat");
 		if (file.length() != 0) {
 			ObjInput input = new ObjInput();
 			user = input.getUserVector();

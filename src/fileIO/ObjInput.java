@@ -19,7 +19,7 @@ public class ObjInput {
 	public ObjInput() {
 
 		try {
-			fis = new FileInputStream("txt/user.txt");
+			fis = new FileInputStream("txt/user.dat");
 			ois = new ObjectInputStream(fis);
 			
 			user = (Vector<User>) ois.readObject();

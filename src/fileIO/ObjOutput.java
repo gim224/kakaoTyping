@@ -15,7 +15,7 @@ public class ObjOutput {
 	public ObjOutput(Vector<User> wantSave) {
 
 		try {
-			fos = new FileOutputStream("txt/user.txt");
+			fos = new FileOutputStream("txt/user.dat");
 			oos = new ObjectOutputStream(fos);
 			
 			oos.writeObject(wantSave);

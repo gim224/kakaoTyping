@@ -22,7 +22,7 @@ public class Ranking extends JPanel {
 	int fsize;
 
 	public Ranking() {
-		File file = new File("txt/user.txt");
+		File file = new File("txt/user.dat");
 		if (file.length() != 0) {
 			obip = new ObjInput();
 		}
