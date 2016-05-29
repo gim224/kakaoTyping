@@ -27,7 +27,7 @@ public class GameScene extends JSplitPane {
 	private FileInput input = new FileInput("txt/word.txt", "@");
 	private FallingLabel fl = new FallingLabel(input.getOneWordRandom(), (int) (Math.random() * 5 + 1));
 	private int score = 0;
-	private int lifeCount = 2;	
+	private int lifeCount = 0;	
 
 	public GameScene() {
 		setOrientation(JSplitPane.HORIZONTAL_SPLIT);
@@ -93,8 +93,8 @@ public class GameScene extends JSplitPane {
 								if (c == KeyEvent.VK_ENTER) {
 									if (textField.getText().equals(fl.getText()))
 										flRestart();
-									textField.setText("");
-									lifeManage();
+									textField.setText("");									
+									lifeManage();									
 									scoreManage();
 								}
 							}

@@ -1,12 +1,13 @@
 package FirstScene;
 
 import java.awt.*;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
 import javax.swing.*;
 
-import ButtonForChange.ButtonForChangePanel;
+
 import UserManageScene.UserManageScene;
 
 public class FirstScene extends JPanel {
@@ -15,16 +16,31 @@ public class FirstScene extends JPanel {
 
 	public FirstScene() {
 		setLayout(null);
-		ButtonForChangePanel bttn;
-		try {
-			bttn = new ButtonForChangePanel("Start!", new UserManageScene());
-			bttn.setSize(400, 50);
-			bttn.setLocation(200, 250);
-			add(bttn);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		JButton bttn = new JButton("Start!");
+		bttn.setSize(400, 50);
+		bttn.setLocation(200, 250);
+		add(bttn);
+		
+		bttn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JButton bttn = (JButton) e.getSource();
+
+				JPanel p = (JPanel) bttn.getParent();
+				Container c = bttn.getTopLevelAncestor();
+
+				p.removeAll();
+				p.setVisible(false);
+
+				try {
+					c.add(new UserManageScene());
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				c.setVisible(true);
+			}
+		});
 
 	}
 

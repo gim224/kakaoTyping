@@ -1,13 +1,14 @@
 package FourthScene;
 
 import java.awt.*;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
 
 
-import ButtonForChange.ButtonForChangeSplitpane;
+
 import GameScene.GameScene;
 
 public class SetPanel extends JPanel {
@@ -15,10 +16,22 @@ public class SetPanel extends JPanel {
 		setLayout(new GridLayout(3, 1));
 		add(new LevelPanel());
 		add(new ImagePanel());
-		ButtonForChangeSplitpane bttn = new ButtonForChangeSplitpane("START", new GameScene());
-
-		// MoveButton bttn = new MoveButton("START", new GameScene());
+		JButton bttn = new JButton("START");		
+		
 		add(bttn);
+		
+		bttn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JButton bttn = (JButton) e.getSource();
+				JPanel p = (JPanel) bttn.getParent();
+				JSplitPane p2 = (JSplitPane) p.getParent();
+				Container c = p2.getTopLevelAncestor();
+				p2.removeAll();
+				p2.setVisible(false);
+				c.add(new GameScene());
+				c.setVisible(true);
+			}
+		});
 	}
 }
 

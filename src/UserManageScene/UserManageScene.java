@@ -13,7 +13,8 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import ButtonForChange.ButtonForChangePanel;
+
+import ThirdScene.Ranking;
 import ThirdScene.ThirdScene;
 
 import fileIO.ObjInput;
@@ -152,12 +153,27 @@ public class UserManageScene extends JPanel {
 		});
 		//
 		//
-		ButtonForChangePanel bttn = new ButtonForChangePanel("Select", new ThirdScene());
-		bttn.setSize(400, 100);
-		bttn.setLocation(LOC_X + 250, LOC_Y - 20);
+		JButton select = new JButton("Select");
+		select.setSize(400, 100);
+		select.setLocation(LOC_X + 250, LOC_Y - 20);
 		
-		bttn.setEnabled(false);
-		add(bttn);
+		select.setEnabled(false);
+		add(select);
+		
+		select.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JButton select = (JButton) e.getSource();
+
+				JPanel p = (JPanel) select.getParent();
+				Container c = select.getTopLevelAncestor();
+
+				p.removeAll();
+				p.setVisible(false);
+
+				c.add(new ThirdScene());
+				c.setVisible(true);
+			}
+		});
 		
 		list.addListSelectionListener(new ListSelectionListener() {
 
@@ -165,7 +181,7 @@ public class UserManageScene extends JPanel {
 			public void valueChanged(ListSelectionEvent e) {
 				// TODO Auto-generated method stub
 				index = list.getSelectedIndex();
-				bttn.setEnabled(true);
+				select.setEnabled(true);
 				delete.setEnabled(true);
 			}
 		});

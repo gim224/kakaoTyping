@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import javax.swing.*;
 
 import FirstScene.FirstScene;
-
+import FourthScene.FourthScene;
 import ThirdScene.ThirdScene;
 import UserManageScene.UserManageScene;
 
@@ -29,7 +29,7 @@ public class MyFrame extends JFrame {
 		// JTooltoolBar
 		createTooltoolBar();
 		/**FirstScene*/		
-		add(new FirstScene());
+		//add(new FirstScene());
 		
 		/**SecondScene(User Enroll Scene)*/
 		//add(new UserManageScene());
@@ -39,7 +39,7 @@ public class MyFrame extends JFrame {
 		
 		/**4ndScene(SelectLevel)*/
 
-		//add(new FourthScene());
+		add(new FourthScene());
 
 		/**GameScreen*/
 		//add(new GameScene());

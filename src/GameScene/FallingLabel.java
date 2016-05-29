@@ -1,13 +1,7 @@
 package GameScene;
 
-import java.awt.Container;
-import java.awt.Graphics;
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
-import javax.swing.SwingConstants;
+import java.awt.*;
+import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class FallingLabel extends JLabel implements Runnable {
@@ -17,15 +11,19 @@ public class FallingLabel extends JLabel implements Runnable {
 	private boolean flag = false;
 	private ImageIcon icon = new ImageIcon("images/폭죽.gif");
 	private Image img = icon.getImage();
-	
+
 	public void finish() {
 		flag = true;
 	}
 
 	public FallingLabel(String text, int speed) {
 		super(text, SwingConstants.CENTER);
+		this.setFont(new Font("Jokerman", Font.ITALIC, 20));
+		FontMetrics fm = getFontMetrics(this.getFont());
+		int w = fm.stringWidth(this.getText());
+		this.setSize(w + 8, fm.getHeight());
+
 		setOpaque(true);
-		this.setSize(150, 30);
 
 		this.speed = speed;
 		/////////// size 수정////////
@@ -64,10 +62,8 @@ public class FallingLabel extends JLabel implements Runnable {
 			// else
 			// colorSwitch = 0;
 			
-			
-//			if(this.getLocation().getY()>36)	//
-//				flag = true;
-			
+			System.out.println(this.getLocation().getY());
+				 
 			
 			this.setLocation(random, i += speed);
 			// if(i>100){
@@ -89,9 +85,9 @@ public class FallingLabel extends JLabel implements Runnable {
 			}
 		}
 	}
-//	@Override
-//	public void paintComponent(Graphics g){
-//		g.drawImage(img, this.getX(), this.getY(), this);
-//	}
+	// @Override
+	// public void paintComponent(Graphics g){
+	// g.drawImage(img, this.getX(), this.getY(), this);
+	// }
 
 }
