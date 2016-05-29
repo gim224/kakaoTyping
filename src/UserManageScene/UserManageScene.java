@@ -166,10 +166,14 @@ public class UserManageScene extends JPanel {
 
 				JPanel p = (JPanel) select.getParent();
 				Container c = select.getTopLevelAncestor();
-
+				
+				
 				p.removeAll();
+				c.remove(p);
 				p.setVisible(false);
-
+				
+				revalidate();
+				repaint();
 				c.add(new ThirdScene());
 				c.setVisible(true);
 			}

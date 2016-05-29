@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 
 import javax.swing.*;
 
-
 import UserManageScene.UserManageScene;
 
 public class FirstScene extends JPanel {
@@ -16,12 +15,12 @@ public class FirstScene extends JPanel {
 
 	public FirstScene() {
 		setLayout(null);
-		
+
 		JButton bttn = new JButton("Start!");
 		bttn.setSize(400, 50);
 		bttn.setLocation(200, 250);
 		add(bttn);
-		
+
 		bttn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JButton bttn = (JButton) e.getSource();
@@ -30,14 +29,15 @@ public class FirstScene extends JPanel {
 				Container c = bttn.getTopLevelAncestor();
 
 				p.removeAll();
-				p.setVisible(false);
-
-				try {
-					c.add(new UserManageScene());
+				c.remove(p);
+				p.setVisible(false);				
+				try {					
+					c.add(new UserManageScene());					
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+
 				c.setVisible(true);
 			}
 		});

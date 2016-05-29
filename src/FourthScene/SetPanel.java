@@ -28,6 +28,7 @@ public class SetPanel extends JPanel {
 				Container c = p2.getTopLevelAncestor();
 				p2.removeAll();
 				p2.setVisible(false);
+				c.remove(p2);
 				c.add(new GameScene());
 				c.setVisible(true);
 			}

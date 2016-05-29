@@ -66,7 +66,7 @@ public class Ranking extends JPanel implements Comparable {
 
 				p.removeAll();
 				p.setVisible(false);
-
+				c.remove(p);
 				c.add(new ThirdScene());
 				c.setVisible(true);
 			}

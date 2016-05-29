@@ -11,9 +11,14 @@ public class FallingLabel extends JLabel implements Runnable {
 	private boolean flag = false;
 	private ImageIcon icon = new ImageIcon("images/폭죽.gif");
 	private Image img = icon.getImage();
+	private int lifePoint = 0;
 
 	public void finish() {
 		flag = true;
+	}
+
+	public int getlifePoint() {
+		return lifePoint;
 	}
 
 	public FallingLabel(String text, int speed) {
@@ -52,6 +57,7 @@ public class FallingLabel extends JLabel implements Runnable {
 		// int speed = 0;
 		int i = 0;
 		while (true) {
+			
 			// if (colorSwitch == 0)
 			// setBackground(Color.yellow);
 			// else
@@ -61,10 +67,14 @@ public class FallingLabel extends JLabel implements Runnable {
 			// colorSwitch = 1;
 			// else
 			// colorSwitch = 0;
-			
-			System.out.println(this.getLocation().getY());
-				 
-			
+
+			// System.out.println(this.getLocation().getY());
+			// System.out.println(this.getSize().getHeight());
+			// System.out.println(getLocation().getY());
+			if (getLocation().getY() >= 672 - getSize().getHeight()) {
+				flag = true;
+
+			}
 			this.setLocation(random, i += speed);
 			// if(i>100){
 			// this.setVisible(false);
@@ -72,12 +82,13 @@ public class FallingLabel extends JLabel implements Runnable {
 			// }
 
 			try {
-				Thread.sleep(100);
+				Thread.sleep(10);
 				if (flag == true) {
 					// 스레드 종료시 일어나야 할일 : score 증가?
-					
+
+					this.setText("life--");
 					this.removeAll();
-					this.setVisible(false);
+					// this.setVisible(false);
 					return;
 				}
 			} catch (InterruptedException e) {
@@ -85,9 +96,10 @@ public class FallingLabel extends JLabel implements Runnable {
 			}
 		}
 	}
-	// @Override
-	// public void paintComponent(Graphics g){
-	// g.drawImage(img, this.getX(), this.getY(), this);
-	// }
+
+//	@Override
+//	public void paintComponent(Graphics g) {
+//		g.drawImage(img, this.getX(), this.getY(), this);
+//	}
 
 }

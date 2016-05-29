@@ -27,7 +27,7 @@ public class GameScene extends JSplitPane {
 	private FileInput input = new FileInput("txt/word.txt", "@");
 	private FallingLabel fl = new FallingLabel(input.getOneWordRandom(), (int) (Math.random() * 5 + 1));
 	private int score = 0;
-	private int lifeCount = 0;	
+	private int lifeCount;
 
 	public GameScene() {
 		setOrientation(JSplitPane.HORIZONTAL_SPLIT);
@@ -41,7 +41,7 @@ public class GameScene extends JSplitPane {
 		//
 		// }
 		// });
-		class GamePanel extends JPanel {			
+		class GamePanel extends JPanel {
 
 			public GamePanel(Container ScoreLabel, Container LifePanel) {
 				setLayout(new BorderLayout());
@@ -93,10 +93,11 @@ public class GameScene extends JSplitPane {
 								if (c == KeyEvent.VK_ENTER) {
 									if (textField.getText().equals(fl.getText()))
 										flRestart();
-									textField.setText("");									
-									lifeManage();									
-									scoreManage();
+									textField.setText("");
+									lifeManage();
+									scoreManage();									
 								}
+								
 							}
 						});
 						JButton submit = new JButton("submit");
@@ -110,7 +111,7 @@ public class GameScene extends JSplitPane {
 								textField.setText("");
 								lifeManage();
 								scoreManage();
-								
+
 								textField.requestFocus();
 
 							}
@@ -125,8 +126,8 @@ public class GameScene extends JSplitPane {
 
 						}
 					}
-					
-					//score창 관리
+
+					// score창 관리
 					private void scoreManage() {
 						ScoreLabel.removeAll();
 						ScoreLabel.setVisible(false);
@@ -135,8 +136,7 @@ public class GameScene extends JSplitPane {
 
 					}
 
-					
-					//life창 관리
+					// life창 관리
 					private void lifeManage() {
 						JButton[] life = new JButton[5];
 						ImageIcon[] icon = new ImageIcon[2];
@@ -155,20 +155,21 @@ public class GameScene extends JSplitPane {
 						}
 						LifePanel.setVisible(true);
 					}
-					
-					//FallingLabel(fl) 관리
-					private void flRestart() {
+
+					// FallingLabel(fl) 관리
+					private void flRestart() {						
 						fl.finish();
 						fl = new FallingLabel(input.getOneWordRandom(), (int) (Math.random() * 5 + 1));
+						
 						score += 10;
 						System.out.println(score);
 						createWordPanel.add(fl);
 
 					}
 				}
-				
+
 				CreateWordPanel createWordPanel = new CreateWordPanel();
-				
+
 				add(new InputPanel(createWordPanel.getCreateWordPanel()), BorderLayout.SOUTH);
 				add(createWordPanel, BorderLayout.CENTER);
 
@@ -343,7 +344,7 @@ public class GameScene extends JSplitPane {
 		}
 		ScorePanel scorePanel = new ScorePanel();
 		GamePanel gamePanel = new GamePanel(scorePanel.getGradePanel(), scorePanel.getLifePanel());
-		
+
 		setLeftComponent(gamePanel);
 		setRightComponent(scorePanel);
 	}

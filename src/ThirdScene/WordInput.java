@@ -111,7 +111,7 @@ class MyCenterPanel extends JPanel {
 
 				p.removeAll();
 				p.setVisible(false);
-
+				c.remove(p);
 				c.add(new ThirdScene());
 				c.setVisible(true);
 			}

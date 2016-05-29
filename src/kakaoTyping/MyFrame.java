@@ -13,38 +13,34 @@ import FourthScene.FourthScene;
 import ThirdScene.ThirdScene;
 import UserManageScene.UserManageScene;
 
-
-
 @SuppressWarnings("serial")
 public class MyFrame extends JFrame {
 	public MyFrame() throws FileNotFoundException {
 		super("KaKao Typing");
 		this.setSize(800, 800);
-		this.setLocation(10,10);
-		this.setLayout(new BorderLayout());		  
+		this.setLocation(10, 10);
+		this.setLayout(new BorderLayout());
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/EnableHeart.png"));
-		
+
 		// JMenu
 		createMenu();
 		// JTooltoolBar
 		createTooltoolBar();
-		/**FirstScene*/		
-		//add(new FirstScene());
-		
-		/**SecondScene(User Enroll Scene)*/
+		/** FirstScene */
+		 add(new FirstScene());
+
+		/** SecondScene(User Enroll Scene) */
 		//add(new UserManageScene());
-		
-		/**ThirdScene(MainMenu)*/
-		//add(new ThirdScene());
-		
-		/**4ndScene(SelectLevel)*/
 
-		add(new FourthScene());
+		/** ThirdScene(MainMenu) */
+		// add(new ThirdScene());
 
-		/**GameScreen*/
-		//add(new GameScene());
-		
-		
+		/** 4ndScene(SelectLevel) */
+
+		// add(new FourthScene());
+
+		/** GameScreen */
+		// add(new GameScene());
 
 		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -88,29 +84,20 @@ public class MyFrame extends JFrame {
 		JToolBar toolBar = new JToolBar("");
 		toolBar.setBackground(Color.LIGHT_GRAY);
 
-
-		
-
-
 		JButton playBtn = new JButton(new ImageIcon("images/play.png"));
 		playBtn.setToolTipText("Play");
 
 		toolBar.add(playBtn);
-
 
 		JButton pauBtn = new JButton(new ImageIcon("images/pause.png"));
 		pauBtn.setToolTipText("Pause");
 
 		toolBar.add(pauBtn);
 
-
-	
-
 		JButton scBtn = new JButton(new ImageIcon("images/camera.png"));
 		scBtn.setToolTipText("Screen Shot");
 
 		toolBar.add(scBtn);
-
 
 		JButton musicBtn = new JButton(new ImageIcon("images/music.png"));
 		scBtn.setToolTipText("Music");
@@ -120,15 +107,16 @@ public class MyFrame extends JFrame {
 		JButton back = new JButton(new ImageIcon("images/home.png"));
 		scBtn.setToolTipText("home");
 		toolBar.add(back);
-		
-		back.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				JButton bttn = (JButton)e.getSource();
-				JToolBar bar = (JToolBar)bttn.getParent();
-				Container c = bar.getParent();
+
+		back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JButton bttn = (JButton) e.getSource();
+				JToolBar bar = (JToolBar) bttn.getParent();				
+				Container c = (Container) bar.getParent();
 				c.removeAll();
 				c.setVisible(false);
-				c.add(bar,BorderLayout.NORTH);
+				
+				c.add(bar, BorderLayout.NORTH);
 				c.add(new FirstScene());
 				c.setVisible(true);
 			}

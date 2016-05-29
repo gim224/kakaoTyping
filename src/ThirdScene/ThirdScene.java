@@ -28,7 +28,7 @@ public class ThirdScene extends JPanel {
 
 				p.removeAll();
 				p.setVisible(false);
-
+				c.remove(p);
 				c.add(new FourthScene());
 				c.setVisible(true);
 			}
@@ -48,7 +48,7 @@ public class ThirdScene extends JPanel {
 
 				p.removeAll();
 				p.setVisible(false);
-
+				c.remove(p);
 				c.add(new Ranking());
 				c.setVisible(true);
 			}
@@ -67,7 +67,7 @@ public class ThirdScene extends JPanel {
 
 				p.removeAll();
 				p.setVisible(false);
-
+				c.remove(p);
 				c.add(new WordInput());
 				c.setVisible(true);
 			}

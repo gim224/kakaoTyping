@@ -288,9 +288,10 @@ public class EnrollUser extends JFrame {
 
 				p.removeAll();
 				p.setVisible(false);
-
+				
 				Container c = p.getTopLevelAncestor();
 				try {
+					c.remove(p);
 					c.add(new UserManageScene());
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
