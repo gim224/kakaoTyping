@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.util.Vector;
 
 import javax.swing.JSplitPane;
 import javax.swing.ImageIcon;
@@ -21,13 +21,12 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 
-import fileIO.FileInput;
-
 public class GameScene extends JSplitPane {
-	private FileInput input = new FileInput("txt/word.txt", "@");
-	private FallingLabel fl = new FallingLabel(input.getOneWordRandom(), (int) (Math.random() * 5 + 1));
-	private int score = 0;
-	private int lifeCount;
+
+	static Container s_levelPanel, s_scorePanel, s_lifePanel, s_timePanel, s_imgPanel, s_wordPanel;
+	// static int s_level;
+	static int s_score = 0; // 처음에 0정부터 시작
+	static int s_maxLife = 0; // 최대 목숨 5
 
 	public GameScene() {
 		setOrientation(JSplitPane.HORIZONTAL_SPLIT);
@@ -43,27 +42,21 @@ public class GameScene extends JSplitPane {
 		// });
 		class GamePanel extends JPanel {
 
-			public GamePanel(Container ScoreLabel, Container LifePanel) {
+			private Vector<FallingLabel> fall = new Vector<FallingLabel>();
+
+			public GamePanel() {
 				setLayout(new BorderLayout());
 
-				class CreateWordPanel extends JPanel {
-					public CreateWordPanel() {
+				class WordPanel extends JPanel {
+					public WordPanel() {
 						setLayout(null);
-						add(fl);
-						// Exception in thread "main"
-						// java.lang.NullPointerException
-						// Font currentFont = fl.getGraphics().getFont();//
-						// FontMetrics fm = fl.getFontMetrics(currentFont);
-						// int w = fm.stringWidth(fl.getText());
-						// fl.setSize(w, fm.getHeight());
-						// add(fl);
-
+						s_wordPanel = this;
+						fall.add(new FallingLabel());						
+						add(fall.get(0));
+						// 스레드 단어 생성 넣어라!
 					}
 
-					public Container getCreateWordPanel() {
-						return this;
-					}
-
+					// 배경화면
 					public void paintComponent(Graphics g) {
 						super.paintComponent(g);
 						ImageIcon background = new ImageIcon("images/gameback.jpg");
@@ -73,166 +66,195 @@ public class GameScene extends JSplitPane {
 				}
 
 				class InputPanel extends JPanel {
-					Container createWordPanel;
-
-					public InputPanel(Container cT) {
-						createWordPanel = cT;
+					public InputPanel() {
+						// 입력 :
 						add(new JLabel("입력", SwingConstants.CENTER));
 
+						// 텍스트 필드
 						JTextField textField = new JTextField("", 30);
-						//
-						textField.getText();
 						textField.setFocusable(true);
 						textField.requestFocus();
 						add(textField);
 
+						// 확인버튼
+						JButton submit = new JButton("submit");
+						add(submit);
+						class ScorePanel extends JPanel {
+							public ScorePanel() {
+								setLayout(new BorderLayout());
+								JLabel scoreLabel = new JLabel(Integer.toString(s_score) + "점", SwingConstants.CENTER);
+								add(scoreLabel, BorderLayout.CENTER);
+							}
+						}
+						class LifePanel extends JPanel {
+							public LifePanel() {
+								setLayout(new GridLayout(1, 5));
+
+								JButton[] life = new JButton[5];
+								ImageIcon[] icon = new ImageIcon[2];
+
+								icon[0] = new ImageIcon("images/DisableHeart.png");
+								icon[1] = new ImageIcon("images/EnableHeart.png");
+
+								for (int i = 0; i < life.length - s_maxLife; i++) {
+									life[i] = new JButton(icon[1]);
+									add(life[i]);
+								}
+
+								for (int i = life.length - s_maxLife; i < life.length; i++) {
+									life[i] = new JButton(icon[0]);
+									add(life[i]);
+								}
+							}
+						}
+						// 텍스트 필드 리스너
 						textField.addKeyListener(new KeyAdapter() {
 							public void keyPressed(KeyEvent e) {
 								int c = e.getKeyCode();
 
 								if (c == KeyEvent.VK_ENTER) {
-									if (textField.getText().equals(fl.getText()))
-										flRestart();
+									for (int i = 0; i < fall.size(); i++) {
+										if (textField.getText().equals(fall.get(i).getText())) {
+											fall.get(i).finish();
+											fall.remove(i);
+											
+											s_score += 10;
+											s_scorePanel.removeAll();
+											s_scorePanel.setVisible(false);
+											s_scorePanel.add(new ScorePanel());
+											s_scorePanel.setVisible(true);
+											
+											fall.add(new FallingLabel());
+											fall.add(new FallingLabel());
+											//int x=1;
+											s_wordPanel.add(fall.get(0));
+											s_wordPanel.add(fall.get(1));
+										}
+									}
+									// s_maxLife++;
+									// s_lifePanel.removeAll();
+									// s_lifePanel.setVisible(false);
+									// s_lifePanel.add(new LifePanel());
+									// s_lifePanel.setVisible(true);
 									textField.setText("");
-									lifeManage();
-									scoreManage();									
 								}
-								
-							}
-						});
-						JButton submit = new JButton("submit");
-						add(submit);
-
-						submit.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								if (textField.getText().equals(fl.getText())) {
-									flRestart();
-								}
-								textField.setText("");
-								lifeManage();
-								scoreManage();
-
-								textField.requestFocus();
 
 							}
 						});
-					}
 
-					class GradePanel extends JPanel {
-						public GradePanel() {
-							setLayout(new BorderLayout());
-							JLabel l = new JLabel(Integer.toString(score) + "점", SwingConstants.CENTER);
-							add(l, BorderLayout.CENTER);
-
-						}
+						//
+						// // 서브밋버튼 리스너
+						// submit.addActionListener(new ActionListener() {
+						// public void actionPerformed(ActionEvent e) {
+						// if (textField.getText().equals(fl.getText())) {
+						//
+						// }
+						// textField.setText("");
+						//
+						// textField.requestFocus();
+						//
+						// }
+						// });
 					}
 
 					// score창 관리
-					private void scoreManage() {
-						ScoreLabel.removeAll();
-						ScoreLabel.setVisible(false);
-						ScoreLabel.add(new GradePanel());
-						ScoreLabel.setVisible(true);
-
-					}
-
-					// life창 관리
-					private void lifeManage() {
-						JButton[] life = new JButton[5];
-						ImageIcon[] icon = new ImageIcon[2];
-
-						icon[0] = new ImageIcon("images/DisableHeart.png");
-						icon[1] = new ImageIcon("images/EnableHeart.png");
-						LifePanel.removeAll();
-						LifePanel.setVisible(false);
-						for (int i = 0; i < life.length - lifeCount; i++) {
-							life[i] = new JButton(icon[1]);
-							LifePanel.add(life[i]);
-						}
-						for (int i = life.length - lifeCount; i < life.length; i++) {
-							life[i] = new JButton(icon[0]);
-							LifePanel.add(life[i]);
-						}
-						LifePanel.setVisible(true);
-					}
-
-					// FallingLabel(fl) 관리
-					private void flRestart() {						
-						fl.finish();
-						fl = new FallingLabel(input.getOneWordRandom(), (int) (Math.random() * 5 + 1));
-						
-						score += 10;
-						System.out.println(score);
-						createWordPanel.add(fl);
-
-					}
+					// private void scoreManage() {
+					// ScoreLabel.removeAll();
+					// ScoreLabel.setVisible(false);
+					// ScoreLabel.add(new GradePanel());
+					// ScoreLabel.setVisible(true);
+					//
+					// }
+					//
+					// // life창 관리
+					// private void lifeManage() {
+					// JButton[] life = new JButton[5];
+					// ImageIcon[] icon = new ImageIcon[2];
+					//
+					// icon[0] = new ImageIcon("images/DisableHeart.png");
+					// icon[1] = new ImageIcon("images/EnableHeart.png");
+					// LifePanel.removeAll();
+					// LifePanel.setVisible(false);
+					// for (int i = 0; i < life.length - lifeCount; i++) {
+					// life[i] = new JButton(icon[1]);
+					// LifePanel.add(life[i]);
+					// }
+					// for (int i = life.length - lifeCount; i < life.length;
+					// i++) {
+					// life[i] = new JButton(icon[0]);
+					// LifePanel.add(life[i]);
+					// }
+					// LifePanel.setVisible(true);
+					// }
+					//
+					// // FallingLabel(fl) 관리
+					// private void flRestart() {
+					// fl.finish();
+					// fl = new FallingLabel(this);
+					//
+					// score += 10;
+					// System.out.println(score);
+					// WordPanel.add(fl);
+					//
+					// }
 				}
 
-				CreateWordPanel createWordPanel = new CreateWordPanel();
+				WordPanel wordPanel = new WordPanel();
+				InputPanel inputPanel = new InputPanel();
 
-				add(new InputPanel(createWordPanel.getCreateWordPanel()), BorderLayout.SOUTH);
-				add(createWordPanel, BorderLayout.CENTER);
-
+				// 왼쪽 단어떨어지는 창
+				add(wordPanel, BorderLayout.CENTER);
+				// 왼쪽 단어입력창
+				add(inputPanel, BorderLayout.SOUTH);
 			}
 		}
 
-		class ScorePanel extends JPanel {
-			Container cRightDownPanel_LifePanel;
-			Container cRightUpPanel_GradePanel;
+		// 오른쪽 패널
+		class InfoPanel extends JPanel {
 
-			public Container getLifePanel() {
-				return cRightDownPanel_LifePanel;
-			}
-
-			public ScorePanel() {
-
+			public InfoPanel() {
 				this.setLayout(new GridLayout(3, 1));
+
 				// right panel - (0,0)
 				class RightUpPanel extends JPanel {
-					Container cGradePanel;
 
 					public RightUpPanel() {
 						setLayout(new GridLayout(4, 1));
 
-						JLabel Level = new JLabel("LEVEL", SwingConstants.CENTER);
-						Level.setBackground(Color.RED);
-						Level.setOpaque(true);
+						JLabel level = new JLabel("LEVEL", SwingConstants.CENTER);
+						level.setBackground(Color.RED);
+						level.setOpaque(true);
 
-						JLabel Score = new JLabel("SCORE", SwingConstants.CENTER);
-						Score.setBackground(Color.ORANGE);
-						Score.setOpaque(true);
-
-						add(Level);
+						add(level);
 						add(new JLabel("1 level", SwingConstants.CENTER)); // replace
 																			// add(new
 																			// JPanel());
-						class GradePanel extends JPanel {
-							public GradePanel() {
+
+						JLabel scoreLabel = new JLabel("SCORE", SwingConstants.CENTER);
+						scoreLabel.setBackground(Color.ORANGE);
+						scoreLabel.setOpaque(true);
+
+						class ScorePanel extends JPanel {
+							public ScorePanel() {
 								setLayout(new BorderLayout());
-								JLabel l = new JLabel(Integer.toString(score) + "점", SwingConstants.CENTER);
-								add(l, BorderLayout.CENTER);
+								JLabel scoreLabel = new JLabel(Integer.toString(s_score) + "점", SwingConstants.CENTER);
+								add(scoreLabel, BorderLayout.CENTER);
+
+								s_scorePanel = this;
 							}
 
-							public Container getGradePanel() {
-								return this;
-							}
 						}
-						add(Score);
-						GradePanel scorePanel = new GradePanel();
-						cGradePanel = scorePanel.getGradePanel();
 
-						add(scorePanel); // replace
-											// add(new
-											// JPanel());
+						add(scoreLabel);
+						ScorePanel scorePanel = new ScorePanel();
+
+						add(scorePanel);
 					}
 
-					public Container getScoreLabel() {
-						return cGradePanel;
-					}
 				}
+
 				// right panel - (0,1)
 				class RightDownPanel extends JPanel {
-					Container cLifePanel;
 
 					public RightDownPanel() {
 						setLayout(new GridLayout(4, 1));
@@ -240,10 +262,6 @@ public class GameScene extends JSplitPane {
 						JLabel Life = new JLabel("LIFE", SwingConstants.CENTER);
 						Life.setBackground(Color.YELLOW);
 						Life.setOpaque(true);
-
-						JLabel Time = new JLabel("TIME", SwingConstants.CENTER);
-						Time.setBackground(Color.GREEN);
-						Time.setOpaque(true);
 
 						class LifePanel extends JPanel {
 							public LifePanel() {
@@ -255,17 +273,26 @@ public class GameScene extends JSplitPane {
 								icon[0] = new ImageIcon("images/DisableHeart.png");
 								icon[1] = new ImageIcon("images/EnableHeart.png");
 
-								for (int i = 0; i < life.length; i++) {
+								for (int i = 0; i < life.length - s_maxLife; i++) {
 									life[i] = new JButton(icon[1]);
 									add(life[i]);
 								}
+
+								for (int i = life.length - s_maxLife; i < life.length; i++) {
+									life[i] = new JButton(icon[0]);
+									add(life[i]);
+								}
+
+								s_lifePanel = this;
 							}
 
-							public Container getLifePanel() {
-								return this;
-							}
 						}
 
+						JLabel Time = new JLabel("TIME", SwingConstants.CENTER);
+						Time.setBackground(Color.GREEN);
+						Time.setOpaque(true);
+
+						//// Timer////////
 						class TimerThread implements Runnable {
 							JLabel timerLabel;
 
@@ -291,8 +318,8 @@ public class GameScene extends JSplitPane {
 							}
 						}
 
-						class Timer extends JPanel {
-							public Timer() {
+						class TimePanel extends JPanel {
+							public TimePanel() {
 								JLabel timerLabel = new JLabel();
 								timerLabel.setFont(new Font("Gothic", Font.BOLD, 40));
 
@@ -303,20 +330,20 @@ public class GameScene extends JSplitPane {
 								add(timerLabel);
 
 								thtime.start();
+
+								s_timePanel = this;
 							}
 						}
 						add(Life);
 						LifePanel lifePanel = new LifePanel();
-						cLifePanel = lifePanel.getLifePanel();
 
 						add(lifePanel);
 						add(Time);
-						add(new Timer());
+						TimePanel timePanel = new TimePanel();
+
+						add(timePanel);
 					}
 
-					public Container getLifePanel() {
-						return cLifePanel;
-					}
 				}
 				// right panel - (0,2)
 				class ImagePanel extends JPanel {
@@ -327,25 +354,26 @@ public class GameScene extends JSplitPane {
 						super.paintComponent(g);
 						g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 					}
-				}
 
-				RightDownPanel rightDownPanel = new RightDownPanel();
-				cRightDownPanel_LifePanel = rightDownPanel.getLifePanel();
+					public ImagePanel() {
+						s_imgPanel = this;
+					}
+				}
 				RightUpPanel rightUpPanel = new RightUpPanel();
-				cRightUpPanel_GradePanel = rightUpPanel.getScoreLabel();
+				RightDownPanel rightDownPanel = new RightDownPanel();
+				ImagePanel imgPanel = new ImagePanel();
+
 				add(rightUpPanel);
 				add(rightDownPanel);
-				add(new ImagePanel());
+				add(imgPanel);
 			}
 
-			public Container getGradePanel() {
-				return cRightUpPanel_GradePanel;
-			}
 		}
-		ScorePanel scorePanel = new ScorePanel();
-		GamePanel gamePanel = new GamePanel(scorePanel.getGradePanel(), scorePanel.getLifePanel());
+
+		InfoPanel infoPanel = new InfoPanel();
+		GamePanel gamePanel = new GamePanel();
 
 		setLeftComponent(gamePanel);
-		setRightComponent(scorePanel);
+		setRightComponent(infoPanel);
 	}
 }

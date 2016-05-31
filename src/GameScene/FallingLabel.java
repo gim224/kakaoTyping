@@ -3,6 +3,8 @@ package GameScene;
 import java.awt.*;
 import javax.swing.*;
 
+import fileIO.FileInput;
+
 @SuppressWarnings("serial")
 public class FallingLabel extends JLabel implements Runnable {
 
@@ -12,6 +14,8 @@ public class FallingLabel extends JLabel implements Runnable {
 	private ImageIcon icon = new ImageIcon("images/폭죽.gif");
 	private Image img = icon.getImage();
 	private int lifePoint = 0;
+	private static FileInput input = new FileInput("txt/word.txt", "@");
+	
 
 	public void finish() {
 		flag = true;
@@ -21,18 +25,24 @@ public class FallingLabel extends JLabel implements Runnable {
 		return lifePoint;
 	}
 
-	public FallingLabel(String text, int speed) {
-		super(text, SwingConstants.CENTER);
+	private void setLabelSize() {
 		this.setFont(new Font("Jokerman", Font.ITALIC, 20));
 		FontMetrics fm = getFontMetrics(this.getFont());
 		int w = fm.stringWidth(this.getText());
-		this.setSize(w + 8, fm.getHeight());
+		this.setSize(w + 10, fm.getHeight());
+	}
+
+	public FallingLabel() {
+		super(input.getOneWordRandom(), SwingConstants.CENTER);
+		
+		speed = (int) (Math.random() * 5 + 1);
+
+		setLabelSize(); // Label 가로 size 설정
 
 		setOpaque(true);
 
-		this.speed = speed;
 		/////////// size 수정////////
-
+		
 		random = (int) (Math.random() * (600 - 150) + 1);
 
 		// 스레드 객체 생성
@@ -43,21 +53,15 @@ public class FallingLabel extends JLabel implements Runnable {
 
 	}
 
-	// public void delay() {
-	// try {
-	// Thread.sleep(interval);
-	// }
-	// catch(Exception e){
-	// }
-	// }
+	
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		int colorSwitch = 0;
 		// int speed = 0;
-		int i = 0;
+		int i = 0; // 처음 레이블 위치
 		while (true) {
-			
+
 			// if (colorSwitch == 0)
 			// setBackground(Color.yellow);
 			// else
@@ -68,27 +72,19 @@ public class FallingLabel extends JLabel implements Runnable {
 			// else
 			// colorSwitch = 0;
 
-			// System.out.println(this.getLocation().getY());
-			// System.out.println(this.getSize().getHeight());
-			// System.out.println(getLocation().getY());
 			if (getLocation().getY() >= 672 - getSize().getHeight()) {
 				flag = true;
 
 			}
 			this.setLocation(random, i += speed);
-			// if(i>100){
-			// this.setVisible(false);
-			//
-			// }
 
 			try {
-				Thread.sleep(10);
+				Thread.sleep(100);
 				if (flag == true) {
 					// 스레드 종료시 일어나야 할일 : score 증가?
 
-					this.setText("life--");
 					this.removeAll();
-					// this.setVisible(false);
+					this.setVisible(false);
 					return;
 				}
 			} catch (InterruptedException e) {
@@ -97,9 +93,9 @@ public class FallingLabel extends JLabel implements Runnable {
 		}
 	}
 
-//	@Override
-//	public void paintComponent(Graphics g) {
-//		g.drawImage(img, this.getX(), this.getY(), this);
-//	}
+	// @Override
+	// public void paintComponent(Graphics g) {
+	// g.drawImage(img, this.getX(), this.getY(), this);
+	// }
 
 }
