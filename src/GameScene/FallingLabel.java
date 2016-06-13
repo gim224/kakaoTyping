@@ -15,7 +15,7 @@ public class FallingLabel extends JLabel implements Runnable {
 	private Image img = icon.getImage();
 	private int lifePoint = 0;
 	private static FileInput input = new FileInput("txt/word.txt", "@");
-	
+	private int firstY = 0; // 처음 레이블 위치
 
 	public void finish() {
 		flag = true;
@@ -59,7 +59,7 @@ public class FallingLabel extends JLabel implements Runnable {
 		// TODO Auto-generated method stub
 		int colorSwitch = 0;
 		// int speed = 0;
-		int i = 0; // 처음 레이블 위치
+		
 		while (true) {
 
 			// if (colorSwitch == 0)
@@ -76,17 +76,17 @@ public class FallingLabel extends JLabel implements Runnable {
 				flag = true;
 
 			}
-			this.setLocation(random, i += speed);
+			this.setLocation(random, firstY += speed);
+			if (flag == true) {
+				// 스레드 종료시 일어나야 할일 : score 증가?
 
+				this.removeAll();
+				this.setVisible(false);
+				return;
+			}
 			try {
 				Thread.sleep(100);
-				if (flag == true) {
-					// 스레드 종료시 일어나야 할일 : score 증가?
-
-					this.removeAll();
-					this.setVisible(false);
-					return;
-				}
+				
 			} catch (InterruptedException e) {
 				return;
 			}

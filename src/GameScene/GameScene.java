@@ -116,8 +116,7 @@ public class GameScene extends JSplitPane {
 									for (int i = 0; i < fall.size(); i++) {
 										if (textField.getText().equals(fall.get(i).getText())) {
 											fall.get(i).finish();
-											fall.remove(i);
-											
+											fall.remove(i);											
 											s_score += 10;
 											s_scorePanel.removeAll();
 											s_scorePanel.setVisible(false);

@@ -34,6 +34,7 @@ public class FileInput {
 		} finally {
 			sc.close();
 		}
+		
 	}
 
 	/** vector의 사이즈를 리턴 */
