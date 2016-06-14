@@ -1,10 +1,14 @@
 package kakaoTyping;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -17,141 +21,156 @@ import UserManageScene.UserManageScene;
 
 public class MyFrame extends JFrame {
 
-	private int screenCount = 0;
+   private int screenCount = 0;
+   AudioClip clip = null;
+   
+   public MyFrame() throws FileNotFoundException {
+      super("NOPE Typing");
+      this.setSize(800, 800);
+      this.setLocation(10, 10);
+      this.setLayout(new BorderLayout());
+      this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/EnableHeart.png"));
+      
+      URL audioURL = getClass().getResource("LoveLane.WAV");
+      clip = Applet.newAudioClip(audioURL);
+      clip.loop();
+      // JMenu
+      createMenu();
+      // JTooltoolBar
+      createTooltoolBar();
+      /** FirstScene */
+      add(new FirstScene());
 
-	public MyFrame() throws FileNotFoundException {
-		super("KaKao Typing");
-		this.setSize(800, 800);
-		this.setLocation(10, 10);
-		this.setLayout(new BorderLayout());
-		this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/EnableHeart.png"));
+      /** SecondScene(User Enroll Scene) */
+      // add(new UserManageScene());
 
-		// JMenu
-		createMenu();
-		// JTooltoolBar
-		createTooltoolBar();
-		/** FirstScene */
-		add(new FirstScene());
+      /** ThirdScene(MainMenu) */
+      // add(new ThirdScene());
 
-		/** SecondScene(User Enroll Scene) */
-		// add(new UserManageScene());
+      /** 4ndScene(SelectLevel) */
 
-		/** ThirdScene(MainMenu) */
-		// add(new ThirdScene());
+      // add(new FourthScene());
 
-		/** 4ndScene(SelectLevel) */
+      /** GameScreen */
+      // add(new GameScene());
 
-		// add(new FourthScene());
+      this.setResizable(false);
+      this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      this.setVisible(true);
+   }
 
-		/** GameScreen */
-		// add(new GameScene());
+   void createMenu() {
+      JMenuBar menuToolBar = new JMenuBar();
+      JMenu file = new JMenu("File");
+      JMenu setting = new JMenu("Setting");
+      JMenu help = new JMenu("Help");
+      JMenu screenShot = new JMenu("ScreenShot");
 
-		this.setResizable(false);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setVisible(true);
-	}
+      // file Menu
+      file.add(new JMenuItem("New Game"));
+      file.addSeparator();
+      file.add(new JMenuItem("Score"));
+      file.add(new JMenuItem("Pause"));
+      file.add(new JMenuItem("Re-Start"));
+      file.addSeparator();
+      file.add(new JMenuItem("EXIT"));
+      // screenShot Menu
+      screenShot.add(new JMenuItem("ScreenShot"));
+      // setting Menu
+      setting.add(new JMenuItem("Frame-Size"));
+      setting.add(new JMenuItem("Background"));
+      // help Menu
+      help.add(new JMenuItem("help"));
+      help.addSeparator();
+      help.add(new JMenuItem("Information"));
 
-	void createMenu() {
-		JMenuBar menuToolBar = new JMenuBar();
-		JMenu file = new JMenu("File");
-		JMenu setting = new JMenu("Setting");
-		JMenu help = new JMenu("Help");
-		JMenu screenShot = new JMenu("ScreenShot");
+      menuToolBar.add(file);
+      menuToolBar.add(screenShot);
+      menuToolBar.add(setting);
+      menuToolBar.add(help);
 
-		// file Menu
-		file.add(new JMenuItem("New Game"));
-		file.addSeparator();
-		file.add(new JMenuItem("Score"));
-		file.add(new JMenuItem("Pause"));
-		file.add(new JMenuItem("Re-Start"));
-		file.addSeparator();
-		file.add(new JMenuItem("EXIT"));
-		// screenShot Menu
-		screenShot.add(new JMenuItem("ScreenShot"));
-		// setting Menu
-		setting.add(new JMenuItem("Frame-Size"));
-		setting.add(new JMenuItem("Background"));
-		// help Menu
-		help.add(new JMenuItem("help"));
-		help.addSeparator();
-		help.add(new JMenuItem("Information"));
+      setJMenuBar(menuToolBar);
+   }
 
-		menuToolBar.add(file);
-		menuToolBar.add(screenShot);
-		menuToolBar.add(setting);
-		menuToolBar.add(help);
+   void createTooltoolBar() {
+      JToolBar toolBar = new JToolBar("");
+      toolBar.setBackground(Color.LIGHT_GRAY);
 
-		setJMenuBar(menuToolBar);
-	}
+      JButton playBtn = new JButton(new ImageIcon("images/play.png"));
+      playBtn.setToolTipText("Play");
 
-	void createTooltoolBar() {
-		JToolBar toolBar = new JToolBar("");
-		toolBar.setBackground(Color.LIGHT_GRAY);
+      toolBar.add(playBtn);
 
-		JButton playBtn = new JButton(new ImageIcon("images/play.png"));
-		playBtn.setToolTipText("Play");
+      JButton pauBtn = new JButton(new ImageIcon("images/pause.png"));
+      pauBtn.setToolTipText("Pause");
 
-		toolBar.add(playBtn);
+      toolBar.add(pauBtn);
 
-		JButton pauBtn = new JButton(new ImageIcon("images/pause.png"));
-		pauBtn.setToolTipText("Pause");
+      JButton scBtn = new JButton(new ImageIcon("images/camera.png"));
+      scBtn.setToolTipText("Screen Shot");
 
-		toolBar.add(pauBtn);
+      toolBar.add(scBtn);
 
-		JButton scBtn = new JButton(new ImageIcon("images/camera.png"));
-		scBtn.setToolTipText("Screen Shot");
+      scBtn.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent e) {
+            JButton bttn = (JButton) e.getSource();
+            Container f = bttn.getTopLevelAncestor();
+            Robot robot = null;
 
-		toolBar.add(scBtn);
+            try {
+               robot = new Robot();
+            } catch (Exception e1) {
+            }
+            Rectangle area = new Rectangle(f.getLocation().x, f.getLocation().y, f.getSize().width,
+                  f.getSize().height);
+            BufferedImage image = robot.createScreenCapture(area);
+            image.setRGB(0, 0, 100);
 
-		scBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JButton bttn = (JButton) e.getSource();
-				Container f = bttn.getTopLevelAncestor();
-				Robot robot = null;
+            try {
+               File file = new File("capture/screen" + screenCount++ + ".jpeg");
+               ImageIO.write(image, "jpeg", file);
+            } catch (Exception e1) {
+               e1.printStackTrace();
+            }
 
-				try {
-					robot = new Robot();
-				} catch (Exception e1) {
-				}
-				Rectangle area = new Rectangle(f.getLocation().x, f.getLocation().y, f.getSize().width,
-						f.getSize().height);
-				BufferedImage image = robot.createScreenCapture(area);
-				image.setRGB(0, 0, 100);
+         }
+      });
 
-				try {
-					File file = new File("capture/screen" + screenCount++ + ".jpeg");
-					ImageIO.write(image, "jpeg", file);
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+      JButton musicBtn = new JButton(new ImageIcon("images/music.png"));
+      musicBtn.setToolTipText("Music");
 
-			}
-		});
+      toolBar.add(musicBtn);
+      
+      musicBtn.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent e) {
+            clip.play();
+            /*musicBtn.addActionListener(new ActionListener() {
+               public void actionPerformed(ActionEvent e) {
+                  clip.stop();
+               }
+            });*/
+         }
+      });
 
-		JButton musicBtn = new JButton(new ImageIcon("images/music.png"));
-		musicBtn.setToolTipText("Music");
+      JButton back = new JButton(new ImageIcon("images/home.png"));
+      back.setToolTipText("home");
+      toolBar.add(back);
 
-		toolBar.add(musicBtn);
+      back.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent e) {
+            JButton bttn = (JButton) e.getSource();
+            JToolBar bar = (JToolBar) bttn.getParent();
+            Container c = (Container) bar.getParent();
+            c.removeAll();
+            c.setVisible(false);
 
-		JButton back = new JButton(new ImageIcon("images/home.png"));
-		back.setToolTipText("home");
-		toolBar.add(back);
+            c.add(bar, BorderLayout.NORTH);
+            c.add(new FirstScene());
+            c.setVisible(true);
+         }
+      });
 
-		back.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JButton bttn = (JButton) e.getSource();
-				JToolBar bar = (JToolBar) bttn.getParent();
-				Container c = (Container) bar.getParent();
-				c.removeAll();
-				c.setVisible(false);
-
-				c.add(bar, BorderLayout.NORTH);
-				c.add(new FirstScene());
-				c.setVisible(true);
-			}
-		});
-
-		this.add(toolBar, BorderLayout.NORTH);
-		toolBar.setFloatable(false); // 툴바 못옮김
-	}
+      this.add(toolBar, BorderLayout.NORTH);
+      toolBar.setFloatable(false); // 툴바 못옮김
+   }
 }

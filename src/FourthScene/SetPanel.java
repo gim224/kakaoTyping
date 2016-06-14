@@ -61,11 +61,11 @@ class LevelPanel extends JPanel {
 }
 
 class ImagePanel extends JPanel {
-	ImageIcon icon = new ImageIcon("images/fight.gif");
+	ImageIcon icon = new ImageIcon("images/love.gif");
 	Image img = icon.getImage();
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(img, 30, 30, 170, 170, this);
+		g.drawImage(img, 0,0,this.getWidth(),this.getHeight(), this);
 	}
 }

@@ -50,7 +50,7 @@ public class UserManageScene extends JPanel {
 		add(titleLabel);
 		//
 		//
-		JLabel imgLabel = new JLabel(new ImageIcon("images/userEnroll/all.png"));
+		JLabel imgLabel = new JLabel(new ImageIcon("images/two.jpg"));
 		imgLabel.setSize(743, 472);
 		imgLabel.setLocation(20, 75);
 		imgLabel.setOpaque(true);

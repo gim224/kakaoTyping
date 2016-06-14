@@ -11,7 +11,9 @@ import fileIO.ObjInput;
 import kakaoTyping.User;
 
 public class Ranking extends JPanel implements Comparable {
-
+	
+	
+	
 	String header[] = { "순위", "이름", "점수", "목표오타율", "오타율", "생성날짜" };
 	String contents[][];
 

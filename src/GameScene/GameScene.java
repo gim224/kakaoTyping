@@ -34,10 +34,10 @@ public class GameScene extends JSplitPane {
 	// 저장
 
 	private File file = new File("txt/user.dat");
-	private Vector<User> m_vec;
+	private Vector<User> user;
 	private ObjInput obip;
 	private int countCorrect = 0;
-	private int countEnter = 0;
+	private int countEnter = 1;
 
 	private JTextField textField = new JTextField("", 30);
 	private JLabel curlevelLabel;
@@ -51,7 +51,7 @@ public class GameScene extends JSplitPane {
 	public GameScene() {
 		if (file.length() != 0) {
 			obip = new ObjInput();
-			m_vec = obip.getUserVector();
+			user = obip.getUserVector();
 		}
 
 		s_thisPanel = this;
@@ -116,20 +116,28 @@ public class GameScene extends JSplitPane {
 		}
 
 		class WordPanel extends JPanel {
+			private boolean isStart = true;
 
 			public WordPanel() {
 				setLayout(null);
 				s_wordPanel = this;
+
 				GenerateLabel gl = new GenerateLabel();
 				gl.start();
+
 			}
 
 			// 배경화면
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				ImageIcon background = new ImageIcon("images/gameback.jpg");
+				ImageIcon background = new ImageIcon("images/heart.jpg");
 				Image img = background.getImage();
 				g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+				if (isStart == true) {
+					showTitle("ready...", 3000);
+					repaint();
+					isStart = false;
+				}
 			}
 		}
 
@@ -183,7 +191,7 @@ public class GameScene extends JSplitPane {
 							// System.out.println("엔터" + countEnter);
 							for (int i = 0; i < fall.size(); i++) {
 								if (textField.getText().equals(fall.get(i).getText())) {
-									fall.get(i).finish();
+									fall.get(i).finish2();
 									countCorrect++;
 									// System.out.println("맞춤" + countCorrect);
 									s_score += 20;
@@ -316,7 +324,7 @@ public class GameScene extends JSplitPane {
 						}
 
 						public void run() {
-							int n = 0;
+							int n = -3;
 							while (true) {
 								if (n % 60 < 10 && n / 60 < 10)
 									timerLabel.setText("0" + Integer.toString(n / 60) + ":0" + n % 60);
@@ -376,12 +384,12 @@ public class GameScene extends JSplitPane {
 
 				public ImagePanel() {
 					s_imgPanel = this;
-					int imgNum = m_vec.get(userNum).getImgNum();
+					int imgNum = user.get(userNum).getImgNum();
 					icon = new ImageIcon[2];
 					icon[0] = new ImageIcon("images/user-male-icon.png");
 					icon[1] = new ImageIcon("images/user-female-icon.png");
 					img = icon[imgNum].getImage();
-					name = "NAME : " + m_vec.get(userNum).getName();
+					name = "NAME : " + user.get(userNum).getName();
 					JLabel id = new JLabel(name);
 					id.setBounds(200, 100, 0, 0);
 					id.setForeground(Color.RED);
@@ -415,11 +423,16 @@ public class GameScene extends JSplitPane {
 	}
 
 	class GenerateLabel extends Thread {
+		private boolean isStart = true;
+		ImageIcon image = new ImageIcon("images/label/heavy-red-heart.png");
+
 		public void run() {
 			while (flag != true) {
-				fall.addElement(new FallingLabel());
+				fall.addElement(new FallingLabel(image));
 				s_wordPanel.add(fall.lastElement());
+
 				delay(interval);
+
 				int i = 0;
 				if (flag == true) {
 					while (fall.isEmpty()) {
@@ -427,12 +440,14 @@ public class GameScene extends JSplitPane {
 					}
 					return;
 				}
+
 			}
 		}
 	}
 
 	class FallingLabel extends JLabel implements Runnable {
 		private boolean F_flag = false;
+		private boolean F_flag2 = false;
 		private int random = (int) (Math.random() * (600 - 150) + 1);
 		// private ImageIcon icon = new ImageIcon("images/폭죽.gif");
 		// private Image img = icon.getImage();
@@ -441,19 +456,24 @@ public class GameScene extends JSplitPane {
 			F_flag = true;
 		}
 
+		public void finish2() {
+			F_flag2 = true;
+		}
+
 		private void setLabelSize() {
 			this.setFont(new Font("굴림", Font.ITALIC, 20));
 			FontMetrics fm = getFontMetrics(this.getFont());
 			int w = fm.stringWidth(this.getText());
-			this.setSize(w + 10, fm.getHeight());
+			this.setSize(w + 50, fm.getHeight() + 20);
 		}
 
-		public FallingLabel() {
+		public FallingLabel(ImageIcon image2) {
 
-			super(input.getOneWordRandom(), SwingConstants.CENTER);
+			super(input.getOneWordRandom(), image2, SwingConstants.CENTER);
 
 			setLabelSize(); // Label 가로 size 설정
 			setOpaque(true);
+			this.setBackground(Color.white);
 
 			// 스레드 객체 생성
 			Thread th = new Thread(this);
@@ -463,13 +483,14 @@ public class GameScene extends JSplitPane {
 
 		@Override
 		public void run() {
-			// int colorSwitch = 0;
+
 			int i = 0; // 처음 레이블 위치
 			while (true) {
-				delay(speed);
+				//delay(speed);
+				delay(50);
 				setLocation(random, i++);
 
-				if (getLocation().y > 50) {
+				if (getLocation().y > s_wordPanel.getSize().getWidth()+40) {
 					finish();
 					if (s_deadLife < 5) {
 						s_deadLife++;
@@ -487,16 +508,16 @@ public class GameScene extends JSplitPane {
 					finish();
 					t_flag = true;
 					showTitle("Game Over", 5000);
-					User curUser = m_vec.get(userNum);
-					m_vec.remove(userNum);
+					User curUser = user.get(userNum);
+					
 					curUser.setScore(s_score);
 					// System.out.println(s_score);
 
 					curUser.setMiss((double) (100 * (countEnter - countCorrect) / countEnter));
 
-					m_vec.add(userNum, curUser);
-
-					new ObjOutput(m_vec);
+					user.add(userNum, curUser);
+					user.remove(userNum+1);
+					new ObjOutput(user);
 					Container c = getParent();
 					// c.removeAll();
 					c.setVisible(false);
@@ -505,19 +526,26 @@ public class GameScene extends JSplitPane {
 					rank.setBounds(50, 100, 200, 100);
 					rank.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							// Container c= s_thisPanel.getParent();
-							// c.removeAll();
-							// c.setVisible(false);
-							// c.getParent().remove(s_thisPanel);
-							// c.getParent().add(new Ranking());
-							// c.setVisible(true);
+							Container c = s_thisPanel.getParent();
+							s_thisPanel.removeAll();
+							c.remove(s_thisPanel);
+							c.setVisible(false);
+							c.add(new Ranking());
+							c.setVisible(true);
+
 						}
 					});
 
 					regame.setBounds(350, 100, 200, 100);
 					regame.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-
+							JButton bttn = (JButton) e.getSource();
+							Container c = bttn.getParent().getParent().getParent();
+							c.removeAll();
+							c.setVisible(false);
+							c.add(new GameScene());
+							c.setVisible(true);
+							c.repaint();
 						}
 					});
 					c.add(rank);
@@ -525,11 +553,52 @@ public class GameScene extends JSplitPane {
 					c.setVisible(true);
 
 				}
+				if (F_flag2 == true) {
+					Container c = getParent();
+					ImageIcon goodImg = new ImageIcon("images/label/revolving-hearts.png");
+					JLabel good = new JLabel(goodImg);
+					good.setLocation(this.getLocation());
+					good.setSize(this.getSize());
+					c.add(good);
+
+					// c.remove(good);
+					this.setVisible(false);
+					c.remove(this);
+					c.repaint();
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					c.remove(good);
+					c.repaint();
+					fall.remove(this);
+
+					this.removeAll();
+
+					return;
+				}
 
 				if (F_flag == true) {
-					this.setVisible(false);
 					Container c = getParent();
+					ImageIcon goodImg = new ImageIcon("images/label/broken-heart.png");
+					JLabel good = new JLabel(goodImg);
+					good.setLocation(this.getLocation());
+					good.setSize(this.getSize());
+					c.add(good);
+
+					// c.remove(good);
+					this.setVisible(false);
 					c.remove(this);
+					c.repaint();
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					c.remove(good);
 					c.repaint();
 					fall.remove(this);
 

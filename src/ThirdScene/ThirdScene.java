@@ -10,7 +10,7 @@ import FourthScene.FourthScene;
 
 @SuppressWarnings("serial")
 public class ThirdScene extends JPanel {
-	ImageIcon icon = new ImageIcon("images/lion.jpg");
+	ImageIcon icon = new ImageIcon("images/three.jpg");
 	Image img = icon.getImage();
 
 	public ThirdScene() {
