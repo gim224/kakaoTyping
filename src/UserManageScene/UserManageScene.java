@@ -13,7 +13,6 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-
 import ThirdScene.Ranking;
 import ThirdScene.ThirdScene;
 
@@ -26,16 +25,15 @@ public class UserManageScene extends JPanel {
 	private Vector<User> user = new Vector<User>();
 	private Vector<String> name = new Vector<String>();
 	private int index = -1;
-	
-	
-	public UserManageScene() throws FileNotFoundException {
+	public static int selectUserNum;
+	public UserManageScene() {
 
 		this.setLayout(null);
 		this.setBackground(Color.pink);
 		makeJList();
 	}
 
-	void makeJList() throws FileNotFoundException {
+	void makeJList() {
 		final int LOC_X = 70;
 		final int LOC_Y = 600;
 		final int SIZ_X = 200;
@@ -76,16 +74,17 @@ public class UserManageScene extends JPanel {
 		if (file.length() != 0) {
 			ObjInput input = new ObjInput();
 			user = input.getUserVector();
-			
-			
+
 			for (int i = 0; i < user.size(); i++) {
 				name.add(user.get(i).getName());
-				System.out.println("imgNum : "+user.get(i).getImgNum());
-				System.out.println("Name : "+user.get(i).getName());
-				System.out.println("Birth : "+user.get(i).getBirth());
-				System.out.println("Goal : "+user.get(i).getGoal());
-				//System.out.println("Date : "+user.get(i).getDate().get(Calendar.YEAR));
-				//System.out.println("Date : "+user.get(i).getDate().get(Calendar.SECOND));
+				System.out.println("imgNum : " + user.get(i).getImgNum());
+				System.out.println("Name : " + user.get(i).getName());
+				System.out.println("Birth : " + user.get(i).getBirth());
+				System.out.println("Goal : " + user.get(i).getGoal());
+				// System.out.println("Date :
+				// "+user.get(i).getDate().get(Calendar.YEAR));
+				// System.out.println("Date :
+				// "+user.get(i).getDate().get(Calendar.SECOND));
 
 				System.out.println("------");
 			}
@@ -99,11 +98,11 @@ public class UserManageScene extends JPanel {
 
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane pane = new JScrollPane(list);
+		
 		pane.setSize(SIZ_X, 77);
 		pane.setLocation(LOC_X, LOC_Y);
 		add(pane);
 
-		
 		//
 		//
 		JButton enroll = new JButton("enroll");
@@ -140,12 +139,7 @@ public class UserManageScene extends JPanel {
 					p.removeAll();
 					p.setVisible(false);
 
-					try {
-						c.add(new UserManageScene());
-					} catch (FileNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					c.add(new UserManageScene());
 					c.setVisible(true);
 				} else
 					JOptionPane.showMessageDialog(null, "select user plz");
@@ -156,29 +150,31 @@ public class UserManageScene extends JPanel {
 		JButton select = new JButton("Select");
 		select.setSize(400, 100);
 		select.setLocation(LOC_X + 250, LOC_Y - 20);
-		
+
 		select.setEnabled(false);
 		add(select);
-		
+
 		select.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JButton select = (JButton) e.getSource();
 
 				JPanel p = (JPanel) select.getParent();
 				Container c = select.getTopLevelAncestor();
-				
-				
+
 				p.removeAll();
 				c.remove(p);
 				p.setVisible(false);
-				
+
 				revalidate();
 				repaint();
 				c.add(new ThirdScene());
 				c.setVisible(true);
+				System.out.println(list.getLeadSelectionIndex());
+				selectUserNum = list.getSelectedIndex();
+				System.out.println(selectUserNum);
 			}
 		});
-		
+
 		list.addListSelectionListener(new ListSelectionListener() {
 
 			@Override
@@ -189,8 +185,8 @@ public class UserManageScene extends JPanel {
 				delete.setEnabled(true);
 			}
 		});
-		
-		
 
 	}
 }
+
+

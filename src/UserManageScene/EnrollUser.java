@@ -35,8 +35,6 @@ public class EnrollUser extends JFrame {
 	private JButton confirmBttn;
 	// private Vector<User> user = new Vector<User>();
 
-	
-	
 	private void isTextFieldUpdate(JButton btn) {
 		if (!userName.getText().equals("ex)홍길동") && (!(birth.getText() == "")) && (birth.getText().length() > 0)) {
 			btn.setEnabled(true);
@@ -90,10 +88,10 @@ public class EnrollUser extends JFrame {
 		//
 		//
 		currentId = 0;
-		ImageIcon[] img = new ImageIcon[3];
-		img[0] = new ImageIcon("images/mugi.jpg");
-		img[1] = new ImageIcon("images/tube.jpg");
-		img[2] = new ImageIcon("images/prodo.jpg");
+		ImageIcon[] img = new ImageIcon[2];
+		img[0] = new ImageIcon("images/user-male-icon.png");
+		img[1] = new ImageIcon("images/user-female-icon.png");
+		//img[2] = new ImageIcon("images/prodo.jpg");
 		imgLabel = new JLabel(img[currentId]);
 
 		//
@@ -282,21 +280,16 @@ public class EnrollUser extends JFrame {
 		add(confirmBttn);
 
 		confirmBttn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
+			public void actionPerformed(ActionEvent e) {
 				user.add(new User(currentId, userName.getText(), Integer.parseInt(birth.getText()), goal));
 				new ObjOutput(user);
 
 				p.removeAll();
 				p.setVisible(false);
-				
+
 				Container c = p.getTopLevelAncestor();
-				try {
-					c.remove(p);
-					c.add(new UserManageScene());
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				c.remove(p);
+				c.add(new UserManageScene());
 
 				c.setVisible(true);
 				dispose();

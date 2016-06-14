@@ -30,7 +30,8 @@ public class ThirdScene extends JPanel {
 				p.setVisible(false);
 				c.remove(p);
 				c.add(new FourthScene());
-				c.setVisible(true);
+				c.setVisible(true);				
+				
 			}
 		});
 

@@ -31,12 +31,7 @@ public class FirstScene extends JPanel {
 				p.removeAll();
 				c.remove(p);
 				p.setVisible(false);				
-				try {					
-					c.add(new UserManageScene());					
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				c.add(new UserManageScene());
 
 				c.setVisible(true);
 			}

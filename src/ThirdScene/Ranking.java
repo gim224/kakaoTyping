@@ -12,7 +12,7 @@ import kakaoTyping.User;
 
 public class Ranking extends JPanel implements Comparable {
 
-	String header[] = { "Rank", "Name", "Score", "Goal", "Accuracy", "Date" };
+	String header[] = { "순위", "이름", "점수", "목표오타율", "오타율", "생성날짜" };
 	String contents[][];
 
 	Vector<User> userInfo = new Vector<User>();
@@ -43,8 +43,8 @@ public class Ranking extends JPanel implements Comparable {
 				contents[i][0] = Integer.toString(i + 1);
 				contents[i][1] = userInfo.get(i).getName();
 				contents[i][2] = Integer.toString(userInfo.get(i).getScore());
-				contents[i][3] = Integer.toString(userInfo.get(i).getGoal());
-				contents[i][4] = Double.toString(userInfo.get(i).getMiss());
+				contents[i][3] = Integer.toString(userInfo.get(i).getGoal()) + "%";
+				contents[i][4] = Double.toString(userInfo.get(i).getMiss()) + "%";
 				contents[i][5] = userInfo.get(i).getDate();
 			}
 		}
@@ -52,6 +52,8 @@ public class Ranking extends JPanel implements Comparable {
 		setLayout(new BorderLayout());
 		JTable table = new JTable(contents, header);
 		table.setShowHorizontalLines(false);
+		table.setEnabled(false);
+
 		JScrollPane scrollpane = new JScrollPane(table);
 		add(scrollpane, BorderLayout.CENTER);
 

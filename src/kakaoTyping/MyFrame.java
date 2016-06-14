@@ -1,11 +1,12 @@
 package kakaoTyping;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import FirstScene.FirstScene;
@@ -14,8 +15,10 @@ import GameScene.GameScene;
 import ThirdScene.ThirdScene;
 import UserManageScene.UserManageScene;
 
-@SuppressWarnings("serial")
 public class MyFrame extends JFrame {
+
+	private int screenCount = 0;
+
 	public MyFrame() throws FileNotFoundException {
 		super("KaKao Typing");
 		this.setSize(800, 800);
@@ -28,17 +31,17 @@ public class MyFrame extends JFrame {
 		// JTooltoolBar
 		createTooltoolBar();
 		/** FirstScene */
-		// add(new FirstScene());
+		add(new FirstScene());
 
 		/** SecondScene(User Enroll Scene) */
-		//add(new UserManageScene());
+		// add(new UserManageScene());
 
 		/** ThirdScene(MainMenu) */
 		// add(new ThirdScene());
 
 		/** 4ndScene(SelectLevel) */
 
-		 add(new FourthScene());
+		// add(new FourthScene());
 
 		/** GameScreen */
 		// add(new GameScene());
@@ -78,7 +81,7 @@ public class MyFrame extends JFrame {
 		menuToolBar.add(setting);
 		menuToolBar.add(help);
 
-		setJMenuBar(menuToolBar); // �޴��ٸ� �����ӿ� ����
+		setJMenuBar(menuToolBar);
 	}
 
 	void createTooltoolBar() {
@@ -100,23 +103,48 @@ public class MyFrame extends JFrame {
 
 		toolBar.add(scBtn);
 
+		scBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JButton bttn = (JButton) e.getSource();
+				Container f = bttn.getTopLevelAncestor();
+				Robot robot = null;
+
+				try {
+					robot = new Robot();
+				} catch (Exception e1) {
+				}
+				Rectangle area = new Rectangle(f.getLocation().x, f.getLocation().y, f.getSize().width,
+						f.getSize().height);
+				BufferedImage image = robot.createScreenCapture(area);
+				image.setRGB(0, 0, 100);
+
+				try {
+					File file = new File("capture/screen" + screenCount++ + ".jpeg");
+					ImageIO.write(image, "jpeg", file);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+
 		JButton musicBtn = new JButton(new ImageIcon("images/music.png"));
-		scBtn.setToolTipText("Music");
+		musicBtn.setToolTipText("Music");
 
 		toolBar.add(musicBtn);
 
 		JButton back = new JButton(new ImageIcon("images/home.png"));
-		scBtn.setToolTipText("home");
+		back.setToolTipText("home");
 		toolBar.add(back);
 
 		back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JButton bttn = (JButton) e.getSource();
-				JToolBar bar = (JToolBar) bttn.getParent();				
+				JToolBar bar = (JToolBar) bttn.getParent();
 				Container c = (Container) bar.getParent();
 				c.removeAll();
 				c.setVisible(false);
-				
+
 				c.add(bar, BorderLayout.NORTH);
 				c.add(new FirstScene());
 				c.setVisible(true);
@@ -124,6 +152,6 @@ public class MyFrame extends JFrame {
 		});
 
 		this.add(toolBar, BorderLayout.NORTH);
-		toolBar.setFloatable(false); // ���� �̵� �Ұ�
+		toolBar.setFloatable(false); // 툴바 못옮김
 	}
 }
