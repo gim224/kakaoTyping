@@ -1,8 +1,11 @@
 package GameScene;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.net.URL;
 import java.util.Vector;
 import javax.swing.*;
 
@@ -29,6 +32,10 @@ public class GameScene extends JSplitPane {
 	private int userNum = UserManageScene.selectUserNum; // 유저가 누구인지
 	private int SCREEN_WIDTH; // 게임패널의 넓이
 	private int SCREEN_HEIGHT; // 게입패널의 높이
+	
+	AudioClip clip_correct = null;
+	AudioClip clip_miss = null;
+	AudioClip clip_bottom = null;
 
 	private Vector<FallingLabel> fall = new Vector<FallingLabel>(); // 떨어지는 단어들을
 	// 저장
@@ -54,6 +61,13 @@ public class GameScene extends JSplitPane {
 			user = obip.getUserVector();
 		}
 
+		URL correctURL = getClass().getResource("correct.WAV");
+	    clip_correct = Applet.newAudioClip(correctURL);
+		URL missURL = getClass().getResource("miss.WAV");
+	    clip_miss = Applet.newAudioClip(missURL);
+		URL bottomURL = getClass().getResource("bottom.WAV");
+	    clip_bottom = Applet.newAudioClip(bottomURL);
+	      
 		s_thisPanel = this;
 		setOrientation(JSplitPane.HORIZONTAL_SPLIT);
 		setDividerLocation(600);
@@ -191,6 +205,7 @@ public class GameScene extends JSplitPane {
 							// System.out.println("엔터" + countEnter);
 							for (int i = 0; i < fall.size(); i++) {
 								if (textField.getText().equals(fall.get(i).getText())) {
+									clip_correct.play();
 									fall.get(i).finish2();
 									countCorrect++;
 									// System.out.println("맞춤" + countCorrect);
@@ -208,6 +223,7 @@ public class GameScene extends JSplitPane {
 
 								if (i == fall.size() - 1) {
 									if (s_deadLife < 5) {
+										clip_miss.play();
 										s_deadLife++;
 										s_lifePanel.removeAll();
 										s_lifePanel.setVisible(false);
@@ -491,6 +507,7 @@ public class GameScene extends JSplitPane {
 				setLocation(random, i++);
 
 				if (getLocation().y > s_wordPanel.getSize().getWidth()+40) {
+					clip_bottom.play();
 					finish();
 					if (s_deadLife < 5) {
 						s_deadLife++;
