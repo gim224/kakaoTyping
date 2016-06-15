@@ -24,15 +24,15 @@ public class GameScene extends JSplitPane {
 	private int s_score = 0; // 처음에 0정부터 시작
 	private int s_deadLife = 0; // 최대 목숨 5
 	private int curLevel = 1; // 현재 레벨
-	private final int MAX_LEVEL = 4; // 최대 레벨
-	private int interval = 5000; // 스레드 생성 간격
+	private final int MAX_LEVEL = 8; // 최대 레벨
+	private int interval = 8000; // 스레드 생성 간격
 	private int speed = 100;
 	private boolean flag = false;
 	private boolean t_flag = false;
 	private int userNum = UserManageScene.selectUserNum; // 유저가 누구인지
 	private int SCREEN_WIDTH; // 게임패널의 넓이
 	private int SCREEN_HEIGHT; // 게입패널의 높이
-	
+
 	AudioClip clip_correct = null;
 	AudioClip clip_miss = null;
 	AudioClip clip_bottom = null;
@@ -61,13 +61,13 @@ public class GameScene extends JSplitPane {
 			user = obip.getUserVector();
 		}
 
-		URL correctURL = getClass().getResource("correct.WAV");
-	    clip_correct = Applet.newAudioClip(correctURL);
-		URL missURL = getClass().getResource("miss.WAV");
-	    clip_miss = Applet.newAudioClip(missURL);
-		URL bottomURL = getClass().getResource("bottom.WAV");
-	    clip_bottom = Applet.newAudioClip(bottomURL);
-	      
+		URL correctURL = getClass().getResource("correct.wav");
+		clip_correct = Applet.newAudioClip(correctURL);
+		URL missURL = getClass().getResource("miss.wav");
+		clip_miss = Applet.newAudioClip(missURL);
+		URL bottomURL = getClass().getResource("bottom.wav");
+		clip_bottom = Applet.newAudioClip(bottomURL);
+
 		s_thisPanel = this;
 		setOrientation(JSplitPane.HORIZONTAL_SPLIT);
 		setDividerLocation(600);
@@ -93,7 +93,7 @@ public class GameScene extends JSplitPane {
 	}
 
 	public void showTitle(String title, int time) {
-		Graphics g = this.getGraphics();
+		Graphics g = s_wordPanel.getGraphics();
 		g.setFont(new Font("Arial", Font.BOLD, 80));
 		g.setColor(Color.RED);
 
@@ -112,6 +112,9 @@ public class GameScene extends JSplitPane {
 		s_wordPanel.repaint();
 		speed /= 2;
 		interval /= 2;
+		if (interval < 1000) {
+			interval *= 2;
+		}
 	}
 
 	class GamePanel extends JPanel {
@@ -502,11 +505,11 @@ public class GameScene extends JSplitPane {
 
 			int i = 0; // 처음 레이블 위치
 			while (true) {
-				//delay(speed);
+				// delay(speed);
 				delay(50);
 				setLocation(random, i++);
 
-				if (getLocation().y > s_wordPanel.getSize().getWidth()+40) {
+				if (getLocation().y > s_wordPanel.getSize().getWidth() + 40) {
 					clip_bottom.play();
 					finish();
 					if (s_deadLife < 5) {
@@ -526,14 +529,14 @@ public class GameScene extends JSplitPane {
 					t_flag = true;
 					showTitle("Game Over", 5000);
 					User curUser = user.get(userNum);
-					
+
 					curUser.setScore(s_score);
 					// System.out.println(s_score);
 
 					curUser.setMiss((double) (100 * (countEnter - countCorrect) / countEnter));
 
 					user.add(userNum, curUser);
-					user.remove(userNum+1);
+					user.remove(userNum + 1);
 					new ObjOutput(user);
 					Container c = getParent();
 					// c.removeAll();

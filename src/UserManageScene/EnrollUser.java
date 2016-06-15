@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
@@ -38,7 +39,6 @@ public class EnrollUser extends JFrame {
 	private void isTextFieldUpdate(JButton btn) {
 		if (!userName.getText().equals("ex)홍길동") && (!(birth.getText() == "")) && (birth.getText().length() > 0)) {
 			btn.setEnabled(true);
-
 		} else {
 			btn.setEnabled(false);
 			// System.out.println("자동으로 버튼 비활성화");
@@ -54,6 +54,17 @@ public class EnrollUser extends JFrame {
 			btn.setEnabled(false);
 			// System.out.println("자동으로 버튼 비활성화");
 		}
+	}
+
+	private boolean isNumber(String str) {
+		boolean check = true;
+		for (int i = 0; i < str.length(); i++) {
+			if (!Character.isDigit(str.charAt(i))) {
+				check = false;
+				break;
+			}
+		}
+		return check;
 	}
 
 	public EnrollUser(Vector<User> user, JPanel p) throws FileNotFoundException {
@@ -281,6 +292,17 @@ public class EnrollUser extends JFrame {
 
 		confirmBttn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				for(int i=0; i<user.size(); i++) {
+					if(userName.getText().equals(user.get(i).getName())) {
+						JOptionPane.showMessageDialog(null,"동일한 이름이 존재합니다.", "Error", JOptionPane.ERROR_MESSAGE);
+						userName.setText("");
+						return;
+					}
+				}
+				if(isNumber(birth.getText())==false) {
+					JOptionPane.showMessageDialog(null,"생년월일을 바르게 입력하세요.", "Error", JOptionPane.ERROR_MESSAGE);
+					birth.setText("");
+				}
 				user.add(new User(currentId, userName.getText(), Integer.parseInt(birth.getText()), goal));
 				new ObjOutput(user);
 

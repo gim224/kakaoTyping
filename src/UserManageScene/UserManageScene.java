@@ -2,6 +2,7 @@ package UserManageScene;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -39,13 +40,15 @@ public class UserManageScene extends JPanel {
 		final int SIZ_X = 200;
 
 		//
-		JLabel titleLabel = new JLabel("Select User");
+		JLabel titleLabel = new JLabel("Select  User");
+		titleLabel.setFont(new Font("Ravie", Font.BOLD, 30));
+		titleLabel.setForeground(Color.DARK_GRAY);
 		titleLabel.setSize(743, 50);
 		titleLabel.setLocation(20, 10);
 		titleLabel.setVerticalAlignment(getX() / 2);
 		titleLabel.setHorizontalAlignment(getY() / 2);
 		titleLabel.setOpaque(true);
-		titleLabel.setBackground(Color.YELLOW);
+		titleLabel.setBackground(Color.PINK);
 
 		add(titleLabel);
 		//

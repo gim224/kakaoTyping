@@ -33,9 +33,10 @@ public class MyFrame extends JFrame {
 		this.setLayout(new BorderLayout());
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/EnableHeart.png"));
 
-		URL audioURL = getClass().getResource("LoveLane.WAV");
+		URL audioURL = getClass().getResource("LoveLane.wav");
 		clip = Applet.newAudioClip(audioURL);
 		clip.loop();
+		
 		// JMenu
 		createMenu();
 		// JTooltoolBar
@@ -64,7 +65,6 @@ public class MyFrame extends JFrame {
 	void createMenu() {
 		JMenuBar menuToolBar = new JMenuBar();
 		JMenu file = new JMenu("File");
-		JMenu setting = new JMenu("Setting");
 		JMenu help = new JMenu("Help");
 		JMenu screenShot = new JMenu("ScreenShot");
 
@@ -78,9 +78,6 @@ public class MyFrame extends JFrame {
 		file.add(new JMenuItem("EXIT"));
 		// screenShot Menu
 		screenShot.add(new JMenuItem("ScreenShot"));
-		// setting Menu
-		setting.add(new JMenuItem("Frame-Size"));
-		setting.add(new JMenuItem("Background"));
 		// help Menu
 		help.add(new JMenuItem("help"));
 		help.addSeparator();
@@ -88,7 +85,6 @@ public class MyFrame extends JFrame {
 
 		menuToolBar.add(file);
 		menuToolBar.add(screenShot);
-		menuToolBar.add(setting);
 		menuToolBar.add(help);
 
 		setJMenuBar(menuToolBar);
@@ -107,6 +103,15 @@ public class MyFrame extends JFrame {
 		pauBtn.setToolTipText("Pause");
 
 		toolBar.add(pauBtn);
+		
+		pauBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JButton bttn = (JButton) e.getSource();
+				JToolBar bar = (JToolBar) bttn.getParent();
+				Container c = (Container) bar.getParent();
+
+			}
+		});
 
 		JButton scBtn = new JButton(new ImageIcon("images/camera.png"));
 		scBtn.setToolTipText("Screen Shot");
