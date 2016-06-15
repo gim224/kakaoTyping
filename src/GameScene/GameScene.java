@@ -25,8 +25,8 @@ public class GameScene extends JSplitPane {
 	private int s_deadLife = 0; // 최대 목숨 5
 	private int curLevel = 1; // 현재 레벨
 	private final int MAX_LEVEL = 8; // 최대 레벨
-	private int interval = 8000; // 스레드 생성 간격
-	private int speed = 100;
+	private int interval = 4000; // 스레드 생성 간격
+	private int speed = 32;
 	private boolean flag = false;
 	private boolean t_flag = false;
 	private int userNum = UserManageScene.selectUserNum; // 유저가 누구인지
@@ -36,6 +36,7 @@ public class GameScene extends JSplitPane {
 	AudioClip clip_correct = null;
 	AudioClip clip_miss = null;
 	AudioClip clip_bottom = null;
+	AudioClip clip_rewind = null;
 
 	private Vector<FallingLabel> fall = new Vector<FallingLabel>(); // 떨어지는 단어들을
 	// 저장
@@ -67,6 +68,8 @@ public class GameScene extends JSplitPane {
 		clip_miss = Applet.newAudioClip(missURL);
 		URL bottomURL = getClass().getResource("bottom.wav");
 		clip_bottom = Applet.newAudioClip(bottomURL);
+		URL rewindURL = getClass().getResource("rewind.wav");
+		clip_rewind = Applet.newAudioClip(rewindURL);
 
 		s_thisPanel = this;
 		setOrientation(JSplitPane.HORIZONTAL_SPLIT);
@@ -106,9 +109,11 @@ public class GameScene extends JSplitPane {
 
 	public synchronized void levelUp() {
 		curLevel++;
-		curlevelLabel.setText(curLevel + "  level");
-		// s_wordPanel.removeAll();
+		curlevelLabel.setText(curLevel + "  level");		
 		showTitle("L E V E L  " + curLevel, 3000);
+		for (int i = 0; i < fall.size(); i++)
+			fall.get(i).finish2();		
+
 		s_wordPanel.repaint();
 		speed /= 2;
 		interval /= 2;
@@ -197,9 +202,11 @@ public class GameScene extends JSplitPane {
 						}
 					}
 				}
-
 				// 텍스트 필드 리스너
 				textField.addKeyListener(new KeyAdapter() {
+					boolean key_flag = false;
+					boolean key_flag2 = false;
+
 					public void keyPressed(KeyEvent e) {
 						int c = e.getKeyCode();
 
@@ -241,6 +248,28 @@ public class GameScene extends JSplitPane {
 							textField.setText("");
 						}
 
+						if (c == KeyEvent.VK_F1 && key_flag == false) {
+							for (int i = 0; i < fall.size(); i++) {
+								fall.get(i).finish3();
+							}
+							key_flag = true;
+						}
+
+						if (c == KeyEvent.VK_F2 && key_flag2 == false) {
+							// 폭발음 넣어주세요!!
+							for (int i = 0; i < fall.size(); i++) {
+								fall.get(i).finish4();
+								s_score += 20;
+
+							}
+							key_flag2 = true;
+							s_scorePanel.removeAll();
+							s_scorePanel.setVisible(false);
+							s_scorePanel.add(new ScorePanel());
+							s_scorePanel.setVisible(true);
+							if ((s_score >= curLevel * 200) && curLevel != MAX_LEVEL)
+								levelUp();
+						}
 					}
 				});
 
@@ -453,12 +482,9 @@ public class GameScene extends JSplitPane {
 				delay(interval);
 
 				int i = 0;
-				if (flag == true) {
-					while (fall.isEmpty()) {
-						fall.get(i).finish();
-					}
+
+				if (flag == true)
 					return;
-				}
 
 			}
 		}
@@ -467,6 +493,9 @@ public class GameScene extends JSplitPane {
 	class FallingLabel extends JLabel implements Runnable {
 		private boolean F_flag = false;
 		private boolean F_flag2 = false;
+		private boolean F_flag3 = false;
+		private boolean F_flag3_1 = false;
+		private boolean F_flag4 = false;
 		private int random = (int) (Math.random() * (600 - 150) + 1);
 		// private ImageIcon icon = new ImageIcon("images/폭죽.gif");
 		// private Image img = icon.getImage();
@@ -479,10 +508,20 @@ public class GameScene extends JSplitPane {
 			F_flag2 = true;
 		}
 
+		public void finish3() {
+			F_flag3 = true;
+		}
+
+		public void finish4() {
+			F_flag4 = true;
+		}
+
+		int w;
+
 		private void setLabelSize() {
 			this.setFont(new Font("굴림", Font.ITALIC, 20));
 			FontMetrics fm = getFontMetrics(this.getFont());
-			int w = fm.stringWidth(this.getText());
+			w = fm.stringWidth(this.getText());
 			this.setSize(w + 50, fm.getHeight() + 20);
 		}
 
@@ -504,12 +543,19 @@ public class GameScene extends JSplitPane {
 		public void run() {
 
 			int i = 0; // 처음 레이블 위치
+			int ran = random;
 			while (true) {
-				// delay(speed);
-				delay(50);
-				setLocation(random, i++);
+				delay(speed);
+				// delay(50);
 
-				if (getLocation().y > s_wordPanel.getSize().getWidth() + 40) {
+				if (random < getParent().getSize().getWidth() / 2 - 100) {
+					setLocation((int) (ran++ % (getParent().getSize().getWidth() - w - 40)), i++);
+
+				}
+				if (random > getParent().getSize().getWidth() / 2 - 100)
+					setLocation(Math.abs((int) (ran-- % (getParent().getSize().getWidth() + 100))), i++);
+
+				if (getLocation().y > s_wordPanel.getSize().getHeight() - 40) {
 					clip_bottom.play();
 					finish();
 					if (s_deadLife < 5) {
@@ -527,7 +573,7 @@ public class GameScene extends JSplitPane {
 					flag = true;
 					finish();
 					t_flag = true;
-					showTitle("Game Over", 5000);
+
 					User curUser = user.get(userNum);
 
 					curUser.setScore(s_score);
@@ -539,8 +585,10 @@ public class GameScene extends JSplitPane {
 					user.remove(userNum + 1);
 					new ObjOutput(user);
 					Container c = getParent();
-					// c.removeAll();
+
+					showTitle("Game Over", 5000);
 					c.setVisible(false);
+
 					JButton rank = new JButton("점수판 가기");
 					JButton regame = new JButton("게임 더하기");
 					rank.setBounds(50, 100, 200, 100);
@@ -573,6 +621,21 @@ public class GameScene extends JSplitPane {
 					c.setVisible(true);
 
 				}
+
+				// 레이블 살짞 위로
+				if (F_flag3 == true && F_flag3_1 == false) {
+					i -= 100;
+					F_flag3 = false;
+					F_flag3_1 = true;
+					clip_rewind.play();
+
+				}
+
+				if (F_flag4 == true) {
+					F_flag2 = true;
+
+				}
+
 				if (F_flag2 == true) {
 					Container c = getParent();
 					ImageIcon goodImg = new ImageIcon("images/label/revolving-hearts.png");

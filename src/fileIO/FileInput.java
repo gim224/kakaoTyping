@@ -36,6 +36,26 @@ public class FileInput {
 		}
 
 	}
+	
+	public FileInput(String fileName) {
+		file = new File(fileName);
+		try {
+			sc = new Scanner(file);
+			//sc.useDelimiter(seperate);
+			while (sc.hasNext()) {
+				m_vector.add(sc.next());
+			}
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			sc.close();
+		}
+
+	}
 
 	/** vector의 사이즈를 리턴 */
 	public int size() {

@@ -36,9 +36,9 @@ public class MyFrame extends JFrame {
 		URL audioURL = getClass().getResource("LoveLane.wav");
 		clip = Applet.newAudioClip(audioURL);
 		clip.loop();
-		
+
 		// JMenu
-		createMenu();
+		//createMenu();
 		// JTooltoolBar
 		createTooltoolBar();
 		/** FirstScene */
@@ -94,25 +94,6 @@ public class MyFrame extends JFrame {
 		JToolBar toolBar = new JToolBar("");
 		toolBar.setBackground(Color.LIGHT_GRAY);
 
-		JButton playBtn = new JButton(new ImageIcon("images/play.png"));
-		playBtn.setToolTipText("Play");
-
-		toolBar.add(playBtn);
-
-		JButton pauBtn = new JButton(new ImageIcon("images/pause.png"));
-		pauBtn.setToolTipText("Pause");
-
-		toolBar.add(pauBtn);
-		
-		pauBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JButton bttn = (JButton) e.getSource();
-				JToolBar bar = (JToolBar) bttn.getParent();
-				Container c = (Container) bar.getParent();
-
-			}
-		});
-
 		JButton scBtn = new JButton(new ImageIcon("images/camera.png"));
 		scBtn.setToolTipText("Screen Shot");
 
@@ -155,14 +136,13 @@ public class MyFrame extends JFrame {
 					clip.stop();
 					musicBtn.setIcon(new ImageIcon("images/mute.png"));
 					musicBtn.setRolloverIcon(new ImageIcon("images/music.png"));
-					play=false;
+					play = false;
 					return;
-				}
-				else {
+				} else {
 					clip.loop();
 					musicBtn.setIcon(new ImageIcon("images/music.png"));
 					musicBtn.setRolloverIcon(new ImageIcon("images/mute.png"));
-					play=true;
+					play = true;
 					return;
 				}
 			}
