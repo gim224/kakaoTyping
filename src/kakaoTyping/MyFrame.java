@@ -33,12 +33,12 @@ public class MyFrame extends JFrame {
 		this.setLayout(new BorderLayout());
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/EnableHeart.png"));
 
-		URL audioURL = getClass().getResource("LoveLane.wav");
+		URL audioURL = getClass().getResource("back.wav");
 		clip = Applet.newAudioClip(audioURL);
 		clip.loop();
 		
 		// JMenu
-		createMenu();
+		//createMenu();
 		// JTooltoolBar
 		createTooltoolBar();
 		/** FirstScene */
@@ -67,7 +67,7 @@ public class MyFrame extends JFrame {
 		JMenu file = new JMenu("File");
 		JMenu help = new JMenu("Help");
 		JMenu screenShot = new JMenu("ScreenShot");
-
+		
 		// file Menu
 		file.add(new JMenuItem("New Game"));
 		file.addSeparator();
@@ -77,7 +77,6 @@ public class MyFrame extends JFrame {
 		file.addSeparator();
 		file.add(new JMenuItem("EXIT"));
 		// screenShot Menu
-		screenShot.add(new JMenuItem("ScreenShot"));
 		// help Menu
 		help.add(new JMenuItem("help"));
 		help.addSeparator();
@@ -92,29 +91,14 @@ public class MyFrame extends JFrame {
 
 	void createTooltoolBar() {
 		JToolBar toolBar = new JToolBar("");
-		toolBar.setBackground(Color.LIGHT_GRAY);
-
-		JButton playBtn = new JButton(new ImageIcon("images/play.png"));
-		playBtn.setToolTipText("Play");
-
-		toolBar.add(playBtn);
-
-		JButton pauBtn = new JButton(new ImageIcon("images/pause.png"));
-		pauBtn.setToolTipText("Pause");
-
-		toolBar.add(pauBtn);
-		
-		pauBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JButton bttn = (JButton) e.getSource();
-				JToolBar bar = (JToolBar) bttn.getParent();
-				Container c = (Container) bar.getParent();
-
-			}
-		});
+		toolBar.setBackground(new Color(163,40,58));
+		toolBar.setLayout(new FlowLayout());
 
 		JButton scBtn = new JButton(new ImageIcon("images/camera.png"));
 		scBtn.setToolTipText("Screen Shot");
+		scBtn.setOpaque(true);
+		scBtn.setBackground(new Color(163,40,58));
+		scBtn.setBorderPainted(false);
 
 		toolBar.add(scBtn);
 
@@ -146,6 +130,9 @@ public class MyFrame extends JFrame {
 		JButton musicBtn = new JButton(new ImageIcon("images/music.png"));
 		musicBtn.setRolloverIcon(new ImageIcon("images/mute.png"));
 		musicBtn.setToolTipText("Music");
+		musicBtn.setOpaque(true);
+		musicBtn.setBackground(new Color(163,40,58));
+		musicBtn.setBorderPainted(false);
 
 		toolBar.add(musicBtn);
 
@@ -170,6 +157,11 @@ public class MyFrame extends JFrame {
 
 		JButton back = new JButton(new ImageIcon("images/home.png"));
 		back.setToolTipText("home");
+		back.setOpaque(true);
+		back.setBackground(new Color(163,40,58));
+		back.setBorderPainted(false);
+
+		
 		toolBar.add(back);
 
 		back.addActionListener(new ActionListener() {

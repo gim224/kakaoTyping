@@ -25,7 +25,7 @@ class MyCenterPanel extends JPanel {
 	String addWord;
 	JButton delBtn;
 	JButton back;
-	FileInput input = new FileInput("txt/word.txt", "@");
+	FileInput input = new FileInput("txt/word.dat", "@");
 
 	private void isTextFieldUpdate(JButton btn) {
 		if ((!(textfield.getText().isEmpty()))) {
@@ -52,7 +52,7 @@ class MyCenterPanel extends JPanel {
 
 				textarea.append(textfield.getText().trim() + "\n");
 				addWord = textfield.getText();
-				new FileOutput("txt/word.txt", addWord);
+				new FileOutput("txt/word.dat", addWord);
 				textfield.setText("");
 
 			}
@@ -64,7 +64,7 @@ class MyCenterPanel extends JPanel {
 				if (c == KeyEvent.VK_ENTER && !textfield.getText().equals("")) {
 					textarea.append(textfield.getText().trim() + "\n");
 					addWord = textfield.getText();
-					new FileOutput("txt/word.txt", addWord);
+					new FileOutput("txt/word.dat", addWord);
 					textfield.setText("");
 				}
 			}
@@ -93,7 +93,7 @@ class MyCenterPanel extends JPanel {
 				String area = "";
 				new WordOutputDel(textfield.getText(), "@");
 				textfield.setText("");
-				input = new FileInput("txt/word.txt", "@");
+				input = new FileInput("txt/word.dat", "@");
 				for (int i = 0; i < input.size(); i++) {
 					area += input.getOneWord(i) + "\n";
 				}

@@ -9,7 +9,7 @@ public class WordOutputDel {
 	String str = "";
 
 	public WordOutputDel(String s, String seperate) {
-		FileInput input = new FileInput("txt/word.txt", seperate);
+		FileInput input = new FileInput("txt/word.dat", seperate);
 
 		for (int i = 0; i < input.size(); i++) {
 			if (input.getOneWord(i).equals(s)) {
@@ -22,7 +22,7 @@ public class WordOutputDel {
 		}
 
 		try {
-			FileWriter m_writer = new FileWriter("txt/word.txt");
+			FileWriter m_writer = new FileWriter("txt/word.dat");
 			m_writer.write(str);
 			m_writer.close();
 		} catch (IOException e) {

@@ -58,7 +58,7 @@ public class FirstScene extends JPanel {
 
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial", Font.BOLD, 100));
-		g.drawString("NOPE Typing", 70, 220);
+		g.drawString("HEART Typing", 70, 220);
 		g.setColor(Color.RED);
 		g.setFont(new Font("Arial", Font.ROMAN_BASELINE, 20));
 		//g.drawString("Press AnyKey...!", 550, 300);

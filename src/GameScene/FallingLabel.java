@@ -14,7 +14,7 @@ public class FallingLabel extends JLabel implements Runnable {
 	private ImageIcon icon = new ImageIcon("images/폭죽.gif");
 	private Image img = icon.getImage();
 	private int lifePoint = 0;
-	private static FileInput input = new FileInput("txt/word.txt", "@");
+	private static FileInput input = new FileInput("txt/word.dat", "@");
 	private int firstY = 0; // 처음 레이블 위치
 
 	public void finish() {
